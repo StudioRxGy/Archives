@@ -1,0 +1,51 @@
+{
+  "uuid": "173e9275-868b-47c5-b170-d10aae33027e",
+  "historyId": "b99a701de319fa606f0f03e271276979",
+  "testCaseId": "cc5971c12038ec3436ad9a2f632a01b3",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportToXmlAsync_WithComplexTestData_ShouldIncludeAllElements()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportToXmlAsync_WithComplexTestData_ShouldIncludeAllElements"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportToXmlAsync_WithComplexTestData_ShouldIncludeAllElements",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176308787,
+  "stop": 1767176308867
+}

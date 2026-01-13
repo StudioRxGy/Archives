@@ -1,0 +1,51 @@
+{
+  "uuid": "c4aecd4e-007c-49bb-aa87-2d5d47d70fd8",
+  "historyId": "b21e7fa68bc34bc3516de36686dd8b5b",
+  "testCaseId": "752c390bcc1145810700881c02a00898",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithUnsupportedFormat_ShouldSkipUnsupportedFormat()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithUnsupportedFormat_ShouldSkipUnsupportedFormat"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithUnsupportedFormat_ShouldSkipUnsupportedFormat",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176309087,
+  "stop": 1767176309110
+}

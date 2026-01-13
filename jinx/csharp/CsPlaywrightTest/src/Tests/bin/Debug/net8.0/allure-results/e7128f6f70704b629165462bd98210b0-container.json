@@ -1,0 +1,12 @@
+{
+  "uuid": "52e46abe-a773-46d9-b619-d823e3c69831",
+  "name": "EnterpriseAutomationFramework.Tests.Services.ScreenshotHelperTests",
+  "children": [
+    "b99c737b-ff76-4941-83f1-c20f8369d0aa"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1767491329966,
+  "stop": 1767491332038
+}

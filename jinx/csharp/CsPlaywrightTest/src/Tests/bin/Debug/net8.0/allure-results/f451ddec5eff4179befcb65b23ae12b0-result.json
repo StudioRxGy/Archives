@@ -1,0 +1,51 @@
+{
+  "uuid": "ee012ce6-f377-4c45-a501-0d9d04a9a457",
+  "historyId": "10184858a8fbe35fe159868de6326582",
+  "testCaseId": "f1c81460b69cb25ac1f4e48405348c0c",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportSummaryAsync_WithTestCategories_ShouldIncludeCategoryStatistics()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportSummaryAsync_WithTestCategories_ShouldIncludeCategoryStatistics"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportSummaryAsync_WithTestCategories_ShouldIncludeCategoryStatistics",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176308980,
+  "stop": 1767176309018
+}

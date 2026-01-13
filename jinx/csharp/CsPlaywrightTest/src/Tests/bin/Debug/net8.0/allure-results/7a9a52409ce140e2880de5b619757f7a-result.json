@@ -1,0 +1,51 @@
+{
+  "uuid": "3a1be81c-384e-406b-a96f-d10c6e85aeb8",
+  "historyId": "55109ce5ed392b19c397e091a024a289",
+  "testCaseId": "104288d94846e955366edbc495a2a9c2",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.GenerateAllureReport_ShouldCreateAllureResults()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.GenerateAllureReport_ShouldCreateAllureResults"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.GenerateAllureReport_ShouldCreateAllureResults",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "Allure报告生成成功: C:\\Users\\hzzcn\\AppData\\Local\\Temp\\EAF_Tests\\eaffea39-f4b6-4482-8b6c-5743f3ff2e26\\allure-results\r\n"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176626710,
+  "stop": 1767176626752
+}

@@ -1,0 +1,51 @@
+{
+  "uuid": "54263193-2cda-47b8-877a-39d0958d4f25",
+  "historyId": "8e422241721211ae0ff11f204e3a5bd6",
+  "testCaseId": "5ee632f1e8f7b238a35fe88b61aeb177",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.GenerateTrendAnalysis_WithMultipleReports_ShouldCreateTrendReport()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.GenerateTrendAnalysis_WithMultipleReports_ShouldCreateTrendReport"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.GenerateTrendAnalysis_WithMultipleReports_ShouldCreateTrendReport",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "趋势分析报告生成成功: C:\\Users\\hzzcn\\AppData\\Local\\Temp\\EAF_Tests\\22f457d5-131d-42e2-8a2e-26ef9e521de3\\trend.html\r\n"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176626547,
+  "stop": 1767176626637
+}

@@ -1,0 +1,31 @@
+2025-06-12 17:56:08 | INFO | conftest.py - init_session[line:38]: 
+
+              ⠰⢷⢿⠄
+              ⠀⠀⠀⠀⠀⣼⣷⣄
+              ⠀⠀⣤⣿⣇⣿⣿⣧⣿⡄
+              ⢴⠾⠋⠀⠀⠻⣿⣷⣿⣿⡀
+              🏀⢀⣿⣿⡿⢿⠈⣿
+              ⠀⠀⠀⢠⣿⡿⠁⠀⡊⠀⠙
+              ⠀⠀⠀⢿⣿⠀⠀⠹⣿
+              ⠀⠀⠀⠀⠹⣷⡀⠀⣿⡄
+              ⠀⠀⠀⠀⣀⣼⣿⠀⢈⣧.
+
+
+开始执行 UI 自动化测试
+测试人员: jinx
+2025-06-12 18:01:09 | WARNING | selenium_manager.py - _process_logs[line:138]: There was an error managing chromedriver (error decoding response body); using driver found in the cache
+2025-06-12 18:01:11 | INFO | browser.py - select_browser[line:41]: SUCCESS==> 开启浏览器: Chrome, 共花费 302.6327 秒
+2025-06-12 18:01:11 | INFO | base.py - max_window[line:194]: SUCCESS==> 设置窗口最大化, 花费 0.0345 秒
+2025-06-12 18:01:11 | INFO | base.py - implicitly_wait[line:142]: SUCCESS==> 设定隐性等待所有元素 30 秒, 花费 0.0005 秒
+2025-06-12 18:01:11 | INFO | conftest.py - init_session[line:48]: ui自动化，校验元素定位data格式【START】！
+2025-06-12 18:01:11 | INFO | element_check_tool.py - validate_elements[line:55]: ui自动化，校验元素定位data格式【END！用时 0.000秒！
+2025-06-12 18:01:13 | INFO | base.py - open_url[line:42]: SUCCESS==> 打开网址 https://www.ast1001.com/zh-cn/login, 花费 2.7526 秒
+2025-06-12 18:01:15 | INFO | base.py - click[line:265]: SUCCESS==> 点击元素: <xpath==//*[contains(@class, 'mb-[12px]')]>, 花费 1.4093 秒
+2025-06-12 18:01:15 | INFO | base.py - click[line:265]: SUCCESS==> 点击元素: <xpath==//*[contains(@class, 'mt-[52px]')]/button[1]/span[1]>, 花费 0.3586 秒
+2025-06-12 18:01:15 | INFO | base.py - click[line:265]: SUCCESS==> 点击元素: <xpath==//*[@id='rc-tabs-0-tab-2']>, 花费 0.1002 秒
+2025-06-12 18:01:15 | INFO | base.py - text_input[line:223]: SUCCESS==> 定位元素: <xpath==//*[contains(@class, 'custom-input')]/span[1]/input[1]> 输入内容: jinx@dl.com, 花费 0.1592 秒 
+2025-06-12 18:01:15 | INFO | base.py - text_input[line:223]: SUCCESS==> 定位元素: <xpath==//*[contains(@class, 'ant-input-password')]/input[1]> 输入内容: Test1234, 花费 0.0880 秒 
+2025-06-12 18:01:16 | INFO | base.py - click[line:265]: SUCCESS==> 点击元素: <xpath==//*[@id='root']/div[1]/div[2]/div/div[2]/div/button/span>, 花费 0.1009 秒
+2025-06-12 18:01:21 | INFO | base.py - quit[line:406]: SUCCESS==> 关闭所有窗口并退出浏览器, 花费 2.2359 秒
+2025-06-12 18:01:21 | INFO | conftest.py - init_session[line:55]: ========== UI 自动化测试结束 ==========
+2025-06-12 18:01:21 | INFO | conftest.py - pytest_terminal_summary[line:72]: 总用例数: 1 | 通过: 0| 失败: 1 | 跳过: 0 | 错误: 0 | 成功率: 0.00% | 总耗时: 313.4秒

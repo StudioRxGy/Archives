@@ -1,0 +1,14 @@
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\bin\Debug\net10.0\test.exe
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\bin\Debug\net10.0\test.deps.json
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\bin\Debug\net10.0\test.runtimeconfig.json
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\bin\Debug\net10.0\test.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\bin\Debug\net10.0\test.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\test.GeneratedMSBuildEditorConfig.editorconfig
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\test.AssemblyInfoInputs.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\test.AssemblyInfo.cs
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\test.csproj.CoreCompileInputs.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\test.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\refint\test.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\test.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\test.genruntimeconfig.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\TestMd\test\obj\Debug\net10.0\ref\test.dll

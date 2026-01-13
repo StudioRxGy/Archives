@@ -1,0 +1,51 @@
+{
+  "uuid": "05291c03-1743-4343-9d18-c523fdf4735f",
+  "historyId": "02820e54dab8ca43d3d780f463942b41",
+  "testCaseId": "4546a866c360ac1ca49c9855441aead2",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithInvalidOutputPath_ShouldCreateDirectory()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithInvalidOutputPath_ShouldCreateDirectory"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithInvalidOutputPath_ShouldCreateDirectory",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176111885,
+  "stop": 1767176111894
+}

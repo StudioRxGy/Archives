@@ -1,0 +1,17 @@
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\bin\Debug\net8.0\BlogApi.Infrastructure.deps.json
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\bin\Debug\net8.0\BlogApi.Infrastructure.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\bin\Debug\net8.0\BlogApi.Infrastructure.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\bin\Debug\net8.0\BlogApi.Application.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\bin\Debug\net8.0\BlogApi.Domain.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\bin\Debug\net8.0\BlogApi.Domain.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\bin\Debug\net8.0\BlogApi.Application.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi.Infrastructure.csproj.AssemblyReference.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi.Infrastructure.AssemblyInfoInputs.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi.Infrastructure.AssemblyInfo.cs
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi..14E42DFE.Up2Date
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi.Infrastructure.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\refint\BlogApi.Infrastructure.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\BlogApi.Infrastructure.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Infrastructure\obj\Debug\net8.0\ref\BlogApi.Infrastructure.dll

@@ -1,0 +1,57 @@
+{
+  "uuid": "d62b15c2-b5c2-43d1-8299-13c796a1da0e",
+  "historyId": "5069793be0074fa867c36df991e2be40",
+  "testCaseId": "0bf7819a29135633f39f60918795793b",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithSingleFormat_ShouldCreateCorrectFile(System.String)",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithSingleFormat_ShouldCreateCorrectFile(format: \"csv\")"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithSingleFormat_ShouldCreateCorrectFile(String format)",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [
+    {
+      "name": "format",
+      "value": "\"csv\"",
+      "excluded": false
+    }
+  ],
+  "start": 1767176308965,
+  "stop": 1767176308969
+}

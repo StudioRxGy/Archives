@@ -1,0 +1,52 @@
+{
+  "uuid": "d271a59d-56e9-480d-90ab-c6d974ad7ae8",
+  "historyId": "44244af539fa92b5a733df279fb02a92",
+  "testCaseId": "3d6579177da50411d3fa8a9c30c8fe52",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithTestCategories_ShouldIncludeLabels()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithTestCategories_ShouldIncludeLabels"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithTestCategories_ShouldIncludeLabels",
+  "status": "failed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "Assert.Contains() Failure: Sub-string not found\r\nString:    \"{\\r\\n  \"uuid\": \"537ba4cf-e0f0-43fd-b1a8-3cf\"···\r\nNot found: \"UI\"",
+    "trace": "   at Xunit.Assert.Contains(String expectedSubstring, String actualString, StringComparison comparisonType) in /_/src/xunit.assert/Asserts/StringAsserts.cs:line 56\r\n   at Xunit.Assert.Contains(String expectedSubstring, String actualString) in /_/src/xunit.assert/Asserts/StringAsserts.cs:line 35\r\n   at EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithTestCategories_ShouldIncludeLabels() in D:\\Test tools\\Docs\\Test Case\\jinx\\csharp\\CsPlaywrightTest\\src\\Tests\\Services\\AllureReportGeneratorTests.cs:line 151\r\n   at Xunit.Sdk.TestInvoker`1.<>c__DisplayClass48_0.<<InvokeTestMethodAsync>b__1>d.MoveNext() in /_/src/xunit.execution/Sdk/Frameworks/Runners/TestInvoker.cs:line 285\r\n--- End of stack trace from previous location ---\r\n   at Xunit.Sdk.ExecutionTimer.AggregateAsync(Func`1 asyncAction) in /_/src/xunit.execution/Sdk/Frameworks/ExecutionTimer.cs:line 48\r\n   at Xunit.Sdk.ExceptionAggregator.RunAsync(Func`1 code) in /_/src/xunit.core/Sdk/ExceptionAggregator.cs:line 90"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176111906,
+  "stop": 1767176111933
+}

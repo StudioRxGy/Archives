@@ -1,0 +1,63 @@
+{
+  "uuid": "e888ee24-71cb-47a0-bc0b-ccc0d3c355db",
+  "historyId": "3ecbd106e7b9e340b72a4a33312b1f3a",
+  "testCaseId": "8f0b7937dd800be56c767ac5eb6206a1",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_ShouldMapTestStatusCorrectly(EnterpriseAutomationFramework:EnterpriseAutomationFramework.Core.Models.TestStatus,System.String)",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_ShouldMapTestStatusCorrectly(inputStatus: Skipped, expectedAllureStatus: \"skipped\")"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_ShouldMapTestStatusCorrectly(TestStatus inputStatus, String expectedAllureStatus)",
+  "status": "broken",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "Could not find a part of the path 'C:\\Users\\hzzcn\\AppData\\Local\\Temp\\AllureTests\\86ad6291-8e78-4465-93c4-cd5b6405b5d8\\status-Skipped-allure-results'.",
+    "trace": "   at System.IO.Enumeration.FileSystemEnumerator`1.CreateDirectoryHandle(String path, Boolean ignoreNotFound)\r\n   at System.IO.Enumeration.FileSystemEnumerator`1.Init()\r\n   at System.IO.Enumeration.FileSystemEnumerable`1..ctor(String directory, FindTransform transform, EnumerationOptions options, Boolean isNormalized)\r\n   at System.IO.Enumeration.FileSystemEnumerableFactory.UserFiles(String directory, String expression, EnumerationOptions options)\r\n   at System.IO.Directory.InternalEnumeratePaths(String path, String searchPattern, SearchTarget searchTarget, EnumerationOptions options)\r\n   at System.IO.Directory.GetFiles(String path, String searchPattern, EnumerationOptions enumerationOptions)\r\n   at EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_ShouldMapTestStatusCorrectly(TestStatus inputStatus, String expectedAllureStatus) in D:\\Test tools\\Docs\\Test Case\\jinx\\csharp\\CsPlaywrightTest\\src\\Tests\\Services\\AllureReportGeneratorTests.cs:line 252\r\n   at Xunit.Sdk.TestInvoker`1.<>c__DisplayClass48_0.<<InvokeTestMethodAsync>b__1>d.MoveNext() in /_/src/xunit.execution/Sdk/Frameworks/Runners/TestInvoker.cs:line 285\r\n--- End of stack trace from previous location ---\r\n   at Xunit.Sdk.ExecutionTimer.AggregateAsync(Func`1 asyncAction) in /_/src/xunit.execution/Sdk/Frameworks/ExecutionTimer.cs:line 48\r\n   at Xunit.Sdk.ExceptionAggregator.RunAsync(Func`1 code) in /_/src/xunit.core/Sdk/ExceptionAggregator.cs:line 90"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [
+    {
+      "name": "inputStatus",
+      "value": "2",
+      "excluded": false
+    },
+    {
+      "name": "expectedAllureStatus",
+      "value": "\"skipped\"",
+      "excluded": false
+    }
+  ],
+  "start": 1767176002698,
+  "stop": 1767176002707
+}

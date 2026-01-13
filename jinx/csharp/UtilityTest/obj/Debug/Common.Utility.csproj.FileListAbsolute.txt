@@ -1,0 +1,170 @@
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\obj\Debug\Common.Utility.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\DotNet.Utilities.dll.config
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\DotNet.Utilities.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\DotNet.Utilities.pdb
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Common.Logging.Core.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Common.Logging.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\itextsharp.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Microsoft.Office.Interop.Owc11.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Microsoft.VisualStudio.DebuggerVisualizers.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\NPOI.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\NPOI.OOXML.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\OWC10Chart.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Quartz.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Seagull.BarTender.Print.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\stdole.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Ionic.Zip.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Common.Logging.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Common.Logging.Core.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\NPOI.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\bin\Debug\Quartz.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\obj\Debug\Common.Utility.csproj.CopyComplete
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\obj\Debug\DotNet.Utilities.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\obj\Debug\DotNet.Utilities.pdb
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\Utility基础类大全\obj\Debug\Common.Utility.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\DotNet.Utilities.dll.config
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\DotNet.Utilities.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\DotNet.Utilities.pdb
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Common.Logging.Core.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Common.Logging.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\itextsharp.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Microsoft.Office.Interop.Owc11.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Microsoft.VisualStudio.DebuggerVisualizers.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\NPOI.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\NPOI.OOXML.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\OWC10Chart.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Quartz.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Seagull.BarTender.Print.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\stdole.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Ionic.Zip.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Common.Logging.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Common.Logging.Core.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\NPOI.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\bin\Debug\Quartz.xml
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\obj\Debug\Common.Utility.csprojAssemblyReference.cache
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\obj\Debug\Common.Utility.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\obj\Debug\Common.Utility.csproj.CopyComplete
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\obj\Debug\DotNet.Utilities.dll
+C:\Users\Administrator\source\repos\Jimmey-Jiang\Common.Utility\src\Utility基础类大全\obj\Debug\DotNet.Utilities.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\DotNet.Utilities.dll.config
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\DotNet.Utilities.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\DotNet.Utilities.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Common.Logging.Core.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Common.Logging.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\itextsharp.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.Office.Interop.Owc11.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.ReportViewer.Common.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.ReportViewer.Design.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.ReportViewer.WebDesign.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.SqlServer.Types.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Newtonsoft.Json.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\NPOI.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\NPOI.OOXML.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\NPOI.OpenXml4Net.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\OWC10Chart.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Quartz.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Seagull.BarTender.Print.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\MSDATASRC.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\stdole.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\EnvDTE.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Ionic.Zip.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Common.Logging.xml
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Common.Logging.Core.xml
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Newtonsoft.Json.xml
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\NPOI.xml
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\Quartz.xml
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\de\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\es\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\fr\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\it\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ja\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ko\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\pt\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ru\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHS\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHT\Microsoft.ReportViewer.Common.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\de\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\es\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\fr\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\it\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ja\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ko\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\pt\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ru\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHS\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHT\Microsoft.ReportViewer.WebDesign.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\de\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\es\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\fr\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\it\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ja\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ko\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\pt\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ru\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHS\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHT\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\de\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\es\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\fr\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\it\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ja\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ko\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\pt\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ru\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHS\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHT\Microsoft.ReportViewer.DataVisualization.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\obj\Debug\Common.Utility.csproj.AssemblyReference.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\obj\Debug\Common.Utility.csproj.CoreCompileInputs.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\obj\Debug\Common.U.BAB2DEFA.Up2Date
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\obj\Debug\DotNet.Utilities.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\UtilityTest\obj\Debug\DotNet.Utilities.pdb

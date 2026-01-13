@@ -1,0 +1,51 @@
+{
+  "uuid": "4b047206-4ff0-4d54-b627-8579405e4dc4",
+  "historyId": "a34b531060bf4aad5a84addb46f683bc",
+  "testCaseId": "a765757208c77273714a1d10c3917e89",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.ExportReportData_ShouldCreateMultipleFormats()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.ExportReportData_ShouldCreateMultipleFormats"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.ExportReportData_ShouldCreateMultipleFormats",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "数据导出成功，共生成 4 个文件\r\n"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176542092,
+  "stop": 1767176542111
+}

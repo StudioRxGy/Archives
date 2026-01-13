@@ -1,0 +1,51 @@
+{
+  "uuid": "99e1a871-e91c-415b-a007-3abd49828e06",
+  "historyId": "4266b9d3553723e12384aea1c353beea",
+  "testCaseId": "cf1bebb2c53788387082dd6f6f24d1f5",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_ShouldCreateValidEnvironmentProperties()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_ShouldCreateValidEnvironmentProperties"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_ShouldCreateValidEnvironmentProperties",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176566872,
+  "stop": 1767176566903
+}

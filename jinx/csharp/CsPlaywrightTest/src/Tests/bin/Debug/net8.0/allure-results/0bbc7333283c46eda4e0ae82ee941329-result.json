@@ -1,0 +1,57 @@
+{
+  "uuid": "5ada5989-c601-403e-8d04-044fdfa168fe",
+  "historyId": "c55579aba4b5d111c7b65086085b1dac",
+  "testCaseId": "0bf7819a29135633f39f60918795793b",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithSingleFormat_ShouldCreateCorrectFile(System.String)",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithSingleFormat_ShouldCreateCorrectFile(format: \"json\")"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests.ExportMultipleFormatsAsync_WithSingleFormat_ShouldCreateCorrectFile(String format)",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [
+    {
+      "name": "format",
+      "value": "\"json\"",
+      "excluded": false
+    }
+  ],
+  "start": 1767176566700,
+  "stop": 1767176566728
+}

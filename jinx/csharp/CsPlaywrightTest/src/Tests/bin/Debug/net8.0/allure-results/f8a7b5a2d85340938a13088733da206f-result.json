@@ -1,0 +1,51 @@
+{
+  "uuid": "3b4280d3-ea52-4341-af16-a09db2a3ea18",
+  "historyId": "5c7abf2a6951bdd4777683fec1f18c60",
+  "testCaseId": "feb5096f903999a9e6bbcbd987f3b4e8",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithEmptyTestReport_ShouldCreateBasicFiles()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithEmptyTestReport_ShouldCreateBasicFiles"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests.GenerateReportAsync_WithEmptyTestReport_ShouldCreateBasicFiles",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176566812,
+  "stop": 1767176566819
+}

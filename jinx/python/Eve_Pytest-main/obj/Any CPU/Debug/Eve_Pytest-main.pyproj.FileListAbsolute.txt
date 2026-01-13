@@ -1,0 +1,3 @@
+D:\Test tools\Docs\Test Case\jinx\python\Eve_Pytest-main\obj\Any CPU\Debug\Eve_Pytest-main.pyproj.CoreCompileInputs.cache
+D:\Test tools\Docs\Test Case\jinx\python\Eve_Pytest-main\bin\Microsoft.PythonTools.WebRole.dll
+D:\Test tools\Docs\Test Case\jinx\python\Eve_Pytest-main\bin\wfastcgi.py

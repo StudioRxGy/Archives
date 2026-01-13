@@ -1,0 +1,12 @@
+{
+  "uuid": "f2727169-1f24-471e-904c-ac55361f9270",
+  "name": "EnterpriseAutomationFramework.Tests.Core.TestReportBuilderTests",
+  "children": [
+    "ef0b655e-3b33-44ce-97dd-8579edffa1ea"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1767491329967,
+  "stop": 1767491332044
+}

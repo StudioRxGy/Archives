@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>EnterpriseAutomationFramework</id>
+    <version>1.0.0</version>
+    <authors>Enterprise Automation Team</authors>
+    <description>Enterprise-level C# + Playwright + xUnit automation testing framework</description>
+    <repository type="git" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Allure.Net.Commons" version="2.12.1" exclude="Build,Analyzers" />
+        <dependency id="Allure.XUnit" version="2.12.1" exclude="Build,Analyzers" />
+        <dependency id="CsvHelper" version="30.0.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Console" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Playwright" version="1.40.0" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
+        <dependency id="Serilog" version="3.1.1" exclude="Build,Analyzers" />
+        <dependency id="Serilog.Enrichers.Environment" version="2.3.0" exclude="Build,Analyzers" />
+        <dependency id="Serilog.Enrichers.Process" version="2.0.2" exclude="Build,Analyzers" />
+        <dependency id="Serilog.Enrichers.Thread" version="3.1.0" exclude="Build,Analyzers" />
+        <dependency id="Serilog.Extensions.Logging" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Serilog.Sinks.Console" version="5.0.1" exclude="Build,Analyzers" />
+        <dependency id="Serilog.Sinks.File" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="YamlDotNet" version="13.7.1" exclude="Build,Analyzers" />
+        <dependency id="xunit.extensibility.core" version="2.4.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightTest\src\Framework\bin\Debug\net8.0\EnterpriseAutomationFramework.dll" target="lib\net8.0\EnterpriseAutomationFramework.dll" />
+  </files>
+</package>

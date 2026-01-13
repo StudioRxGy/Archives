@@ -1,0 +1,51 @@
+{
+  "uuid": "ef0b655e-3b33-44ce-97dd-8579edffa1ea",
+  "historyId": "4ea5a3ed314bf882ab7a2e9f916bffbb",
+  "testCaseId": "ff2688d631964d48e6eb46a93a742af2",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Core.TestReportBuilderTests.Build_ShouldRefreshSummary()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Core.TestReportBuilderTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Core.TestReportBuilderTests.Build_ShouldRefreshSummary"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Core.TestReportBuilderTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Core.TestReportBuilderTests.Build_ShouldRefreshSummary",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767491329972,
+  "stop": 1767491332042
+}

@@ -1,0 +1,12 @@
+{
+  "uuid": "492cf975-234d-44a9-8190-8a7a5fc8ee34",
+  "name": "EnterpriseAutomationFramework.Tests.Services.ReportDataExporterTests",
+  "children": [
+    "ee012ce6-f377-4c45-a501-0d9d04a9a457"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1767176308978,
+  "stop": 1767176309018
+}

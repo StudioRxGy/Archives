@@ -1,0 +1,51 @@
+{
+  "uuid": "2433e6c7-916b-455b-8750-ba485456a7e7",
+  "historyId": "761236a24c5cdc2f79813e4a6702213b",
+  "testCaseId": "c1e07d2aeb7cca1d1a35f3d95e7e0b11",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.IntegrateThirdPartyTools_ShouldGenerateAllReports()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.IntegrateThirdPartyTools_ShouldGenerateAllReports"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.IntegrateThirdPartyTools_ShouldGenerateAllReports",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "第三方集成完成: 成功 2 项，失败 0 项，耗时 0.0 秒\r\n"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176542114,
+  "stop": 1767176542136
+}

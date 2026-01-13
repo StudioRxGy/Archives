@@ -1,0 +1,12 @@
+{
+  "uuid": "37cbe053-71ba-48b4-bfe9-0501d5222903",
+  "name": "EnterpriseAutomationFramework.Tests.Services.AllureReportGeneratorTests",
+  "children": [
+    "66dea9bf-b11b-4706-97a1-a13300f358e6"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1767176111802,
+  "stop": 1767176111830
+}

@@ -1,0 +1,12 @@
+{
+  "uuid": "506ff4cc-05d2-481a-973e-4640bee28b7b",
+  "name": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests",
+  "children": [
+    "a47fad4e-1935-45e4-8552-4a4b37fc9e4d"
+  ],
+  "befores": [],
+  "afters": [],
+  "links": [],
+  "start": 1767176541616,
+  "stop": 1767176541834
+}

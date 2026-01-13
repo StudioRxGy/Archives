@@ -1,0 +1,11 @@
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\bin\Debug\net8.0\BlogApi.Domain.deps.json
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\bin\Debug\net8.0\BlogApi.Domain.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\bin\Debug\net8.0\BlogApi.Domain.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\BlogApi.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\BlogApi.Domain.AssemblyInfoInputs.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\BlogApi.Domain.AssemblyInfo.cs
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\BlogApi.Domain.csproj.CoreCompileInputs.cache
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\BlogApi.Domain.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\refint\BlogApi.Domain.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\BlogApi.Domain.pdb
+D:\Test tools\Docs\Test Case\jinx\csharp\CsTest\BlogApi.Domain\obj\Debug\net8.0\ref\BlogApi.Domain.dll

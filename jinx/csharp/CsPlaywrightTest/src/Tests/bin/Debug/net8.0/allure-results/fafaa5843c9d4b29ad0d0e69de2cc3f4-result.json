@@ -1,0 +1,51 @@
+{
+  "uuid": "4ef54976-8624-4bdc-9ea4-e7c03fd61490",
+  "historyId": "63f567f5017bf12e98200593934dfda3",
+  "testCaseId": "ed90a60aeff7a3efca2fb22a8ae8ae39",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.CompareReports_ShouldGenerateComparisonReport()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.CompareReports_ShouldGenerateComparisonReport"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Integration.ThirdPartyReportingIntegrationTests.CompareReports_ShouldGenerateComparisonReport",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": "对比报告生成成功: C:\\Users\\hzzcn\\AppData\\Local\\Temp\\EAF_Tests\\f6f14c9d-dd6b-415b-b3cc-f94fe105d8c5\\comparison.html\r\n"
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767176541937,
+  "stop": 1767176542002
+}

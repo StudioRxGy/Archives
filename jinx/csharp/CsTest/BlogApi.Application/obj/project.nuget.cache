@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9jqBdawV1G4=",
+  "success": true,
+  "projectFilePath": "D:\\Test tools\\Docs\\Test Case\\jinx\\csharp\\CsTest\\BlogApi.Application\\BlogApi.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hzzcn\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,51 @@
+{
+  "uuid": "b99c737b-ff76-4941-83f1-c20f8369d0aa",
+  "historyId": "18dc198b09b2c75095cea142210375b6",
+  "testCaseId": "95dae7bdcc4eefde58f37cb585104249",
+  "fullName": "EnterpriseAutomationFramework.Tests:EnterpriseAutomationFramework.Tests.Services.ScreenshotHelperTests.GenerateFilePath_WithDefaultDirectory_ShouldUseScreenshotsDirectory()",
+  "labels": [
+    {
+      "name": "thread",
+      "value": ".NET Long Running Task"
+    },
+    {
+      "name": "host",
+      "value": "LAPTOP-ATKEU2F5"
+    },
+    {
+      "name": "language",
+      "value": "C#"
+    },
+    {
+      "name": "framework",
+      "value": "xUnit.net"
+    },
+    {
+      "name": "testClass",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ScreenshotHelperTests"
+    },
+    {
+      "name": "testMethod",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ScreenshotHelperTests.GenerateFilePath_WithDefaultDirectory_ShouldUseScreenshotsDirectory"
+    },
+    {
+      "name": "package",
+      "value": "EnterpriseAutomationFramework.Tests.Services.ScreenshotHelperTests"
+    }
+  ],
+  "links": [],
+  "name": "EnterpriseAutomationFramework.Tests.Services.ScreenshotHelperTests.GenerateFilePath_WithDefaultDirectory_ShouldUseScreenshotsDirectory",
+  "status": "passed",
+  "statusDetails": {
+    "known": false,
+    "muted": false,
+    "flaky": false,
+    "message": ""
+  },
+  "stage": "finished",
+  "steps": [],
+  "attachments": [],
+  "parameters": [],
+  "start": 1767491329971,
+  "stop": 1767491329992
+}
