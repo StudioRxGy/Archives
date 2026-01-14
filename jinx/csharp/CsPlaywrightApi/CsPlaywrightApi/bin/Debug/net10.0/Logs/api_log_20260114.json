@@ -1,0 +1,82 @@
+{
+  "Timestamp": "2026-01-14T11:39:45.6705404+08:00",
+  "Url": "https://www.ast1001.com/api/user/authorize",
+  "Method": "POST",
+  "RequestBody": "verify_code=&type=0&login_type=email&national_code=&order_id=&email=Aaaanew%40ast1.com&password=2c9341ca4cf3d87b9e4eb905d6a3ec45&username=Aaaanew%40ast1.com&captcha_response=&secure_login_flag=true",
+  "StatusCode": 200,
+  "ResponseCode": null,
+  "ResponseBody": "{\"bindMobile\":false,\"bindEmail\":false,\"bindGA\":false,\"need2FA\":false,\"authType\":\"\",\"userId\":\"97838347\",\"defaultAccountId\":\"2085616077557017345\",\"registerType\":2,\"nationalCode\":\"\",\"mobile\":\"\",\"email\":\"A*****w@ast1.com\",\"user\":{\"userId\":\"97838347\",\"registerType\":2,\"nickName\":\"\",\"avatar\":\"plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg\",\"mobile\":\"\",\"nationalCode\":\"\",\"email\":\"A*****w@ast1.com\",\"bindGA\":false,\"bindTradePwd\":false,\"bindPassword\":true,\"userType\":1,\"verifyStatus\":2,\"kycLevel\":55,\"kycVerifyStatus\":2,\"displayLevel\":\"2\",\"accounts\":[],\"defaultAccountId\":\"2085616077557017345\",\"registerDate\":\"1763360810912\",\"source\":\"\",\"inviteUserId\":\"97838315\",\"secondLevelInviteUserId\":\"97838384\",\"isAgent\":0,\"customLabelList\":[],\"antiPhishingCode\":\"\",\"isJoinActivity\":0,\"oidcApple\":false,\"oidcGoogle\":false,\"bindOidc\":false,\"bindOidcSuccess\":false}}",
+  "Duration": 1193,
+  "RequestHeaders": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "ResponseHeaders": {
+    "date": "Wed, 14 Jan 2026 03:39:44 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "content-length": "859",
+    "connection": "keep-alive",
+    "tid": "",
+    "set-cookie": "au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY4MzYxOTg0NzU0LCJfciI6ImtIbTVJSkI0S1U5RiIsIl9wIjoiY2RhODZjNTZhMjU3YTRhNWQyYTIxM2EwZjdiYmE3MmYifQ.PHQkq-ylwgjxJng_V9Dyr6_Am3oMpgR9eBUX01JMj5M; Domain=ast1001.com; Path=/\nuser_id=97838347; Domain=ast1001.com; Path=/\naccount_id=2085616077557017345; Domain=ast1001.com; Path=/\nc_token=3xHwZHdWIjVtR5V1CgvzzW1pJW8S2qG3; Domain=ast1001.com; Path=/\nsl-session=NxUuMIBhaGkiCzzFKha9RQ==; SameSite=None; Secure; Path=/; Max-Age=86400; HttpOnly"
+  }
+},
+{
+  "Timestamp": "2026-01-14T11:39:46.7992038+08:00",
+  "Url": "https://www.ast1001.com/api/contract/order/create?c_token=3xHwZHdWIjVtR5V1CgvzzW1pJW8S2qG3",
+  "Method": "POST",
+  "RequestBody": "side=BUY_OPEN&type=LIMIT&price_type=MARKET_PRICE&trigger_price=&leverage=400&quantity=3.00&symbol_id=BTCUSDT_PERP&client_order_id=1768361985971&exchange_id=888&order_side=BUY&is_cross=true&time_in_force=IOC&deduction=score",
+  "StatusCode": 200,
+  "ResponseCode": null,
+  "ResponseBody": "{\"time\":\"1768361985710\",\"orderId\":\"2127568972686602752\",\"accountId\":\"2085616077557017347\",\"clientOrderId\":\"1768361985971\",\"symbolId\":\"BTCUSDT_PERP\",\"symbolName\":\"BTCUSDT_PERP\",\"baseTokenId\":\"BTCUSDT_PERP\",\"baseTokenName\":\"BTCUSDT_PERP\",\"quoteTokenId\":\"USDT\",\"quoteTokenName\":\"USDT\",\"price\":\"95605.4\",\"origQty\":\"3\",\"executedQty\":\"0\",\"executedAmount\":\"0\",\"avgPrice\":\"0\",\"type\":\"LIMIT\",\"side\":\"BUY_OPEN\",\"fees\":[],\"status\":\"NEW\",\"noExecutedQty\":\"3\",\"amount\":\"286816.2\",\"exchangeId\":\"888\",\"margin\":\"7.1\",\"experienceAmount\":\".0\",\"leverage\":\"400\",\"isClose\":false,\"priceType\":\"MARKET_PRICE\",\"isLiquidationOrder\":false,\"liquidationType\":\"NO_LIQ\",\"liquidationPrice\":\"0\",\"bankruptcyPrice\":\"\",\"closePnl\":\"0\",\"updateTime\":\"1768361985710\",\"timeInForce\":\"IOC\",\"scoreFee\":\"0\",\"feeScoreNum\":\"0\",\"scoreStatus\":0,\"score\":0,\"isCross\":true,\"pnlRate\":\"\",\"stopProfitPrice\":\"\",\"stopLossPrice\":\"\",\"stopLossClosePrice\":\"\",\"stopProfitClosePrice\":\"\",\"stopLossPriceType\":-1,\"stopProfitPriceType\":-1}",
+  "Duration": 819,
+  "RequestHeaders": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "ResponseHeaders": {
+    "date": "Wed, 14 Jan 2026 03:39:46 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "content-length": "971",
+    "connection": "keep-alive",
+    "tid": ""
+  }
+},
+{
+  "Timestamp": "2026-01-14T13:46:24.9719966+08:00",
+  "Url": "https://www.ast1001.com/api/user/authorize",
+  "Method": "POST",
+  "RequestBody": "verify_code=&type=0&login_type=email&national_code=&order_id=&email=Aaaanew%40ast1.com&password=2c9341ca4cf3d87b9e4eb905d6a3ec45&username=Aaaanew%40ast1.com&captcha_response=&secure_login_flag=true",
+  "StatusCode": 200,
+  "ResponseCode": null,
+  "ResponseBody": "{\"bindMobile\":false,\"bindEmail\":false,\"bindGA\":false,\"need2FA\":false,\"authType\":\"\",\"userId\":\"97838347\",\"defaultAccountId\":\"2085616077557017345\",\"registerType\":2,\"nationalCode\":\"\",\"mobile\":\"\",\"email\":\"A*****w@ast1.com\",\"user\":{\"userId\":\"97838347\",\"registerType\":2,\"nickName\":\"\",\"avatar\":\"plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg\",\"mobile\":\"\",\"nationalCode\":\"\",\"email\":\"A*****w@ast1.com\",\"bindGA\":false,\"bindTradePwd\":false,\"bindPassword\":true,\"userType\":1,\"verifyStatus\":2,\"kycLevel\":55,\"kycVerifyStatus\":2,\"displayLevel\":\"2\",\"accounts\":[],\"defaultAccountId\":\"2085616077557017345\",\"registerDate\":\"1763360810912\",\"source\":\"\",\"inviteUserId\":\"97838315\",\"secondLevelInviteUserId\":\"97838384\",\"isAgent\":0,\"customLabelList\":[],\"antiPhishingCode\":\"\",\"isJoinActivity\":0,\"oidcApple\":false,\"oidcGoogle\":false,\"bindOidc\":false,\"bindOidcSuccess\":false}}",
+  "Duration": 1481,
+  "RequestHeaders": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "ResponseHeaders": {
+    "date": "Wed, 14 Jan 2026 05:46:24 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "content-length": "859",
+    "connection": "keep-alive",
+    "tid": "",
+    "set-cookie": "au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY4MzY5NTg0MjcyLCJfciI6IkRzSjlWZmtkUUhPQiIsIl9wIjoiY2NhZmE4ZTY4ODMzMGQ5ZWRmYjU3OGJlOTI5MDI1MmQifQ.lOaF_Fd8SKomXsCUyVQQmdKKz-S1KU31nE-XezDr9Dk; Domain=ast1001.com; Path=/\nuser_id=97838347; Domain=ast1001.com; Path=/\naccount_id=2085616077557017345; Domain=ast1001.com; Path=/\nc_token=Bl56ovYQfNUoTqu0IzR51LVwCcrcZ5b1; Domain=ast1001.com; Path=/\nsl-session=pjU8OTB/aGl4MC7cXViqIA==; SameSite=None; Secure; Path=/; Max-Age=86400; HttpOnly"
+  }
+},
+{
+  "Timestamp": "2026-01-14T13:46:25.4691251+08:00",
+  "Url": "https://www.ast1001.com/api/contract/order/create?c_token=Bl56ovYQfNUoTqu0IzR51LVwCcrcZ5b1",
+  "Method": "POST",
+  "RequestBody": "side=BUY_OPEN&type=LIMIT&price_type=MARKET_PRICE&trigger_price=&leverage=400&quantity=3.00&symbol_id=BTCUSDT_PERP&client_order_id=1768369585032&exchange_id=888&order_side=BUY&is_cross=true&time_in_force=IOC&deduction=score",
+  "StatusCode": 200,
+  "ResponseCode": null,
+  "ResponseBody": "{\"time\":\"1768369584543\",\"orderId\":\"2127632716334674432\",\"accountId\":\"2085616077557017347\",\"clientOrderId\":\"1768369585032\",\"symbolId\":\"BTCUSDT_PERP\",\"symbolName\":\"BTCUSDT_PERP\",\"baseTokenId\":\"BTCUSDT_PERP\",\"baseTokenName\":\"BTCUSDT_PERP\",\"quoteTokenId\":\"USDT\",\"quoteTokenName\":\"USDT\",\"price\":\"95155.3\",\"origQty\":\"3\",\"executedQty\":\"0\",\"executedAmount\":\"0\",\"avgPrice\":\"0\",\"type\":\"LIMIT\",\"side\":\"BUY_OPEN\",\"fees\":[],\"status\":\"NEW\",\"noExecutedQty\":\"3\",\"amount\":\"285465.9\",\"exchangeId\":\"888\",\"margin\":\"7.1\",\"experienceAmount\":\".0\",\"leverage\":\"400\",\"isClose\":false,\"priceType\":\"MARKET_PRICE\",\"isLiquidationOrder\":false,\"liquidationType\":\"NO_LIQ\",\"liquidationPrice\":\"0\",\"bankruptcyPrice\":\"\",\"closePnl\":\"0\",\"updateTime\":\"1768369584543\",\"timeInForce\":\"IOC\",\"scoreFee\":\"0\",\"feeScoreNum\":\"0\",\"scoreStatus\":0,\"score\":0,\"isCross\":true,\"pnlRate\":\"\",\"stopProfitPrice\":\"\",\"stopLossPrice\":\"\",\"stopLossClosePrice\":\"\",\"stopProfitClosePrice\":\"\",\"stopLossPriceType\":-1,\"stopProfitPriceType\":-1}",
+  "Duration": 432,
+  "RequestHeaders": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "ResponseHeaders": {
+    "date": "Wed, 14 Jan 2026 05:46:24 GMT",
+    "content-type": "application/json;charset=UTF-8",
+    "content-length": "971",
+    "connection": "keep-alive",
+    "tid": ""
+  }
+},

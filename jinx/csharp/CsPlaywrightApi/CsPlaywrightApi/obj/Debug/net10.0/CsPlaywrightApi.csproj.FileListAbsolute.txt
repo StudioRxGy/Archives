@@ -503,3 +503,4 @@ D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\obj\Deb
 D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\obj\Debug\net10.0\CsPlaywrightApi.pdb
 D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\obj\Debug\net10.0\CsPlaywrightApi.genruntimeconfig.cache
 D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\obj\Debug\net10.0\ref\CsPlaywrightApi.dll
+D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\obj\Debug\net10.0\CsPlaywrightApi.sourcelink.json

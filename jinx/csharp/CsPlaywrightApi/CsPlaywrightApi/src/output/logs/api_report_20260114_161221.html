@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API测试报告 - 2026-01-14 16:12:21</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+        body { background-color: #f5f7fa; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background-color: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); color: white; padding: 30px 40px; border-bottom: 4px solid #3a56a4; }
+        .header h1 { font-size: 2.4rem; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .header h1 i { font-size: 2.2rem; }
+        .subtitle { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
+        .report-info { display: flex; justify-content: space-between; margin-top: 20px; flex-wrap: wrap; gap: 15px; }
+        .info-item { display: flex; flex-direction: column; }
+        .info-label { font-size: 0.9rem; opacity: 0.8; margin-bottom: 4px; }
+        .info-value { font-size: 1.2rem; font-weight: 600; }
+        .content { padding: 30px 40px; }
+        .section { margin-bottom: 40px; }
+        .section-title { font-size: 1.6rem; color: #2c3e50; padding-bottom: 12px; border-bottom: 2px solid #eaeaea; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title i { color: #4b6cb7; }
+        .stats-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); border-left: 5px solid #4b6cb7; transition: transform 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-card.passed { border-left-color: #2ecc71; }
+        .stat-card.failed { border-left-color: #e74c3c; }
+        .stat-card.warning { border-left-color: #f39c12; }
+        .stat-card.duration { border-left-color: #3498db; }
+        .stat-card h3 { font-size: 1rem; color: #7f8c8d; margin-bottom: 10px; }
+        .stat-value { font-size: 2.2rem; font-weight: 700; margin-bottom: 5px; }
+        .stat-value.passed { color: #2ecc71; }
+        .stat-value.failed { color: #e74c3c; }
+        .stat-value.warning { color: #f39c12; }
+        .stat-value.duration { color: #3498db; }
+        .charts-row { display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 30px; }
+        .chart-container { flex: 1; min-width: 300px; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); }
+        .chart-title { font-size: 1.2rem; margin-bottom: 15px; color: #2c3e50; text-align: center; }
+        .test-results { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        thead { background-color: #f8f9fa; }
+        th { padding: 15px 12px; text-align: left; font-weight: 600; color: #2c3e50; border-bottom: 2px solid #eaeaea; }
+        td { padding: 14px 12px; border-bottom: 1px solid #f1f1f1; }
+        .request-row { cursor: pointer; transition: background 0.2s; }
+        .request-row:hover { background-color: #f9f9f9; }
+        .details-row td { padding: 0; border-bottom: 1px solid #dee2e6; }
+        .details-content { padding: 20px; background: #f8f9fa; }
+        .detail-section { margin-bottom: 20px; background: white; padding: 15px; border-radius: 6px; }
+        .detail-section h4 { color: #4b6cb7; margin-bottom: 10px; font-size: 16px; }
+        .detail-section p { margin: 5px 0; color: #666; }
+        pre { background: #f4f4f4; padding: 12px; border-radius: 4px; overflow-x: auto; font-size: 13px; line-height: 1.5; }
+        .json-content { max-height: 400px; overflow-y: auto; }
+        .status-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .status-passed { background-color: rgba(46, 204, 113, 0.15); color: #27ae60; }
+        .status-failed { background-color: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        .status-warning { background-color: rgba(243, 156, 18, 0.15); color: #d35400; }
+        .method { padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; }
+        .method-get { background-color: rgba(52, 152, 219, 0.15); color: #2980b9; }
+        .method-post { background-color: rgba(46, 204, 113, 0.15); color: #27ae60; }
+        .method-put { background-color: rgba(243, 156, 18, 0.15); color: #d35400; }
+        .method-delete { background-color: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        .method-patch { background-color: rgba(155, 89, 182, 0.15); color: #8e44ad; }
+        .execution-time { font-family: monospace; background-color: #f8f9fa; padding: 3px 8px; border-radius: 4px; font-size: 0.9rem; }
+        .url-cell { max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .footer { background-color: #f8f9fa; padding: 20px 40px; text-align: center; color: #7f8c8d; border-top: 1px solid #eaeaea; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            .header, .content { padding: 20px; }
+            .header h1 { font-size: 1.8rem; }
+            .stats-cards { grid-template-columns: 1fr; }
+            .charts-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-clipboard-check"></i> API测试报告</h1>
+            <p class="subtitle">自动化接口测试执行结果摘要</p>
+            
+            <div class="report-info">
+                <div class="info-item">
+                    <span class="info-label">生成日期</span>
+                    <span class="info-value">2026年01月14日</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">生成时间</span>
+                    <span class="info-value">16:12:21</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">测试环境</span>
+                    <span class="info-value">.NET API</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">成功率</span>
+                    <span class="info-value">100.0%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-chart-pie"></i> 测试摘要</h2>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <h3>总请求数</h3>
+                        <div class="stat-value">3</div>
+                        <p>Total Requests</p>
+                    </div>
+                    
+                    <div class="stat-card passed">
+                        <h3>成功的请求</h3>
+                        <div class="stat-value passed">3</div>
+                        <p>占总数的 100.0%</p>
+                    </div>
+                    
+                    <div class="stat-card failed">
+                        <h3>失败的请求</h3>
+                        <div class="stat-value failed">0</div>
+                        <p>占总数的 0.0%</p>
+                    </div>
+                    
+                    <div class="stat-card duration">
+                        <h3>总执行时间</h3>
+                        <div class="stat-value duration">1.6s</div>
+                        <p>平均 533ms/请求</p>
+                    </div>
+                </div>
+                
+                <div class="charts-row">
+                    <div class="chart-container">
+                        <h3 class="chart-title">请求结果分布</h3>
+                        <canvas id="resultsChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3 class="chart-title">HTTP方法统计</h3>
+                        <canvas id="methodsChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3 class="chart-title">响应时间趋势</h3>
+                    <canvas id="timeChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-list-alt"></i> 详细测试结果</h2>
+                
+                <div class="test-results">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">#</th>
+                                <th style="width: 120px;">时间</th>
+                                <th style="width: 100px;">方法</th>
+                                <th>URL</th>
+                                <th style="width: 100px;">状态</th>
+                                <th style="width: 100px;">耗时</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr class="request-row" onclick="toggleDetails(0)">
+                    <td>1</td>
+                    <td>16:12:20.194</td>
+                    <td><span class="method method-post">POST</span></td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
+                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
+                    <td><span class="execution-time">530ms</span></td>
+                </tr>
+                <tr id="details-0" class="details-row" style="display: none;">
+                    <td colspan="6">
+                        <div class="details-content">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
+                                <p><strong>方法:</strong> POST</p>
+                                <p><strong>时间:</strong> 2026-01-14 16:12:20.194</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-up"></i> 请求头</h4>
+                                <pre>Content-Type: application/x-www-form-urlencoded</pre>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-file-code"></i> 请求参数</h4>
+                                <pre>verify_code=&amp;type=0&amp;login_type=email&amp;national_code=&amp;order_id=&amp;email=Aaaanew%40ast1.com&amp;password=2c9341ca4cf3d87b9e4eb905d6a3ec45&amp;username=Aaaanew%40ast1.com&amp;captcha_response=&amp;secure_login_flag=true</pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
+                                <p><strong>状态码:</strong> 200</p>
+                                
+                                <p><strong>耗时:</strong> 530ms</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
+                                <pre>date: Wed, 14 Jan 2026 08:12:19 GMT
+content-type: application/json;charset=UTF-8
+content-length: 859
+connection: keep-alive
+tid: 
+set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY4Mzc4MzM5NDg1LCJfciI6IkIwMUpkeTRkOEdpMSIsIl9wIjoiOGIzOGI1OGZmNmI2OWFmY2MwZmQ0NTY5MGQ2Mzc2NmQifQ.7mbZyyC49qCr2lUNgb9_CNPL5rxDN2Blq0mGniKXtB4; Domain=ast1001.com; Path=/
+user_id=97838347; Domain=ast1001.com; Path=/
+account_id=2085616077557017345; Domain=ast1001.com; Path=/
+c_token=nDKtrO1TJX3ECxmKHY3EuzNRGiqED0i6; Domain=ast1001.com; Path=/
+sl-session=j8Aef2OhaGmTmLUQD1rNyw==; SameSite=None; Secure; Path=/; Max-Age=86400; HttpOnly</pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-code"></i> 响应内容</h4>
+                                <pre class="json-content">{
+  &quot;bindMobile&quot;: false,
+  &quot;bindEmail&quot;: false,
+  &quot;bindGA&quot;: false,
+  &quot;need2FA&quot;: false,
+  &quot;authType&quot;: &quot;&quot;,
+  &quot;userId&quot;: &quot;97838347&quot;,
+  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
+  &quot;registerType&quot;: 2,
+  &quot;nationalCode&quot;: &quot;&quot;,
+  &quot;mobile&quot;: &quot;&quot;,
+  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
+  &quot;user&quot;: {
+    &quot;userId&quot;: &quot;97838347&quot;,
+    &quot;registerType&quot;: 2,
+    &quot;nickName&quot;: &quot;&quot;,
+    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
+    &quot;mobile&quot;: &quot;&quot;,
+    &quot;nationalCode&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
+    &quot;bindGA&quot;: false,
+    &quot;bindTradePwd&quot;: false,
+    &quot;bindPassword&quot;: true,
+    &quot;userType&quot;: 1,
+    &quot;verifyStatus&quot;: 2,
+    &quot;kycLevel&quot;: 55,
+    &quot;kycVerifyStatus&quot;: 2,
+    &quot;displayLevel&quot;: &quot;2&quot;,
+    &quot;accounts&quot;: [],
+    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
+    &quot;registerDate&quot;: &quot;1763360810912&quot;,
+    &quot;source&quot;: &quot;&quot;,
+    &quot;inviteUserId&quot;: &quot;97838315&quot;,
+    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
+    &quot;isAgent&quot;: 0,
+    &quot;customLabelList&quot;: [],
+    &quot;antiPhishingCode&quot;: &quot;&quot;,
+    &quot;isJoinActivity&quot;: 0,
+    &quot;oidcApple&quot;: false,
+    &quot;oidcGoogle&quot;: false,
+    &quot;bindOidc&quot;: false,
+    &quot;bindOidcSuccess&quot;: false
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="request-row" onclick="toggleDetails(1)">
+                    <td>2</td>
+                    <td>16:12:20.843</td>
+                    <td><span class="method method-post">POST</span></td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/create?c_token=nDKtrO1TJX3ECxmKHY3EuzNRGiqED0i6">https://www.ast1001.com/api/contract/order/create?c_token...</td>
+                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
+                    <td><span class="execution-time">591ms</span></td>
+                </tr>
+                <tr id="details-1" class="details-row" style="display: none;">
+                    <td colspan="6">
+                        <div class="details-content">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/create?c_token=nDKtrO1TJX3ECxmKHY3EuzNRGiqED0i6</p>
+                                <p><strong>方法:</strong> POST</p>
+                                <p><strong>时间:</strong> 2026-01-14 16:12:20.843</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-up"></i> 请求头</h4>
+                                <pre>Content-Type: application/x-www-form-urlencoded</pre>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-file-code"></i> 请求参数</h4>
+                                <pre>side=BUY_OPEN&amp;type=LIMIT&amp;price_type=MARKET_PRICE&amp;trigger_price=&amp;leverage=400&amp;quantity=1.00&amp;symbol_id=BTCUSDT_PERP&amp;client_order_id=1768378340248&amp;exchange_id=888&amp;order_side=BUY&amp;is_cross=true&amp;time_in_force=IOC&amp;deduction=score</pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
+                                <p><strong>状态码:</strong> 200</p>
+                                
+                                <p><strong>耗时:</strong> 591ms</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
+                                <pre>date: Wed, 14 Jan 2026 08:12:20 GMT
+content-type: application/json;charset=UTF-8
+content-length: 970
+connection: keep-alive
+tid: </pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-code"></i> 响应内容</h4>
+                                <pre class="json-content">{
+  &quot;time&quot;: &quot;1768378339794&quot;,
+  &quot;orderId&quot;: &quot;2127706160694866432&quot;,
+  &quot;accountId&quot;: &quot;2085616077557017347&quot;,
+  &quot;clientOrderId&quot;: &quot;1768378340248&quot;,
+  &quot;symbolId&quot;: &quot;BTCUSDT_PERP&quot;,
+  &quot;symbolName&quot;: &quot;BTCUSDT_PERP&quot;,
+  &quot;baseTokenId&quot;: &quot;BTCUSDT_PERP&quot;,
+  &quot;baseTokenName&quot;: &quot;BTCUSDT_PERP&quot;,
+  &quot;quoteTokenId&quot;: &quot;USDT&quot;,
+  &quot;quoteTokenName&quot;: &quot;USDT&quot;,
+  &quot;price&quot;: &quot;95322.6&quot;,
+  &quot;origQty&quot;: &quot;1&quot;,
+  &quot;executedQty&quot;: &quot;0&quot;,
+  &quot;executedAmount&quot;: &quot;0&quot;,
+  &quot;avgPrice&quot;: &quot;0&quot;,
+  &quot;type&quot;: &quot;LIMIT&quot;,
+  &quot;side&quot;: &quot;BUY_OPEN&quot;,
+  &quot;fees&quot;: [],
+  &quot;status&quot;: &quot;NEW&quot;,
+  &quot;noExecutedQty&quot;: &quot;1&quot;,
+  &quot;amount&quot;: &quot;95322.6&quot;,
+  &quot;exchangeId&quot;: &quot;888&quot;,
+  &quot;margin&quot;: &quot;2.3&quot;,
+  &quot;experienceAmount&quot;: &quot;.0&quot;,
+  &quot;leverage&quot;: &quot;400&quot;,
+  &quot;isClose&quot;: false,
+  &quot;priceType&quot;: &quot;MARKET_PRICE&quot;,
+  &quot;isLiquidationOrder&quot;: false,
+  &quot;liquidationType&quot;: &quot;NO_LIQ&quot;,
+  &quot;liquidationPrice&quot;: &quot;0&quot;,
+  &quot;bankruptcyPrice&quot;: &quot;&quot;,
+  &quot;closePnl&quot;: &quot;0&quot;,
+  &quot;updateTime&quot;: &quot;1768378339794&quot;,
+  &quot;timeInForce&quot;: &quot;IOC&quot;,
+  &quot;scoreFee&quot;: &quot;0&quot;,
+  &quot;feeScoreNum&quot;: &quot;0&quot;,
+  &quot;scoreStatus&quot;: 0,
+  &quot;score&quot;: 0,
+  &quot;isCross&quot;: true,
+  &quot;pnlRate&quot;: &quot;&quot;,
+  &quot;stopProfitPrice&quot;: &quot;&quot;,
+  &quot;stopLossPrice&quot;: &quot;&quot;,
+  &quot;stopLossClosePrice&quot;: &quot;&quot;,
+  &quot;stopProfitClosePrice&quot;: &quot;&quot;,
+  &quot;stopLossPriceType&quot;: -1,
+  &quot;stopProfitPriceType&quot;: -1
+}</pre>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="request-row" onclick="toggleDetails(2)">
+                    <td>3</td>
+                    <td>16:12:21.353</td>
+                    <td><span class="method method-post">POST</span></td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/close_promptly?c_token=nDKtrO1TJX3ECxmKHY3EuzNRGiqED0i6">https://www.ast1001.com/api/contract/order/close_promptly...</td>
+                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
+                    <td><span class="execution-time">478ms</span></td>
+                </tr>
+                <tr id="details-2" class="details-row" style="display: none;">
+                    <td colspan="6">
+                        <div class="details-content">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/close_promptly?c_token=nDKtrO1TJX3ECxmKHY3EuzNRGiqED0i6</p>
+                                <p><strong>方法:</strong> POST</p>
+                                <p><strong>时间:</strong> 2026-01-14 16:12:21.353</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-up"></i> 请求头</h4>
+                                <pre>Content-Type: application/x-www-form-urlencoded</pre>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-file-code"></i> 请求参数</h4>
+                                <pre>client_order_id=1768378340873&amp;symbol_id=BTCUSDT_PERP&amp;is_long=1&amp;exchange_id=888&amp;is_cross=true</pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
+                                <p><strong>状态码:</strong> 200</p>
+                                
+                                <p><strong>耗时:</strong> 478ms</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
+                                <pre>date: Wed, 14 Jan 2026 08:12:20 GMT
+content-type: application/json;charset=UTF-8
+content-length: 983
+connection: keep-alive
+tid: </pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-code"></i> 响应内容</h4>
+                                <pre class="json-content">{
+  &quot;cancelOrders&quot;: [],
+  &quot;order&quot;: {
+    &quot;time&quot;: &quot;1768378340412&quot;,
+    &quot;orderId&quot;: &quot;2127706165904192000&quot;,
+    &quot;accountId&quot;: &quot;2085616077557017347&quot;,
+    &quot;clientOrderId&quot;: &quot;1768378340873&quot;,
+    &quot;symbolId&quot;: &quot;BTCUSDT_PERP&quot;,
+    &quot;symbolName&quot;: &quot;BTCUSDT_PERP&quot;,
+    &quot;baseTokenId&quot;: &quot;BTCUSDT_PERP&quot;,
+    &quot;baseTokenName&quot;: &quot;BTCUSDT_PERP&quot;,
+    &quot;quoteTokenId&quot;: &quot;USDT&quot;,
+    &quot;quoteTokenName&quot;: &quot;USDT&quot;,
+    &quot;price&quot;: &quot;0&quot;,
+    &quot;origQty&quot;: &quot;1&quot;,
+    &quot;executedQty&quot;: &quot;0&quot;,
+    &quot;executedAmount&quot;: &quot;0&quot;,
+    &quot;avgPrice&quot;: &quot;0&quot;,
+    &quot;type&quot;: &quot;LIMIT&quot;,
+    &quot;side&quot;: &quot;SELL_CLOSE&quot;,
+    &quot;fees&quot;: [],
+    &quot;status&quot;: &quot;NEW&quot;,
+    &quot;noExecutedQty&quot;: &quot;1&quot;,
+    &quot;amount&quot;: &quot;0&quot;,
+    &quot;exchangeId&quot;: &quot;888&quot;,
+    &quot;margin&quot;: &quot;0&quot;,
+    &quot;experienceAmount&quot;: &quot;.0&quot;,
+    &quot;leverage&quot;: &quot;0&quot;,
+    &quot;isClose&quot;: true,
+    &quot;priceType&quot;: &quot;MARKET_PRICE&quot;,
+    &quot;isLiquidationOrder&quot;: false,
+    &quot;liquidationType&quot;: &quot;NO_LIQ&quot;,
+    &quot;liquidationPrice&quot;: &quot;0&quot;,
+    &quot;bankruptcyPrice&quot;: &quot;&quot;,
+    &quot;closePnl&quot;: &quot;0&quot;,
+    &quot;updateTime&quot;: &quot;1768378340412&quot;,
+    &quot;timeInForce&quot;: &quot;IOC&quot;,
+    &quot;scoreFee&quot;: &quot;0&quot;,
+    &quot;feeScoreNum&quot;: &quot;0&quot;,
+    &quot;scoreStatus&quot;: 0,
+    &quot;score&quot;: 0,
+    &quot;isCross&quot;: true,
+    &quot;pnlRate&quot;: &quot;&quot;,
+    &quot;stopProfitPrice&quot;: &quot;&quot;,
+    &quot;stopLossPrice&quot;: &quot;&quot;,
+    &quot;stopLossClosePrice&quot;: &quot;&quot;,
+    &quot;stopProfitClosePrice&quot;: &quot;&quot;,
+    &quot;stopLossPriceType&quot;: -1,
+    &quot;stopProfitPriceType&quot;: -1
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>报告生成于 2026-01-14 16:12:21 | 本报告由API自动化测试系统生成</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(index) {
+            const detailsRow = document.getElementById('details-' + index);
+            if (detailsRow.style.display === 'none') {
+                detailsRow.style.display = 'table-row';
+            } else {
+                detailsRow.style.display = 'none';
+            }
+        }
+        
+        // 初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            // 请求结果分布图表
+            const resultsCtx = document.getElementById('resultsChart').getContext('2d');
+            new Chart(resultsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['成功', '失败', '警告'],
+                    datasets: [{
+                        data: [3, 0, 0],
+                        backgroundColor: ['#2ecc71', '#e74c3c', '#f39c12'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+            
+            // HTTP方法统计图表
+            const methodsCtx = document.getElementById('methodsChart').getContext('2d');
+            new Chart(methodsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['POST'],
+                    datasets: [{
+                        label: '请求数量',
+                        data: [3],
+                        backgroundColor: 'rgba(75, 108, 183, 0.7)',
+                        borderColor: '#4b6cb7',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // 响应时间趋势图表
+            const timeCtx = document.getElementById('timeChart').getContext('2d');
+            new Chart(timeCtx, {
+                type: 'line',
+                data: {
+                    labels: ['请求1','请求2','请求3'],
+                    datasets: [{
+                        label: '响应时间 (ms)',
+                        data: [530,591,478],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

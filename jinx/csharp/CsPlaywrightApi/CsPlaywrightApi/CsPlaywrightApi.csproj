@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="src\Docs\" />
+    <Folder Include="src\output\logs\" />
   </ItemGroup>
 
 </Project>
