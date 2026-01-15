@@ -1,0 +1,9 @@
+TestName,SearchTerm,ExpectedMinResults,BaseUrl,Category
+基础搜索测试,playwright,5,https://www.baidu.com,技术
+中文搜索测试,自动化测试,3,https://www.baidu.com,技术
+英文搜索测试,automation testing,10,https://www.baidu.com,技术
+特殊字符搜索,C#编程,2,https://www.baidu.com,编程
+长关键词搜索,企业级自动化测试框架设计与实现,1,https://www.baidu.com,技术
+数字搜索测试,2024,15,https://www.baidu.com,时间
+品牌搜索测试,Microsoft,20,https://www.baidu.com,公司
+产品搜索测试,Visual Studio,8,https://www.baidu.com,工具

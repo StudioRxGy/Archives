@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Report Generated - {{ReportName}}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #6f42c1;
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            margin: -30px -30px 20px -30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .report-info {
+            background-color: #e7e3ff;
+            border: 1px solid #d1c4e9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .value {
+            color: #6f42c1;
+            font-weight: 500;
+        }
+        .download-section {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .download-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .download-button:hover {
+            background-color: #218838;
+        }
+        .file-info {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #6f42c1;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .report-type-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Test Report Generated</h1>
+            <div class="status-badge">Ready</div>
+        </div>
+        
+        <div class="content">
+            <p>A new test report has been generated and is ready for review.</p>
+            
+            <div class="report-info">
+                <h3 style="margin-top: 0; color: #6f42c1;">📋 Report Information</h3>
+                <div class="info-row">
+                    <span class="label">Report Name:</span>
+                    <span class="value">{{ReportName}} <span class="report-type-badge">{{ReportType}}</span></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Test Suite:</span>
+                    <span class="value">{{TestSuiteName}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Generated At:</span>
+                    <span class="value">{{GeneratedAt}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Project:</span>
+                    <span class="value">{{ProjectName}}</span>
+                </div>
+            </div>
+            
+            <div class="file-info">
+                <h4 style="margin-top: 0; color: #856404;">📁 File Details</h4>
+                <div class="info-row">
+                    <span class="label">File Size:</span>
+                    <span class="value">{{FileSizeFormatted}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">File Path:</span>
+                    <span class="value" style="font-family: 'Courier New', monospace; font-size: 12px;">{{ReportPath}}</span>
+                </div>
+            </div>
+            
+            {{#if ReportUrl}}
+            <div class="download-section">
+                <h4 style="margin-top: 0; color: #155724;">🔗 Access Report</h4>
+                <p>Click the button below to view or download the report:</p>
+                <a href="{{ReportUrl}}" class="download-button">📥 View Report</a>
+            </div>
+            {{else}}
+            <div class="download-section">
+                <h4 style="margin-top: 0; color: #155724;">📁 Report Location</h4>
+                <p>The report has been saved to the local file system at the path shown above.</p>
+            </div>
+            {{/if}}
+            
+            <div class="info-section">
+                <h3>Additional Information</h3>
+                <p>This report contains detailed information about the test execution, including:</p>
+                <ul>
+                    <li>Test execution summary and statistics</li>
+                    <li>Individual test case results</li>
+                    <li>Performance metrics and timing data</li>
+                    <li>Error details and stack traces for failed tests</li>
+                    <li>Screenshots and logs (if available)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This is an automated notification from CsPlaywrightXun Enterprise Automation Framework</p>
+            <p>Generated at {{GeneratedAt}}</p>
+        </div>
+    </div>
+</body>
+</html>

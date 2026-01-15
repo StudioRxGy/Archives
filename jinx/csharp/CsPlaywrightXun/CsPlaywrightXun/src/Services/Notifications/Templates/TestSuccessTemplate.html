@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Execution Successful - {{TestSuiteName}}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            margin: -30px -30px 20px -30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .success-stats {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #c3e6cb;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #155724;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #495057;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .pass-rate {
+            font-size: 36px;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .value {
+            color: #28a745;
+            font-weight: 500;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .duration-highlight {
+            background-color: #e7f3ff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 15px 0;
+            border-left: 4px solid #007acc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✅ Test Execution Successful</h1>
+            <div class="status-badge">Completed</div>
+        </div>
+        
+        <div class="content">
+            <p>Congratulations! Test suite <strong>{{TestSuiteName}}</strong> has completed successfully with excellent results.</p>
+            
+            <div class="pass-rate">{{PassRate}}% Pass Rate</div>
+            
+            <div class="success-stats">
+                <h3 style="margin-top: 0; color: #155724;">📊 Execution Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">{{TotalTests}}</div>
+                        <div class="stat-label">Total Tests</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{PassedTests}}</div>
+                        <div class="stat-label">Passed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{FailedTests}}</div>
+                        <div class="stat-label">Failed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{SkippedTests}}</div>
+                        <div class="stat-label">Skipped</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="duration-highlight">
+                <strong>⏱️ Execution Time:</strong> {{Duration}}
+            </div>
+            
+            <div class="info-section">
+                <h3>Execution Details</h3>
+                <div class="info-row">
+                    <span class="label">Test Suite:</span>
+                    <span class="value">{{TestSuiteName}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Start Time:</span>
+                    <span class="value">{{StartTime}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">End Time:</span>
+                    <span class="value">{{EndTime}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Environment:</span>
+                    <span class="value">{{Environment}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Project:</span>
+                    <span class="value">{{Metadata.ProjectName}}</span>
+                </div>
+            </div>
+            
+            <p style="color: #28a745; font-weight: bold;">🎉 All tests passed successfully! The system is functioning as expected.</p>
+        </div>
+        
+        <div class="footer">
+            <p>This is an automated notification from CsPlaywrightXun Enterprise Automation Framework</p>
+            <p>Generated at {{EndTime}}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "CsPlaywrightApi": {
+      "commandName": "Project"
+    },
+    "RunUheyueTests": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "commandLineArgs": "test --filter FullyQualifiedName~UheyueApiTests",
+      "workingDirectory": "$(ProjectDir)"
+    },
+    "RunUheyueTestsVerbose": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "commandLineArgs": "test --filter FullyQualifiedName~UheyueApiTests --logger \"console;verbosity=detailed\"",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}

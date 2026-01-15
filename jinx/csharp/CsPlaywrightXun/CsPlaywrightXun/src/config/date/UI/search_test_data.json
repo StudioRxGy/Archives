@@ -1,0 +1,23 @@
+[
+  {
+    "testName": "JSON搜索功能测试1",
+    "searchQuery": "playwright json",
+    "expectedResultCount": 12,
+    "environment": "Development",
+    "isEnabled": true
+  },
+  {
+    "testName": "JSON搜索功能测试2",
+    "searchQuery": "自动化测试 json",
+    "expectedResultCount": 8,
+    "environment": "Test",
+    "isEnabled": true
+  },
+  {
+    "testName": "JSON搜索功能测试3",
+    "searchQuery": "C# json",
+    "expectedResultCount": 20,
+    "environment": "Staging",
+    "isEnabled": false
+  }
+]

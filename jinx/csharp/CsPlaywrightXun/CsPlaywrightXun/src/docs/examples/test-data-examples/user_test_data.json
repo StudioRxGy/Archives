@@ -1,0 +1,92 @@
+[
+  {
+    "testName": "有效用户创建",
+    "name": "张三",
+    "email": "zhangsan@example.com",
+    "age": 25,
+    "department": "技术部",
+    "shouldSucceed": true,
+    "expectedError": ""
+  },
+  {
+    "testName": "空姓名测试",
+    "name": "",
+    "email": "empty@example.com",
+    "age": 30,
+    "department": "测试部",
+    "shouldSucceed": false,
+    "expectedError": "姓名不能为空"
+  },
+  {
+    "testName": "无效邮箱格式",
+    "name": "李四",
+    "email": "invalid-email",
+    "age": 28,
+    "department": "产品部",
+    "shouldSucceed": false,
+    "expectedError": "邮箱格式无效"
+  },
+  {
+    "testName": "年龄过小",
+    "name": "王五",
+    "email": "wangwu@example.com",
+    "age": 15,
+    "department": "实习部",
+    "shouldSucceed": false,
+    "expectedError": "年龄必须大于18岁"
+  },
+  {
+    "testName": "年龄过大",
+    "name": "赵六",
+    "email": "zhaoliu@example.com",
+    "age": 70,
+    "department": "顾问部",
+    "shouldSucceed": false,
+    "expectedError": "年龄不能超过65岁"
+  },
+  {
+    "testName": "特殊字符姓名",
+    "name": "钱七@#$",
+    "email": "qianqi@example.com",
+    "age": 32,
+    "department": "特殊部门",
+    "shouldSucceed": false,
+    "expectedError": "姓名包含无效字符"
+  },
+  {
+    "testName": "长姓名测试",
+    "name": "这是一个非常非常非常长的姓名用来测试系统对长姓名的处理能力",
+    "email": "longname@example.com",
+    "age": 35,
+    "department": "测试部",
+    "shouldSucceed": false,
+    "expectedError": "姓名长度不能超过50个字符"
+  },
+  {
+    "testName": "重复邮箱测试",
+    "name": "孙八",
+    "email": "duplicate@example.com",
+    "age": 29,
+    "department": "重复测试部",
+    "shouldSucceed": false,
+    "expectedError": "邮箱已存在"
+  },
+  {
+    "testName": "边界年龄测试_最小",
+    "name": "周九",
+    "email": "zhoujiu@example.com",
+    "age": 18,
+    "department": "边界测试部",
+    "shouldSucceed": true,
+    "expectedError": ""
+  },
+  {
+    "testName": "边界年龄测试_最大",
+    "name": "吴十",
+    "email": "wushi@example.com",
+    "age": 65,
+    "department": "边界测试部",
+    "shouldSucceed": true,
+    "expectedError": ""
+  }
+]

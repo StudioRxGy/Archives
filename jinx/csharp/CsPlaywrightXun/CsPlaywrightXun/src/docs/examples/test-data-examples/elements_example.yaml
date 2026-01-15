@@ -1,0 +1,271 @@
+# 页面元素配置示例
+HomePage:
+  # 搜索相关元素
+  SearchBox:
+    selector: "#kw"
+    type: Input
+    timeout: 5000
+    description: "主搜索输入框"
+  
+  SearchButton:
+    selector: "#su"
+    type: Button
+    timeout: 5000
+    description: "搜索按钮"
+  
+  SearchSuggestions:
+    selector: ".bdsug li"
+    type: List
+    timeout: 3000
+    description: "搜索建议列表"
+  
+  # 导航相关元素
+  Logo:
+    selector: "#lg img"
+    type: Image
+    timeout: 10000
+    description: "网站Logo"
+  
+  NavigationMenu:
+    selector: "#nv a"
+    type: Link
+    timeout: 5000
+    description: "导航菜单链接"
+  
+  # 结果相关元素
+  SearchResults:
+    selector: ".result"
+    type: Container
+    timeout: 10000
+    description: "搜索结果容器"
+  
+  ResultTitle:
+    selector: ".result h3 a"
+    type: Link
+    timeout: 5000
+    description: "搜索结果标题链接"
+  
+  ResultDescription:
+    selector: ".result .c-abstract"
+    type: Text
+    timeout: 5000
+    description: "搜索结果描述"
+  
+  # 分页相关元素
+  NextPageButton:
+    selector: "#page .n"
+    type: Button
+    timeout: 5000
+    description: "下一页按钮"
+  
+  PageNumbers:
+    selector: "#page a"
+    type: Link
+    timeout: 5000
+    description: "页码链接"
+
+# 登录页面元素
+LoginPage:
+  UsernameInput:
+    selector: "#username"
+    type: Input
+    timeout: 5000
+    description: "用户名输入框"
+    attributes:
+      placeholder: "请输入用户名"
+      maxlength: "50"
+  
+  PasswordInput:
+    selector: "#password"
+    type: Input
+    timeout: 5000
+    description: "密码输入框"
+    attributes:
+      type: "password"
+      placeholder: "请输入密码"
+  
+  LoginButton:
+    selector: "#login-btn"
+    type: Button
+    timeout: 5000
+    description: "登录按钮"
+    attributes:
+      class: "btn btn-primary"
+  
+  RememberCheckbox:
+    selector: "#remember-me"
+    type: Checkbox
+    timeout: 3000
+    description: "记住我复选框"
+  
+  ForgotPasswordLink:
+    selector: "#forgot-password"
+    type: Link
+    timeout: 3000
+    description: "忘记密码链接"
+  
+  ErrorMessage:
+    selector: ".error-message"
+    type: Text
+    timeout: 3000
+    description: "错误消息显示区域"
+
+# 用户仪表板页面
+DashboardPage:
+  WelcomeMessage:
+    selector: ".welcome-message"
+    type: Text
+    timeout: 10000
+    description: "欢迎消息"
+  
+  UserAvatar:
+    selector: ".user-avatar img"
+    type: Image
+    timeout: 5000
+    description: "用户头像"
+  
+  MainMenu:
+    selector: ".main-menu"
+    type: Container
+    timeout: 5000
+    description: "主菜单容器"
+  
+  MenuItems:
+    selector: ".main-menu .menu-item"
+    type: List
+    timeout: 5000
+    description: "菜单项列表"
+  
+  NotificationBell:
+    selector: ".notification-bell"
+    type: Button
+    timeout: 3000
+    description: "通知铃铛"
+  
+  NotificationCount:
+    selector: ".notification-count"
+    type: Text
+    timeout: 3000
+    description: "通知数量"
+  
+  LogoutButton:
+    selector: "#logout"
+    type: Button
+    timeout: 5000
+    description: "退出登录按钮"
+
+# 表单页面元素
+FormPage:
+  # 基本输入元素
+  TextInput:
+    selector: "input[type='text']"
+    type: Input
+    timeout: 5000
+    description: "文本输入框"
+  
+  EmailInput:
+    selector: "input[type='email']"
+    type: Input
+    timeout: 5000
+    description: "邮箱输入框"
+  
+  NumberInput:
+    selector: "input[type='number']"
+    type: Input
+    timeout: 5000
+    description: "数字输入框"
+  
+  DateInput:
+    selector: "input[type='date']"
+    type: Input
+    timeout: 5000
+    description: "日期输入框"
+  
+  # 选择元素
+  Dropdown:
+    selector: "select.form-select"
+    type: Dropdown
+    timeout: 5000
+    description: "下拉选择框"
+  
+  RadioButtons:
+    selector: "input[type='radio']"
+    type: Radio
+    timeout: 5000
+    description: "单选按钮组"
+  
+  Checkboxes:
+    selector: "input[type='checkbox']"
+    type: Checkbox
+    timeout: 5000
+    description: "复选框组"
+  
+  # 文本区域
+  TextArea:
+    selector: "textarea"
+    type: TextArea
+    timeout: 5000
+    description: "多行文本输入框"
+  
+  # 按钮
+  SubmitButton:
+    selector: "button[type='submit']"
+    type: Button
+    timeout: 5000
+    description: "提交按钮"
+  
+  ResetButton:
+    selector: "button[type='reset']"
+    type: Button
+    timeout: 5000
+    description: "重置按钮"
+  
+  CancelButton:
+    selector: ".btn-cancel"
+    type: Button
+    timeout: 5000
+    description: "取消按钮"
+
+# 模态框元素
+ModalDialog:
+  ModalContainer:
+    selector: ".modal"
+    type: Container
+    timeout: 5000
+    description: "模态框容器"
+  
+  ModalHeader:
+    selector: ".modal-header"
+    type: Container
+    timeout: 3000
+    description: "模态框头部"
+  
+  ModalTitle:
+    selector: ".modal-title"
+    type: Text
+    timeout: 3000
+    description: "模态框标题"
+  
+  ModalBody:
+    selector: ".modal-body"
+    type: Container
+    timeout: 3000
+    description: "模态框内容区域"
+  
+  ModalFooter:
+    selector: ".modal-footer"
+    type: Container
+    timeout: 3000
+    description: "模态框底部"
+  
+  CloseButton:
+    selector: ".modal-close"
+    type: Button
+    timeout: 3000
+    description: "关闭按钮"
+  
+  ConfirmButton:
+    selector: ".btn-confirm"
+    type: Button
+    timeout: 3000
+    description: "确认按钮"

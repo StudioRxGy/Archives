@@ -1,0 +1,17 @@
+- testName: "YAML搜索功能测试1"
+  searchQuery: "playwright yaml"
+  expectedResultCount: 15
+  environment: "Development"
+  isEnabled: true
+
+- testName: "YAML搜索功能测试2"
+  searchQuery: "自动化测试 yaml"
+  expectedResultCount: 6
+  environment: "Test"
+  isEnabled: true
+
+- testName: "YAML搜索功能测试3"
+  searchQuery: "C# yaml"
+  expectedResultCount: 25
+  environment: "Staging"
+  isEnabled: false

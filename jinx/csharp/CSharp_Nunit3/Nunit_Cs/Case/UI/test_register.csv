@@ -1,0 +1,5 @@
+test_case,username,email,password,descr
+test_01,user01,jinx@dl.com,Test1234,注册成功
+test_02,user02,jinx@dl.com,test12345,注册失败
+test_03,user03,,Test1234,注册失败
+test_04,user04,jinx@dl.com,,注册失败 

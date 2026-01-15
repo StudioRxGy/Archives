@@ -1,0 +1,108 @@
+# Docker Compose override for Staging environment
+version: '3.8'
+
+services:
+  automation-framework:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+      - DOTNET_ENVIRONMENT=Staging
+      - HEADLESS=true
+      - BROWSER_TYPE=chromium
+      - LOG_LEVEL=Information
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    healthcheck:
+      test: ["CMD", "dotnet", "--info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Staging database with production-like data
+  test-database:
+    environment:
+      POSTGRES_DB: testdata_staging
+      POSTGRES_USER: staginguser
+      POSTGRES_PASSWORD: ${STAGING_DB_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+
+  # Load balancer for staging
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-staging
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/staging.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - automation-framework
+    networks:
+      - automation-network
+
+  # Enable monitoring in staging
+  prometheus:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    
+  grafana:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # Log aggregation
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: elasticsearch-staging
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - automation-network
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: logstash-staging
+    volumes:
+      - ./monitoring/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    depends_on:
+      - elasticsearch
+    networks:
+      - automation-network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: kibana-staging
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - automation-network
+
+volumes:
+  elasticsearch_data:

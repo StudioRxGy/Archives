@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Execution Started - {{TestSuiteName}}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #007acc;
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            margin: -30px -30px 20px -30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .value {
+            color: #007acc;
+            font-weight: 500;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Test Execution Started</h1>
+            <div class="status-badge">In Progress</div>
+        </div>
+        
+        <div class="content">
+            <p>Test suite execution has been initiated and is now running.</p>
+            
+            <div class="info-section">
+                <h3>Execution Details</h3>
+                <div class="info-row">
+                    <span class="label">Test Suite:</span>
+                    <span class="value">{{TestSuiteName}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Start Time:</span>
+                    <span class="value">{{StartTime}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Environment:</span>
+                    <span class="value">{{Environment}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Project:</span>
+                    <span class="value">{{Metadata.ProjectName}}</span>
+                </div>
+            </div>
+            
+            <p><strong>Note:</strong> You will receive another notification once the test execution completes with detailed results.</p>
+        </div>
+        
+        <div class="footer">
+            <p>This is an automated notification from CsPlaywrightXun Enterprise Automation Framework</p>
+            <p>Generated at {{StartTime}}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Sample Test Report - 测试报告</title>
+    <link rel='stylesheet' href='assets/report.css'>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+</head>
+<body>
+    <div class='container'>
+        <!-- 报告头部 -->
+        <header class='report-header'>
+            <div class='header-content'>
+                <h1>Sample Test Report</h1>
+                <div class='report-meta'>
+                    <div class='meta-item'>
+                        <span class='meta-label'>生成时间:</span>
+                        <span class='meta-value'>2025-12-31 09:41:21</span>
+                    </div>
+                    <div class='meta-item'>
+                        <span class='meta-label'>测试环境:</span>
+                        <span class='meta-value'>Development</span>
+                    </div>
+                    <div class='meta-item'>
+                        <span class='meta-label'>执行时间:</span>
+                        <span class='meta-value'>2025-12-31 09:31:21 - 2025-12-31 09:41:21</span>
+                    </div>
+                    <div class='meta-item'>
+                        <span class='meta-label'>总耗时:</span>
+                        <span class='meta-value'>10:00</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 导航菜单 -->
+        <nav class='report-nav'>
+            <ul class='nav-list'>
+                <li><a href='#summary' class='nav-link active'>摘要</a></li>
+                <li><a href='#charts' class='nav-link'>图表</a></li>
+                <li><a href='#results' class='nav-link'>测试结果</a></li>
+                <li><a href='#failures' class='nav-link'>失败详情</a></li>
+                <li><a href='#screenshots' class='nav-link'>截图</a></li>
+                <li><a href='#system' class='nav-link'>系统信息</a></li>
+            </ul>
+        </nav>
+
+        <!-- 主要内容 -->
+        <main class='report-content'>
+            <!-- 摘要部分 -->
+            <section id='summary' class='report-section'>
+                <h2>测试摘要</h2>
+                <div class='summary-cards'>
+
+            <div class='summary-card total'>
+                <div class='card-icon'>📊</div>
+                <div class='card-content'>
+                    <div class='card-number'>10</div>
+                    <div class='card-label'>总测试数</div>
+                </div>
+            </div>
+
+            <div class='summary-card passed'>
+                <div class='card-icon'>✅</div>
+                <div class='card-content'>
+                    <div class='card-number'>7</div>
+                    <div class='card-label'>通过</div>
+                    <div class='card-percentage'>70.0%</div>
+                </div>
+            </div>
+
+            <div class='summary-card failed'>
+                <div class='card-icon'>❌</div>
+                <div class='card-content'>
+                    <div class='card-number'>3</div>
+                    <div class='card-label'>失败</div>
+                    <div class='card-percentage'>30.0%</div>
+                </div>
+            </div>
+
+            <div class='summary-card skipped'>
+                <div class='card-icon'>⏭️</div>
+                <div class='card-content'>
+                    <div class='card-number'>0</div>
+                    <div class='card-label'>跳过</div>
+                    <div class='card-percentage'>0.0%</div>
+                </div>
+            </div>
+
+            <div class='summary-card duration'>
+                <div class='card-icon'>⏱️</div>
+                <div class='card-content'>
+                    <div class='card-number'>28.0s</div>
+                    <div class='card-label'>总耗时</div>
+                    <div class='card-percentage'>平均 2.8s</div>
+                </div>
+            </div>
+</div>
+
+            </section>
+
+            <!-- 图表部分 -->
+            <section id='charts' class='report-section'>
+                <h2>统计图表</h2>
+                <div class='charts-container'>
+
+            <div class='chart-container'>
+                <h3>测试结果分布</h3>
+                <canvas id='pieChart' width='400' height='400'></canvas>
+                <script>
+                    const pieCtx = document.getElementById('pieChart').getContext('2d');
+                    new Chart(pieCtx, {
+                        type: 'pie',
+                        data: {"labels":["\u901A\u8FC7","\u5931\u8D25","\u8DF3\u8FC7","\u4E0D\u786E\u5B9A"],"datasets":[{"data":[7,3,0,0],"backgroundColor":["#28a745","#dc3545","#ffc107","#6c757d"],"borderWidth":2,"borderColor":"#fff"}]},
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                            return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+
+            <div class='chart-container'>
+                <h3>执行时间分析</h3>
+                <canvas id='timeChart' width='400' height='200'></canvas>
+                <script>
+                    const timeCtx = document.getElementById('timeChart').getContext('2d');
+                    new Chart(timeCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['最快测试', '平均时间', '最慢测试'],
+                            datasets: [{
+                                label: '执行时间 (秒)',
+                                data: [1.00, 2.80, 4.00],
+                                backgroundColor: ['#28a745', '#17a2b8', '#dc3545'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: '时间 (秒)'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+</div>
+
+            </section>
+
+            <!-- 测试结果部分 -->
+            <section id='results' class='report-section'>
+                <div class='results-section'>
+<h2>测试结果详情</h2>
+
+            <div class='filters'>
+                <button class='filter-btn active' data-filter='all'>全部</button>
+                <button class='filter-btn' data-filter='passed'>通过</button>
+                <button class='filter-btn' data-filter='failed'>失败</button>
+                <button class='filter-btn' data-filter='skipped'>跳过</button>
+            </div>
+<div class='results-table-container'>
+<table class='results-table'>
+
+            <thead>
+                <tr>
+                    <th>状态</th>
+                    <th>测试名称</th>
+                    <th>测试类</th>
+                    <th>执行时间</th>
+                    <th>开始时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+<tbody>
+
+                <tr class='result-row failed' data-status='failed'>
+                    <td class='status-cell'>
+                        <span class='status-badge failed'>
+                            ❌ 失败
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_000</td>
+                    <td></td>
+                    <td>3.0s</td>
+                    <td>09:41:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_000")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row passed' data-status='passed'>
+                    <td class='status-cell'>
+                        <span class='status-badge passed'>
+                            ✅ 通过
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_001</td>
+                    <td></td>
+                    <td>2.0s</td>
+                    <td>09:40:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_001")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row passed' data-status='passed'>
+                    <td class='status-cell'>
+                        <span class='status-badge passed'>
+                            ✅ 通过
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_002</td>
+                    <td></td>
+                    <td>4.0s</td>
+                    <td>09:39:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_002")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row passed' data-status='passed'>
+                    <td class='status-cell'>
+                        <span class='status-badge passed'>
+                            ✅ 通过
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_003</td>
+                    <td></td>
+                    <td>1.0s</td>
+                    <td>09:38:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_003")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row failed' data-status='failed'>
+                    <td class='status-cell'>
+                        <span class='status-badge failed'>
+                            ❌ 失败
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_004</td>
+                    <td></td>
+                    <td>1.0s</td>
+                    <td>09:37:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_004")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row passed' data-status='passed'>
+                    <td class='status-cell'>
+                        <span class='status-badge passed'>
+                            ✅ 通过
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_005</td>
+                    <td></td>
+                    <td>2.0s</td>
+                    <td>09:36:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_005")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row passed' data-status='passed'>
+                    <td class='status-cell'>
+                        <span class='status-badge passed'>
+                            ✅ 通过
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_006</td>
+                    <td></td>
+                    <td>4.0s</td>
+                    <td>09:35:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_006")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row passed' data-status='passed'>
+                    <td class='status-cell'>
+                        <span class='status-badge passed'>
+                            ✅ 通过
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_007</td>
+                    <td></td>
+                    <td>4.0s</td>
+                    <td>09:34:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_007")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row failed' data-status='failed'>
+                    <td class='status-cell'>
+                        <span class='status-badge failed'>
+                            ❌ 失败
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_008</td>
+                    <td></td>
+                    <td>3.0s</td>
+                    <td>09:33:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_008")'>详情</button>
+                    </td>
+                </tr>
+
+                <tr class='result-row passed' data-status='passed'>
+                    <td class='status-cell'>
+                        <span class='status-badge passed'>
+                            ✅ 通过
+                        </span>
+                    </td>
+                    <td class='test-name'>Test_009</td>
+                    <td></td>
+                    <td>4.0s</td>
+                    <td>09:32:21</td>
+                    <td>
+                        <button class='btn-details' onclick='showTestDetails("Test_009")'>详情</button>
+                    </td>
+                </tr>
+</tbody>
+</table>
+</div>
+</div>
+<script>
+const testDetailsData = {
+  "Test_000": {"testName":"Test_000","testClass":null,"testMethod":null,"status":"\u5931\u8D25","startTime":"2025-12-31 09:41:21","endTime":"2025-12-31 09:41:25","duration":"3.0s","errorMessage":"Sample error message","stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_001": {"testName":"Test_001","testClass":null,"testMethod":null,"status":"\u901A\u8FC7","startTime":"2025-12-31 09:40:21","endTime":"2025-12-31 09:40:25","duration":"2.0s","errorMessage":null,"stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_002": {"testName":"Test_002","testClass":null,"testMethod":null,"status":"\u901A\u8FC7","startTime":"2025-12-31 09:39:21","endTime":"2025-12-31 09:39:22","duration":"4.0s","errorMessage":null,"stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_003": {"testName":"Test_003","testClass":null,"testMethod":null,"status":"\u901A\u8FC7","startTime":"2025-12-31 09:38:21","endTime":"2025-12-31 09:38:25","duration":"1.0s","errorMessage":null,"stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_004": {"testName":"Test_004","testClass":null,"testMethod":null,"status":"\u5931\u8D25","startTime":"2025-12-31 09:37:21","endTime":"2025-12-31 09:37:24","duration":"1.0s","errorMessage":"Sample error message","stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_005": {"testName":"Test_005","testClass":null,"testMethod":null,"status":"\u901A\u8FC7","startTime":"2025-12-31 09:36:21","endTime":"2025-12-31 09:36:23","duration":"2.0s","errorMessage":null,"stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_006": {"testName":"Test_006","testClass":null,"testMethod":null,"status":"\u901A\u8FC7","startTime":"2025-12-31 09:35:21","endTime":"2025-12-31 09:35:25","duration":"4.0s","errorMessage":null,"stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_007": {"testName":"Test_007","testClass":null,"testMethod":null,"status":"\u901A\u8FC7","startTime":"2025-12-31 09:34:21","endTime":"2025-12-31 09:34:22","duration":"4.0s","errorMessage":null,"stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_008": {"testName":"Test_008","testClass":null,"testMethod":null,"status":"\u5931\u8D25","startTime":"2025-12-31 09:33:21","endTime":"2025-12-31 09:33:23","duration":"3.0s","errorMessage":"Sample error message","stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+,
+  "Test_009": {"testName":"Test_009","testClass":null,"testMethod":null,"status":"\u901A\u8FC7","startTime":"2025-12-31 09:32:21","endTime":"2025-12-31 09:32:25","duration":"4.0s","errorMessage":null,"stackTrace":null,"output":null,"screenshots":[],"categories":[],"tags":[],"testData":{},"metadata":{}}
+};
+</script>
+
+            </section>
+
+            <!-- 失败测试部分 -->
+            <section id='failures' class='report-section'>
+                <div class='failed-tests-section'>
+<h2>失败测试详情</h2>
+
+                <div class='failed-test-card'>
+                    <div class='failed-test-header'>
+                        <h3>❌ Test_000</h3>
+                        <span class='test-duration'>3.0s</span>
+                    </div>
+                    <div class='failed-test-content'>
+                        <div class='error-message'>
+                            <h4>错误信息:</h4>
+                            <pre>Sample error message</pre>
+                        </div>
+</div>
+</div>
+
+                <div class='failed-test-card'>
+                    <div class='failed-test-header'>
+                        <h3>❌ Test_004</h3>
+                        <span class='test-duration'>1.0s</span>
+                    </div>
+                    <div class='failed-test-content'>
+                        <div class='error-message'>
+                            <h4>错误信息:</h4>
+                            <pre>Sample error message</pre>
+                        </div>
+</div>
+</div>
+
+                <div class='failed-test-card'>
+                    <div class='failed-test-header'>
+                        <h3>❌ Test_008</h3>
+                        <span class='test-duration'>3.0s</span>
+                    </div>
+                    <div class='failed-test-content'>
+                        <div class='error-message'>
+                            <h4>错误信息:</h4>
+                            <pre>Sample error message</pre>
+                        </div>
+</div>
+</div>
+</div>
+
+            </section>
+
+            <!-- 截图部分 -->
+            <section id='screenshots' class='report-section'>
+                
+            </section>
+
+            <!-- 系统信息部分 -->
+            <section id='system' class='report-section'>
+                <div class='system-info-section'>
+<h2>系统信息</h2>
+<div class='info-grid'>
+
+                <div class='info-item'>
+                    <div class='info-label'>OS:</div>
+                    <div class='info-value'>Windows 11</div>
+                </div>
+
+                <div class='info-item'>
+                    <div class='info-label'>Browser:</div>
+                    <div class='info-value'>Chrome 120</div>
+                </div>
+</div>
+</div>
+
+                <div class='configuration-section'>
+<h2>测试配置</h2>
+<div class='config-grid'>
+
+                <div class='config-item'>
+                    <div class='config-label'>BaseUrl:</div>
+                    <div class='config-value'>https://example.com</div>
+                </div>
+</div>
+</div>
+
+                <div class='metadata-section'>
+<h2>元数据</h2>
+<div class='metadata-grid'>
+
+                <div class='metadata-item'>
+                    <div class='metadata-label'>BuildNumber:</div>
+                    <div class='metadata-value'>1.2.3</div>
+                </div>
+</div>
+</div>
+
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class='report-footer'>
+            <p>&copy; 2024 Enterprise Automation Framework. Generated at 2025-12-31 09:41:21</p>
+        </footer>
+    </div>
+
+    <!-- 模态框 -->
+    <div id='screenshotModal' class='modal'>
+        <div class='modal-content'>
+            <span class='close'>&times;</span>
+            <img id='modalImage' src='' alt='Screenshot' />
+        </div>
+    </div>
+
+    <div id='testDetailsModal' class='modal'>
+        <div class='modal-content'>
+            <span class='close'>&times;</span>
+            <div id='testDetailsContent'></div>
+        </div>
+    </div>
+
+    <script src='assets/report.js'></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>45eded50-5004-431b-8183-3e5e18e25360</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>main.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>PyTest</Name>
+    <RootNamespace>PyTest</RootNamespace>
+    <InterpreterId>Global|PythonCore|3.12</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
+    <IsWindowsApplication>True</IsWindowsApplication>
+    <LaunchProvider>Web launcher</LaunchProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="basepage\base.py" />
+    <Compile Include="basepage\browser.py" />
+    <Compile Include="basepage\pages\Astralx\astral.py" />
+    <Compile Include="basepage\pages\Astralx\__init__.py" />
+    <Compile Include="basepage\pages\baidu\baidu.py" />
+    <Compile Include="basepage\pages\baidu\__init__.py" />
+    <Compile Include="basepage\pages\__init__.py" />
+    <Compile Include="basepage\__init__.py" />
+    <Compile Include="common\consts.py" />
+    <Compile Include="common\__init__.py" />
+    <Compile Include="config\setting.py" />
+    <Compile Include="config\__init__.py" />
+    <Compile Include="main.py" />
+    <Compile Include="testCase\api\conftest.py" />
+    <Compile Include="testCase\api\test_api.py" />
+    <Compile Include="testCase\api\__init__.py" />
+    <Compile Include="testCase\ui\conftest.py" />
+    <Compile Include="testCase\ui\test_ui.py" />
+    <Compile Include="testCase\ui\__init__.py" />
+    <Compile Include="testCase\__init__.py" />
+    <Compile Include="tools\dingding_tool.py" />
+    <Compile Include="tools\element_check_tool.py" />
+    <Compile Include="tools\email_tool.py" />
+    <Compile Include="tools\excel_tool.py" />
+    <Compile Include="tools\ini_tool.py" />
+    <Compile Include="tools\manage.py" />
+    <Compile Include="tools\random_tool.py" />
+    <Compile Include="tools\reponse_tool.py" />
+    <Compile Include="tools\request_tool.py" />
+    <Compile Include="tools\yaml_tool.py" />
+    <Compile Include="tools\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.12" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="basepage\" />
+    <Folder Include="basepage\pages\" />
+    <Folder Include="basepage\pages\Astralx\" />
+    <Folder Include="basepage\pages\Astralx\__pycache__\" />
+    <Folder Include="basepage\pages\baidu\" />
+    <Folder Include="basepage\pages\baidu\__pycache__\" />
+    <Folder Include="basepage\pages\__pycache__\" />
+    <Folder Include="basepage\__pycache__\" />
+    <Folder Include="case\" />
+    <Folder Include="case\api\" />
+    <Folder Include="case\api\模板\" />
+    <Folder Include="case\ui\" />
+    <Folder Include="common\" />
+    <Folder Include="common\__pycache__\" />
+    <Folder Include="config\" />
+    <Folder Include="config\__pycache__\" />
+    <Folder Include="logs\" />
+    <Folder Include="reports\" />
+    <Folder Include="testCase\" />
+    <Folder Include="testCase\api\" />
+    <Folder Include="testCase\api\__pycache__\" />
+    <Folder Include="testCase\ui\" />
+    <Folder Include="testCase\ui\__pycache__\" />
+    <Folder Include="testCase\__pycache__\" />
+    <Folder Include="tools\" />
+    <Folder Include="tools\__pycache__\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="basepage\pages\Astralx\__pycache__\astral.cpython-312.pyc" />
+    <Content Include="basepage\pages\Astralx\__pycache__\baidu.cpython-310.pyc" />
+    <Content Include="basepage\pages\Astralx\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="basepage\pages\Astralx\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="basepage\pages\baidu\__pycache__\baidu.cpython-310.pyc" />
+    <Content Include="basepage\pages\baidu\__pycache__\baidu.cpython-312.pyc" />
+    <Content Include="basepage\pages\baidu\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="basepage\pages\baidu\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="basepage\pages\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="basepage\pages\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="basepage\__pycache__\base.cpython-310.pyc" />
+    <Content Include="basepage\__pycache__\base.cpython-312.pyc" />
+    <Content Include="basepage\__pycache__\browser.cpython-310.pyc" />
+    <Content Include="basepage\__pycache__\browser.cpython-312.pyc" />
+    <Content Include="basepage\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="basepage\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="case\api\case.xlsx" />
+    <Content Include="case\api\case.yaml" />
+    <Content Include="case\api\模板\用例模版.xlsx" />
+    <Content Include="case\ui\case.yaml" />
+    <Content Include="case\ui\test_login.csv" />
+    <Content Include="case\ui\test_register.csv" />
+    <Content Include="common\__pycache__\consts.cpython-310.pyc" />
+    <Content Include="common\__pycache__\consts.cpython-312.pyc" />
+    <Content Include="common\__pycache__\consts.cpython-38.pyc" />
+    <Content Include="common\__pycache__\readConfigYaml.cpython-38.pyc" />
+    <Content Include="common\__pycache__\setting.cpython-310.pyc" />
+    <Content Include="common\__pycache__\setting.cpython-38.pyc" />
+    <Content Include="common\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="common\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="common\__pycache__\__init__.cpython-37.pyc" />
+    <Content Include="common\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="config\Config.ini" />
+    <Content Include="config\__pycache__\readConfigIni.cpython-310.pyc" />
+    <Content Include="config\__pycache__\setting.cpython-310.pyc" />
+    <Content Include="config\__pycache__\setting.cpython-312.pyc" />
+    <Content Include="config\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="config\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="Dockerfile" />
+    <Content Include="LICENSE" />
+    <Content Include="logs\2025-06-12.log" />
+    <Content Include="pytest.ini" />
+    <Content Include="README.md" />
+    <Content Include="reports\2025-06-12.html" />
+    <Content Include="requirements.txt" />
+    <Content Include="testCase\api\__pycache__\conftest.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\conftest.cpython-312-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\conftest.cpython-38-pytest-6.2.5.pyc" />
+    <Content Include="testCase\api\__pycache__\test_api.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\test_api.cpython-312-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\test_excel copy.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\test_excel.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\test_excel.cpython-38-pytest-6.2.5.pyc" />
+    <Content Include="testCase\api\__pycache__\test_excel_01.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\test_excel_02.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\api\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="testCase\api\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="testCase\api\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="testCase\ui\__pycache__\conftest.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\ui\__pycache__\conftest.cpython-312-pytest-7.4.4.pyc" />
+    <Content Include="testCase\ui\__pycache__\conftest.cpython-312-pytest-8.3.4.pyc" />
+    <Content Include="testCase\ui\__pycache__\test_ui.cpython-310-pytest-8.3.4.pyc" />
+    <Content Include="testCase\ui\__pycache__\test_ui.cpython-312-pytest-8.3.4.pyc" />
+    <Content Include="testCase\ui\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="testCase\ui\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="testCase\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="testCase\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="testCase\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="tools\__pycache__\allure_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\assert_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\dingding_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\dingding_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\element_check_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\element_check_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\email_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\email_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\excel_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\excel_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\ini_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\ini_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\log_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\manage.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\manage.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\random_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\random_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\reponse_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\reponse_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\request_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\request_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\token_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\tool_run.cpython-38.pyc" />
+    <Content Include="tools\__pycache__\yaml_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\yaml_tool.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\zip_tool.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\__init__.cpython-310.pyc" />
+    <Content Include="tools\__pycache__\__init__.cpython-312.pyc" />
+    <Content Include="tools\__pycache__\__init__.cpython-38.pyc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>

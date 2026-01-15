@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{50a8006f-b47b-44f3-9a88-a5d232470736}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>main.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Web launcher</LaunchProvider>
+    <InterpreterId>Global|PythonCore|3.12</InterpreterId>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <TestFramework>Pytest</TestFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="config\Config.ini" />
+    <Content Include="pytest.ini" />
+    <Content Include="reports\2025-06-12.html" />
+    <Content Include="reports\2025-06-13.html" />
+    <Content Include="reports\img\fail_2025_06_12_17_55_24.png" />
+    <Content Include="reports\img\fail_2025_06_13_11_05_33.png" />
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="basepage\base.py" />
+    <Compile Include="basepage\browser.py" />
+    <Compile Include="basepage\pages\Astralx\astral.py" />
+    <Compile Include="basepage\pages\Astralx\__init__.py" />
+    <Compile Include="basepage\pages\baidu\baidu.py" />
+    <Compile Include="basepage\pages\baidu\__init__.py" />
+    <Compile Include="basepage\pages\__init__.py" />
+    <Compile Include="basepage\__init__.py" />
+    <Compile Include="common\consts.py" />
+    <Compile Include="common\__init__.py" />
+    <Compile Include="config\setting.py" />
+    <Compile Include="config\__init__.py" />
+    <Compile Include="main.py" />
+    <Compile Include="testCase\api\conftest.py" />
+    <Compile Include="testCase\api\test_api.py" />
+    <Compile Include="testCase\api\__init__.py" />
+    <Compile Include="testCase\ui\conftest.py" />
+    <Compile Include="testCase\ui\test_ui.py" />
+    <Compile Include="testCase\ui\__init__.py" />
+    <Compile Include="testCase\__init__.py" />
+    <Compile Include="tools\dingding_tool.py" />
+    <Compile Include="tools\element_check_tool.py" />
+    <Compile Include="tools\email_tool.py" />
+    <Compile Include="tools\excel_tool.py" />
+    <Compile Include="tools\ini_tool.py" />
+    <Compile Include="tools\manage.py" />
+    <Compile Include="tools\random_tool.py" />
+    <Compile Include="tools\reponse_tool.py" />
+    <Compile Include="tools\request_tool.py" />
+    <Compile Include="tools\yaml_tool.py" />
+    <Compile Include="tools\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="basepage" />
+    <Folder Include="basepage\pages" />
+    <Folder Include="basepage\pages\Astralx" />
+    <Folder Include="basepage\pages\baidu" />
+    <Folder Include="common" />
+    <Folder Include="config" />
+    <Folder Include="reports" />
+    <Folder Include="reports\img" />
+    <Folder Include="testCase" />
+    <Folder Include="testCase\api" />
+    <Folder Include="testCase\ui" />
+    <Folder Include="tools" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.12" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

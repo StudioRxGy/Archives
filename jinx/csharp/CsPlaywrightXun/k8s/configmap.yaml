@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: automation-framework-config
+  namespace: automation-framework
+data:
+  ASPNETCORE_ENVIRONMENT: "${ENVIRONMENT}"
+  DOTNET_ENVIRONMENT: "${ENVIRONMENT}"
+  HEADLESS: "true"
+  BROWSER_TYPE: "chromium"
+  LOG_LEVEL: "Information"
+  appsettings.json: |
+    {
+      "Environment": {
+        "Name": "${ENVIRONMENT}",
+        "BaseUrl": "https://www.baidu.com",
+        "ApiBaseUrl": "https://www.baidu.com/api"
+      },
+      "Browser": {
+        "Type": "Chromium",
+        "Headless": true,
+        "ViewportWidth": 1920,
+        "ViewportHeight": 1080,
+        "Timeout": 30000
+      },
+      "Api": {
+        "Timeout": 30000,
+        "RetryCount": 3,
+        "RetryDelay": 1000
+      },
+      "Logging": {
+        "Level": "Information"
+      },
+      "Reporting": {
+        "Format": "Html",
+        "IncludeScreenshots": true
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: automation-framework
+data:
+  nginx.conf: |
+    events {
+        worker_connections 1024;
+    }
+    
+    http {
+        upstream automation-framework {
+            server automation-framework-service:8080;
+        }
+        
+        server {
+            listen 80;
+            server_name _;
+            
+            location / {
+                proxy_pass http://automation-framework;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+            
+            location /health {
+                access_log off;
+                return 200 "healthy\n";
+                add_header Content-Type text/plain;
+            }
+        }
+    }

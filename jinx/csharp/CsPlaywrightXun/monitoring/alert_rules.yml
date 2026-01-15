@@ -1,0 +1,174 @@
+# Prometheus Alert Rules for Enterprise Automation Framework
+groups:
+- name: automation-framework.rules
+  rules:
+  # Application Health Alerts
+  - alert: AutomationFrameworkDown
+    expr: up{job="automation-framework"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Automation Framework is down"
+      description: "Automation Framework has been down for more than 1 minute."
+
+  - alert: HighTestFailureRate
+    expr: (test_failures_total / test_executions_total) * 100 > 20
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High test failure rate detected"
+      description: "Test failure rate is {{ $value }}% over the last 5 minutes."
+
+  - alert: TestExecutionTimeout
+    expr: test_execution_duration_seconds > 300
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Test execution taking too long"
+      description: "Test execution has been running for {{ $value }} seconds."
+
+  - alert: BrowserCrashDetected
+    expr: increase(browser_crash_total[5m]) > 0
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Browser crash detected"
+      description: "{{ $value }} browser crashes detected in the last 5 minutes."
+
+  # System Resource Alerts
+  - alert: HighCPUUsage
+    expr: (100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)) > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU usage detected"
+      description: "CPU usage is {{ $value }}% on {{ $labels.instance }}."
+
+  - alert: HighMemoryUsage
+    expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High memory usage detected"
+      description: "Memory usage is {{ $value }}% on {{ $labels.instance }}."
+
+  - alert: DiskSpaceLow
+    expr: (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes)) * 100 > 90
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Disk space is running low"
+      description: "Disk usage is {{ $value }}% on {{ $labels.instance }}."
+
+  # Database Alerts
+  - alert: PostgreSQLDown
+    expr: up{job="postgres-exporter"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "PostgreSQL is down"
+      description: "PostgreSQL database has been down for more than 1 minute."
+
+  - alert: PostgreSQLTooManyConnections
+    expr: pg_stat_database_numbackends / pg_settings_max_connections * 100 > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "PostgreSQL has too many connections"
+      description: "PostgreSQL connection usage is {{ $value }}%."
+
+  # Redis Alerts
+  - alert: RedisDown
+    expr: up{job="redis-exporter"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Redis is down"
+      description: "Redis cache has been down for more than 1 minute."
+
+  - alert: RedisHighMemoryUsage
+    expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 90
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Redis memory usage is high"
+      description: "Redis memory usage is {{ $value }}%."
+
+  # Network and Load Balancer Alerts
+  - alert: NginxDown
+    expr: up{job="nginx"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Nginx is down"
+      description: "Nginx load balancer has been down for more than 1 minute."
+
+  - alert: HighResponseTime
+    expr: nginx_http_request_duration_seconds{quantile="0.95"} > 2
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High response time detected"
+      description: "95th percentile response time is {{ $value }} seconds."
+
+  # Test Execution Alerts
+  - alert: NoTestsExecuted
+    expr: increase(test_executions_total[1h]) == 0
+    for: 1h
+    labels:
+      severity: warning
+    annotations:
+      summary: "No tests executed in the last hour"
+      description: "No test executions detected in the last hour."
+
+  - alert: TestQueueBacklog
+    expr: test_queue_size > 100
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Test queue backlog detected"
+      description: "Test queue has {{ $value }} pending tests."
+
+- name: automation-framework.critical
+  rules:
+  # Critical Production Alerts
+  - alert: ProductionTestFailure
+    expr: test_failures_total{environment="production"} > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Production test failure detected"
+      description: "{{ $value }} test failures detected in production environment."
+
+  - alert: SecurityTestFailure
+    expr: security_test_failures_total > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Security test failure detected"
+      description: "{{ $value }} security test failures detected."
+
+  - alert: DataIntegrityTestFailure
+    expr: data_integrity_test_failures_total > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Data integrity test failure detected"
+      description: "{{ $value }} data integrity test failures detected."

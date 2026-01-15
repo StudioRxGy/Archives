@@ -1,0 +1,414 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+        - test
+        - staging
+        - production
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  NODE_VERSION: '18.x'
+
+jobs:
+  # 代码质量检查
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore CsPlaywrightXun.slnx
+      
+    - name: Build solution
+      run: dotnet build CsPlaywrightXun.slnx --no-restore --configuration Release
+      
+    - name: Run code analysis
+      run: |
+        dotnet format --verify-no-changes --verbosity diagnostic
+        
+    - name: Security scan
+      uses: securecodewarrior/github-action-add-sarif@v1
+      with:
+        sarif-file: 'security-scan-results.sarif'
+      continue-on-error: true
+
+  # 单元测试
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: code-quality
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore CsPlaywrightXun.slnx
+      
+    - name: Build solution
+      run: dotnet build CsPlaywrightXun.slnx --no-restore --configuration Release
+      
+    - name: Run unit tests
+      run: |
+        dotnet test CsPlaywrightXun.slnx \
+          --no-build \
+          --configuration Release \
+          --filter "Category=Unit" \
+          --logger "trx;LogFileName=unit-test-results.trx" \
+          --logger "html;LogFileName=unit-test-results.html" \
+          --collect:"XPlat Code Coverage" \
+          --results-directory ./TestResults
+          
+    - name: Upload unit test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: unit-test-results
+        path: ./TestResults/
+        
+    - name: Publish test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Unit Test Results
+        path: './TestResults/*.trx'
+        reporter: dotnet-trx
+
+  # API 测试
+  api-tests:
+    name: API Tests
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    
+    services:
+      # 如果需要数据库或其他服务，在这里定义
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore CsPlaywrightXun.slnx
+      
+    - name: Build solution
+      run: dotnet build CsPlaywrightXun.slnx --no-restore --configuration Release
+      
+    - name: Run API tests
+      run: |
+        dotnet test CsPlaywrightXun.slnx \
+          --no-build \
+          --configuration Release \
+          --filter "Category=API" \
+          --logger "trx;LogFileName=api-test-results.trx" \
+          --logger "html;LogFileName=api-test-results.html" \
+          --results-directory ./TestResults
+          
+    - name: Upload API test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: api-test-results
+        path: ./TestResults/
+
+  # UI 测试
+  ui-tests:
+    name: UI Tests
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+        
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore CsPlaywrightXun.slnx
+      
+    - name: Build solution
+      run: dotnet build CsPlaywrightXun.slnx --no-restore --configuration Release
+      
+    - name: Install Playwright browsers
+      run: |
+        dotnet tool install --global Microsoft.Playwright.CLI
+        playwright install ${{ matrix.browser }}
+        playwright install-deps ${{ matrix.browser }}
+        
+    - name: Run UI tests
+      run: |
+        dotnet test CsPlaywrightXun.slnx \
+          --no-build \
+          --configuration Release \
+          --filter "Category=UI" \
+          --logger "trx;LogFileName=ui-test-results-${{ matrix.browser }}.trx" \
+          --logger "html;LogFileName=ui-test-results-${{ matrix.browser }}.html" \
+          --results-directory ./TestResults \
+          -- TestRunParameters.Parameter\(name=Browser,value=${{ matrix.browser }}\)
+          
+    - name: Upload UI test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: ui-test-results-${{ matrix.browser }}
+        path: ./TestResults/
+        
+    - name: Upload screenshots
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: screenshots-${{ matrix.browser }}
+        path: ./screenshots/
+
+  # 集成测试
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [api-tests, ui-tests]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore CsPlaywrightXun.slnx
+      
+    - name: Build solution
+      run: dotnet build CsPlaywrightXun.slnx --no-restore --configuration Release
+      
+    - name: Install Playwright browsers
+      run: |
+        dotnet tool install --global Microsoft.Playwright.CLI
+        playwright install chromium
+        playwright install-deps chromium
+        
+    - name: Run integration tests
+      run: |
+        dotnet test CsPlaywrightXun.slnx \
+          --no-build \
+          --configuration Release \
+          --filter "Category=Integration" \
+          --logger "trx;LogFileName=integration-test-results.trx" \
+          --logger "html;LogFileName=integration-test-results.html" \
+          --results-directory ./TestResults
+          
+    - name: Upload integration test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: integration-test-results
+        path: ./TestResults/
+
+  # 构建 Docker 镜像
+  build-docker:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [code-quality]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Login to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ghcr.io/${{ github.repository }}/automation-framework
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+          
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./docker/Dockerfile
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # 生成测试报告
+  generate-reports:
+    name: Generate Test Reports
+    runs-on: ubuntu-latest
+    needs: [unit-tests, api-tests, ui-tests, integration-tests]
+    if: always()
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download all test results
+      uses: actions/download-artifact@v4
+      with:
+        path: ./all-test-results/
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        
+    - name: Install Allure CLI
+      run: npm install -g allure-commandline
+      
+    - name: Generate Allure report
+      run: |
+        mkdir -p allure-results
+        # 复制所有测试结果到 allure-results 目录
+        find ./all-test-results -name "*.trx" -exec cp {} ./allure-results/ \;
+        
+        # 生成 Allure 报告
+        allure generate allure-results --clean -o allure-report
+        
+    - name: Upload Allure report
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: ./allure-report/
+        
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
+        destination_dir: test-reports
+
+  # 部署到测试环境
+  deploy-test:
+    name: Deploy to Test Environment
+    runs-on: ubuntu-latest
+    needs: [build-docker, integration-tests]
+    if: github.ref == 'refs/heads/develop' || github.event.inputs.environment == 'test'
+    environment: test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to test environment
+      run: |
+        echo "Deploying to test environment..."
+        # 这里添加实际的部署脚本
+        ./scripts/deploy.sh test
+        
+    - name: Run smoke tests
+      run: |
+        echo "Running smoke tests..."
+        # 运行冒烟测试验证部署
+        dotnet test CsPlaywrightXun.slnx \
+          --filter "Category=Smoke" \
+          --logger "console;verbosity=detailed"
+
+  # 部署到预发布环境
+  deploy-staging:
+    name: Deploy to Staging Environment
+    runs-on: ubuntu-latest
+    needs: [build-docker, integration-tests]
+    if: github.ref == 'refs/heads/main' || github.event.inputs.environment == 'staging'
+    environment: staging
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to staging environment
+      run: |
+        echo "Deploying to staging environment..."
+        ./scripts/deploy.sh staging
+        
+    - name: Run smoke tests
+      run: |
+        echo "Running smoke tests..."
+        dotnet test CsPlaywrightXun.slnx \
+          --filter "Category=Smoke" \
+          --logger "console;verbosity=detailed"
+
+  # 部署到生产环境
+  deploy-production:
+    name: Deploy to Production Environment
+    runs-on: ubuntu-latest
+    needs: [deploy-staging]
+    if: github.event.inputs.environment == 'production'
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to production environment
+      run: |
+        echo "Deploying to production environment..."
+        ./scripts/deploy.sh production
+        
+    - name: Run smoke tests
+      run: |
+        echo "Running smoke tests..."
+        dotnet test CsPlaywrightXun.slnx \
+          --filter "Category=Smoke" \
+          --logger "console;verbosity=detailed"
+        
+    - name: Notify deployment success
+      if: success()
+      run: |
+        echo "Production deployment successful!"
+        # 这里可以添加通知逻辑，如发送邮件或Slack消息

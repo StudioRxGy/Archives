@@ -1,0 +1,75 @@
+# Root Git ignore (merged for api-for-nopcommerce and nopCommerce)
+
+# General VS/Build
+.vs/
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+*.log
+*.binlog
+
+# Rider / VS Code / IDE
+.idea/
+.vscode/
+*.sln.iml
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+coverage*/
+
+# NuGet
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nupkg
+*.snupkg
+
+# Publish artifacts
+publish/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# nopCommerce specifics
+nopCommerce/src/Presentation/Nop.Web/.config/*
+nopCommerce/src/Presentation/Nop.Web/App_Data/Gmail/AuthStore/*
+!nopCommerce/src/Presentation/Nop.Web/App_Data/Gmail/AuthStore/Index.htm
+nopCommerce/src/Presentation/Nop.Web/App_Data/installedPlugins.json
+nopCommerce/src/Presentation/Nop.Web/App_Data/plugins.json
+nopCommerce/src/Presentation/Nop.Web/App_Data/dataSettings.json
+nopCommerce/src/Presentation/Nop.Web/App_Data/appsettings.json
+nopCommerce/src/Presentation/Nop.Web/App_Data/TempUploads/*
+!nopCommerce/src/Presentation/Nop.Web/App_Data/TempUploads/Index.htm
+nopCommerce/src/Presentation/Nop.Web/App_Data/DataProtectionKeys/*
+!nopCommerce/src/Presentation/Nop.Web/App_Data/DataProtectionKeys/Index.htm
+nopCommerce/src/Presentation/Nop.Web/node_modules/*
+nopCommerce/src/Presentation/Nop.Web/Plugins/*
+!nopCommerce/src/Presentation/Nop.Web/Plugins/Uploaded
+nopCommerce/src/Presentation/Nop.Web/Plugins/Uploaded/*
+!nopCommerce/src/Presentation/Nop.Web/Plugins/Uploaded/placeholder.txt
+nopCommerce/src/Presentation/Nop.Web/wwwroot/.well-known/*
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/.well-known/Index.htm
+nopCommerce/src/Presentation/Nop.Web/wwwroot/bundles/*
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/bundles/Index.htm
+nopCommerce/src/Presentation/Nop.Web/wwwroot/db_backups/*.bak
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/db_backups/Index.htm
+nopCommerce/src/Presentation/Nop.Web/wwwroot/images/thumbs/*
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/images/thumbs/placeholder.txt
+nopCommerce/src/Presentation/Nop.Web/wwwroot/images/uploaded/*
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/images/uploaded/placeholder.txt
+nopCommerce/src/Presentation/Nop.Web/wwwroot/files/exportimport/*
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/files/exportimport/Index.htm
+nopCommerce/src/Presentation/Nop.Web/wwwroot/lib_npm/cldr-data/main/*
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/lib_npm/cldr-data/main/en/
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/lib_npm/cldr-data/main/main.zip
+nopCommerce/src/Presentation/Nop.Web/wwwroot/sitemaps/*
+!nopCommerce/src/Presentation/Nop.Web/wwwroot/sitemaps/Index.htm
+
+# api-for-nopcommerce specifics
+api-for-nopcommerce/ClientApp/Properties/launchSettings.json
+
+
