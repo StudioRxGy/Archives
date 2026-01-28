@@ -1,0 +1,416 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: automation-framework
+  namespace: automation-framework
+  labels:
+    app: automation-framework
+    version: "${VERSION}"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: automation-framework
+  template:
+    metadata:
+      labels:
+        app: automation-framework
+        version: "${VERSION}"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      imagePullSecrets:
+      - name: docker-registry-secret
+      containers:
+      - name: automation-framework
+        image: ${DOCKER_REGISTRY}/${IMAGE_NAME}:IMAGE_TAG
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        envFrom:
+        - configMapRef:
+            name: automation-framework-config
+        env:
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: automation-framework-secrets
+              key: database-password
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: automation-framework-secrets
+              key: redis-password
+        - name: BUILD_VERSION
+          value: "${VERSION}"
+        - name: DEPLOYMENT_TIMESTAMP
+          value: "${DEPLOYMENT_TIMESTAMP}"
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2
+            memory: 4Gi
+        livenessProbe:
+          exec:
+            command:
+            - dotnet
+            - --info
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - dotnet
+            - --info
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: reports-volume
+          mountPath: /app/reports
+        - name: logs-volume
+          mountPath: /app/logs
+        - name: screenshots-volume
+          mountPath: /app/screenshots
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: config-volume
+        configMap:
+          name: automation-framework-config
+      - name: reports-volume
+        persistentVolumeClaim:
+          claimName: reports-pvc
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: logs-pvc
+      - name: screenshots-volume
+        persistentVolumeClaim:
+          claimName: screenshots-pvc
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - key: "automation-workload"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-runner
+  namespace: automation-framework
+  labels:
+    app: test-runner
+    version: "${VERSION}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-runner
+  template:
+    metadata:
+      labels:
+        app: test-runner
+        version: "${VERSION}"
+    spec:
+      imagePullSecrets:
+      - name: docker-registry-secret
+      containers:
+      - name: test-runner
+        image: ${DOCKER_REGISTRY}/enterprise-automation-test-runner:IMAGE_TAG
+        imagePullPolicy: Always
+        env:
+        - name: DOTNET_ENVIRONMENT
+          value: "Test"
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: automation-framework-config
+              key: test-environment
+        - name: TEST_CATEGORY
+          value: "Unit"
+        - name: BROWSER
+          value: "chromium"
+        - name: PARALLEL
+          value: "true"
+        - name: BUILD_VERSION
+          value: "${VERSION}"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /tests/config
+          readOnly: true
+        - name: reports-volume
+          mountPath: /tests/reports
+        - name: logs-volume
+          mountPath: /tests/logs
+        - name: screenshots-volume
+          mountPath: /tests/screenshots
+        - name: allure-results-volume
+          mountPath: /tests/allure-results
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+      volumes:
+      - name: config-volume
+        configMap:
+          name: automation-framework-config
+      - name: reports-volume
+        persistentVolumeClaim:
+          claimName: reports-pvc
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: logs-pvc
+      - name: screenshots-volume
+        persistentVolumeClaim:
+          claimName: screenshots-pvc
+      - name: allure-results-volume
+        persistentVolumeClaim:
+          claimName: allure-results-pvc
+      nodeSelector:
+        kubernetes.io/os: linux
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-proxy
+  namespace: automation-framework
+  labels:
+    app: nginx-proxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-proxy
+  template:
+    metadata:
+      labels:
+        app: nginx-proxy
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: reports-volume
+          mountPath: /usr/share/nginx/html
+          readOnly: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+      - name: reports-volume
+        persistentVolumeClaim:
+          claimName: reports-pvc
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ui-test-job-${VERSION}
+  namespace: automation-framework
+  labels:
+    app: ui-test-job
+    test-type: ui
+    version: "${VERSION}"
+spec:
+  parallelism: 3
+  completions: 3
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels:
+        app: ui-test-job
+        test-type: ui
+        version: "${VERSION}"
+    spec:
+      imagePullSecrets:
+      - name: docker-registry-secret
+      containers:
+      - name: ui-test-runner
+        image: ${DOCKER_REGISTRY}/enterprise-automation-test-runner:IMAGE_TAG
+        imagePullPolicy: Always
+        env:
+        - name: DOTNET_ENVIRONMENT
+          value: "Test"
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: automation-framework-config
+              key: test-environment
+        - name: TEST_CATEGORY
+          value: "UI"
+        - name: BROWSER
+          value: "chromium"
+        - name: PARALLEL
+          value: "false"
+        - name: BUILD_VERSION
+          value: "${VERSION}"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /tests/config
+          readOnly: true
+        - name: reports-volume
+          mountPath: /tests/reports
+        - name: logs-volume
+          mountPath: /tests/logs
+        - name: screenshots-volume
+          mountPath: /tests/screenshots
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+      volumes:
+      - name: config-volume
+        configMap:
+          name: automation-framework-config
+      - name: reports-volume
+        persistentVolumeClaim:
+          claimName: reports-pvc
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: logs-pvc
+      - name: screenshots-volume
+        persistentVolumeClaim:
+          claimName: screenshots-pvc
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/os: linux
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-test-job-${VERSION}
+  namespace: automation-framework
+  labels:
+    app: api-test-job
+    test-type: api
+    version: "${VERSION}"
+spec:
+  parallelism: 2
+  completions: 2
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels:
+        app: api-test-job
+        test-type: api
+        version: "${VERSION}"
+    spec:
+      imagePullSecrets:
+      - name: docker-registry-secret
+      containers:
+      - name: api-test-runner
+        image: ${DOCKER_REGISTRY}/enterprise-automation-test-runner:IMAGE_TAG
+        imagePullPolicy: Always
+        env:
+        - name: DOTNET_ENVIRONMENT
+          value: "Test"
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: automation-framework-config
+              key: test-environment
+        - name: TEST_CATEGORY
+          value: "API"
+        - name: PARALLEL
+          value: "true"
+        - name: BUILD_VERSION
+          value: "${VERSION}"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /tests/config
+          readOnly: true
+        - name: reports-volume
+          mountPath: /tests/reports
+        - name: logs-volume
+          mountPath: /tests/logs
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+      volumes:
+      - name: config-volume
+        configMap:
+          name: automation-framework-config
+      - name: reports-volume
+        persistentVolumeClaim:
+          claimName: reports-pvc
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: logs-pvc
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/os: linux

@@ -1,0 +1,58 @@
+# Docker Compose override for Development environment
+version: '3.8'
+
+services:
+  automation-framework:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_ENVIRONMENT=Development
+      - HEADLESS=false
+      - BROWSER_TYPE=chromium
+      - LOG_LEVEL=Debug
+    ports:
+      - "8080:8080"
+      - "5000:5000"  # Debug port
+    volumes:
+      - ./CsPlaywrightXun/src:/app/src:ro
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+      - ./screenshots:/app/screenshots
+    command: >
+      sh -c "
+        echo 'Starting Development Environment...' &&
+        dotnet watch run --project /app/src
+      "
+
+  # Development database with sample data
+  test-database:
+    environment:
+      POSTGRES_DB: testdata_dev
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+    volumes:
+      - ./scripts/dev-data.sql:/docker-entrypoint-initdb.d/dev-data.sql
+
+  # Enable all monitoring services in development
+  prometheus:
+    profiles: ["monitoring"]
+    
+  grafana:
+    profiles: ["monitoring"]
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=devpass
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+
+  # Development tools
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin-dev
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@dev.com
+      PGADMIN_DEFAULT_PASSWORD: devpass
+    ports:
+      - "5050:80"
+    depends_on:
+      - test-database
+    networks:
+      - automation-network
+    profiles: ["tools"]

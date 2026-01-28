@@ -1,0 +1,45 @@
+Astralsec线上环境
+https://www.astralsec.com/
+
+user name：1780439698@qq.com
+pass word：Hao121701
+
+券商客户端web地址：
+http://www.ast1001.com
+
+user name：10001@1.com
+pass word：123Abc456
+
+user name：1780439698@qq.com
+pass word：Test12345
+UID：97832149
+资金密码：test1234
+GA：HHAKB6KK67FPOP4R
+
+1@123.com
+Test1234
+
+gts后台
+http://gts.ast1001.com
+user name：jinx@test.com
+pass word：1
+
+OrgApi key：ewKERpTbE5wsl2doZeJlKdddmwcsIgQJvxkhY32hwt42SbEx4PaiWv8i7GrFXXmJ
+secretKey：6gl88oqmYGJqdZxG3OsotLp4i10G1Dp9q2HTGCTgQRADN53XEBjzU97Demp0FZiu
+
+user name：dexiang.deng@apple1900.com
+pass word：1
+
+bos后台
+http://bos.ast1001.com
+
+风控后台
+http://brfront.apple1900.top
+http://brfront.ast1001.com
+user name：admin
+pass word：123456789
+
+wiki地址のvpn地址
+http://wiki.apple1900.com
+user name：jinx
+pass word：123456AA

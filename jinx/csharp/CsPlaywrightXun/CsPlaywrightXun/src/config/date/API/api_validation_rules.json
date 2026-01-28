@@ -1,0 +1,36 @@
+[
+  {
+    "testName": "基础响应验证规则",
+    "expectedStatusCodes": [200, 201, 202],
+    "maxResponseTimeMs": 5000,
+    "requiredHeaders": {
+      "Content-Type": "text/html"
+    },
+    "contentContainsList": ["百度", "搜索"],
+    "contentNotContainsList": ["error", "404", "500"],
+    "description": "基础的API响应验证规则，适用于大多数成功的API调用"
+  },
+  {
+    "testName": "性能验证规则",
+    "expectedStatusCode": 200,
+    "maxResponseTimeMs": 3000,
+    "minResponseTimeMs": 100,
+    "description": "专门用于性能测试的验证规则，要求响应时间在100ms-3000ms之间"
+  },
+  {
+    "testName": "内容验证规则",
+    "expectedStatusCode": 200,
+    "contentRegex": ".*搜索.*",
+    "requiredHeaders": {
+      "Content-Type": "text/html"
+    },
+    "description": "专门用于内容验证的规则，使用正则表达式验证响应内容"
+  },
+  {
+    "testName": "错误处理验证规则",
+    "expectedStatusCodes": [400, 404, 500],
+    "maxResponseTimeMs": 10000,
+    "contentNotContainsList": ["success", "ok"],
+    "description": "用于验证错误响应的规则"
+  }
+]

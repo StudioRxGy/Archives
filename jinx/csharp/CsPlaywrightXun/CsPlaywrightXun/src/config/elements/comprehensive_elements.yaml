@@ -1,0 +1,54 @@
+HomePage:
+  SearchBox:
+    selector: "#kw"
+    type: Input
+    timeout: 5000
+    attributes:
+      placeholder: "请输入搜索关键词"
+      maxlength: "255"
+  SearchButton:
+    selector: "#su"
+    type: Button
+    timeout: 5000
+    attributes:
+      value: "百度一下"
+  SearchResults:
+    selector: ".result"
+    type: Text
+    timeout: 10000
+    attributes:
+      class: "result"
+  SearchResultTitle:
+    selector: ".result h3 a"
+    type: Link
+    timeout: 8000
+  SearchResultCount:
+    selector: ".nums_text"
+    type: Text
+    timeout: 5000
+  Logo:
+    selector: "#lg"
+    type: Image
+    timeout: 3000
+  NavigationBar:
+    selector: "#nv"
+    type: Navigation
+    timeout: 3000
+
+SearchResultsPage:
+  ResultContainer:
+    selector: "#content_left"
+    type: Container
+    timeout: 10000
+  ResultItems:
+    selector: ".result.c-container"
+    type: List
+    timeout: 8000
+  NextPageButton:
+    selector: "#page .n"
+    type: Button
+    timeout: 5000
+  PageNumbers:
+    selector: "#page a"
+    type: Link
+    timeout: 5000

@@ -1,0 +1,408 @@
+# Docker Compose configuration for CI/CD environments
+# Optimized for automated testing and deployment pipelines
+
+version: '3.8'
+
+services:
+  # Framework service for CI/CD
+  automation-framework-ci:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runtime
+      cache_from:
+        - ${DOCKER_REGISTRY:-ghcr.io}/enterprise-automation-framework:latest
+    image: ${DOCKER_REGISTRY:-ghcr.io}/enterprise-automation-framework:${VERSION:-latest}
+    container_name: automation-framework-ci
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - HEADLESS=true
+      - BROWSER_TYPE=${BROWSER:-chromium}
+      - CI=true
+      - PARALLEL_TESTS=${PARALLEL_TESTS:-true}
+    volumes:
+      - ci_reports:/app/reports
+      - ci_logs:/app/logs
+      - ci_screenshots:/app/screenshots
+      - ../CsPlaywrightXun/src/config:/app/config:ro
+    networks:
+      - ci-network
+    healthcheck:
+      test: ["CMD", "dotnet", "--info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Test runner for CI/CD
+  test-runner-ci:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.test-runner
+      cache_from:
+        - ${DOCKER_REGISTRY:-ghcr.io}/enterprise-automation-test-runner:latest
+    image: ${DOCKER_REGISTRY:-ghcr.io}/enterprise-automation-test-runner:${VERSION:-latest}
+    container_name: test-runner-ci
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=${TEST_CATEGORY:-Unit}
+      - BROWSER=${BROWSER:-chromium}
+      - PARALLEL=${PARALLEL_TESTS:-true}
+      - CI=true
+      - DISPLAY=:99
+      - PLAYWRIGHT_BROWSERS_PATH=/tests/.playwright
+    volumes:
+      - ../CsPlaywrightXun/src/config:/tests/config:ro
+      - ci_reports:/tests/reports
+      - ci_logs:/tests/logs
+      - ci_screenshots:/tests/screenshots
+      - ci_allure_results:/tests/allure-results
+      - ci_coverage:/tests/coverage
+    networks:
+      - ci-network
+    depends_on:
+      automation-framework-ci:
+        condition: service_healthy
+    profiles:
+      - testing
+      - ci
+
+  # Unit test runner
+  unit-test-runner:
+    extends: test-runner-ci
+    container_name: unit-test-runner
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=Unit
+      - PARALLEL=true
+      - CI=true
+    profiles:
+      - unit-testing
+      - ci
+
+  # API test runner
+  api-test-runner:
+    extends: test-runner-ci
+    container_name: api-test-runner
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=API
+      - PARALLEL=true
+      - CI=true
+    profiles:
+      - api-testing
+      - ci
+
+  # UI test runners for different browsers
+  ui-test-chromium:
+    extends: test-runner-ci
+    container_name: ui-test-chromium
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=UI
+      - BROWSER=chromium
+      - PARALLEL=false
+      - CI=true
+      - DISPLAY=:99
+    profiles:
+      - ui-testing
+      - ci
+
+  ui-test-firefox:
+    extends: test-runner-ci
+    container_name: ui-test-firefox
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=UI
+      - BROWSER=firefox
+      - PARALLEL=false
+      - CI=true
+      - DISPLAY=:99
+    profiles:
+      - ui-testing
+      - ci
+
+  ui-test-webkit:
+    extends: test-runner-ci
+    container_name: ui-test-webkit
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=UI
+      - BROWSER=webkit
+      - PARALLEL=false
+      - CI=true
+      - DISPLAY=:99
+    profiles:
+      - ui-testing
+      - ci
+
+  # Integration test runner
+  integration-test-runner:
+    extends: test-runner-ci
+    container_name: integration-test-runner
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=Integration
+      - PARALLEL=false
+      - CI=true
+    profiles:
+      - integration-testing
+      - ci
+
+  # Performance test runner
+  performance-test-runner:
+    extends: test-runner-ci
+    container_name: performance-test-runner
+    environment:
+      - DOTNET_ENVIRONMENT=${ENVIRONMENT:-Test}
+      - ENVIRONMENT=${ENVIRONMENT:-test}
+      - TEST_CATEGORY=Performance
+      - PARALLEL=false
+      - CI=true
+    profiles:
+      - performance-testing
+      - ci
+
+  # Report aggregator service
+  report-aggregator:
+    image: node:18-alpine
+    container_name: report-aggregator
+    working_dir: /reports
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ci_reports:/reports/input
+      - ci_reports:/reports/output
+      - ./scripts/report-aggregator.js:/scripts/report-aggregator.js:ro
+    command: |
+      sh -c "
+        npm install -g allure-commandline junit-report-merger html-reporter &&
+        node /scripts/report-aggregator.js
+      "
+    networks:
+      - ci-network
+    depends_on:
+      - test-runner-ci
+    profiles:
+      - reporting
+      - ci
+
+  # Nginx for serving reports in CI
+  report-server-ci:
+    image: nginx:alpine
+    container_name: report-server-ci
+    ports:
+      - "${REPORT_PORT:-8081}:80"
+    volumes:
+      - ci_reports:/usr/share/nginx/html:ro
+      - ./nginx-ci.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - ci-network
+    profiles:
+      - reporting
+      - ci
+
+  # SonarQube scanner for code quality
+  sonar-scanner:
+    image: sonarsource/sonar-scanner-cli:latest
+    container_name: sonar-scanner
+    environment:
+      - SONAR_HOST_URL=${SONAR_HOST_URL:-https://sonarcloud.io}
+      - SONAR_LOGIN=${SONAR_TOKEN}
+      - SONAR_PROJECT_KEY=${SONAR_PROJECT_KEY}
+      - SONAR_ORGANIZATION=${SONAR_ORGANIZATION}
+    volumes:
+      - ..:/usr/src:ro
+      - ci_sonar_cache:/opt/sonar-scanner/.sonar/cache
+    working_dir: /usr/src
+    networks:
+      - ci-network
+    profiles:
+      - code-quality
+      - ci
+
+  # Security scanner
+  security-scanner:
+    image: aquasec/trivy:latest
+    container_name: security-scanner
+    environment:
+      - TRIVY_CACHE_DIR=/cache
+      - TRIVY_DB_REPOSITORY=ghcr.io/aquasecurity/trivy-db
+    volumes:
+      - ..:/workspace:ro
+      - ci_security_cache:/cache
+      - ci_reports:/reports
+    working_dir: /workspace
+    command: |
+      sh -c "
+        trivy fs --format json --output /reports/security-scan.json . &&
+        trivy fs --format sarif --output /reports/security-scan.sarif .
+      "
+    networks:
+      - ci-network
+    profiles:
+      - security
+      - ci
+
+  # Database for test data (optional)
+  test-database-ci:
+    image: postgres:15-alpine
+    container_name: test-database-ci
+    environment:
+      POSTGRES_DB: ${TEST_DB_NAME:-testdata}
+      POSTGRES_USER: ${TEST_DB_USER:-testuser}
+      POSTGRES_PASSWORD: ${TEST_DB_PASSWORD:-testpass}
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    ports:
+      - "${TEST_DB_PORT:-5433}:5432"
+    volumes:
+      - ci_postgres_data:/var/lib/postgresql/data
+      - ../scripts/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+    networks:
+      - ci-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${TEST_DB_USER:-testuser} -d ${TEST_DB_NAME:-testdata}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles:
+      - database
+      - ci
+
+  # Redis for caching test data
+  redis-ci:
+    image: redis:7-alpine
+    container_name: redis-ci
+    ports:
+      - "${REDIS_PORT:-6380}:6379"
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - ci_redis_data:/data
+    networks:
+      - ci-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    profiles:
+      - cache
+      - ci
+
+  # Mock API server for testing
+  mock-api-server:
+    image: mockserver/mockserver:latest
+    container_name: mock-api-server
+    ports:
+      - "${MOCK_API_PORT:-1080}:1080"
+    environment:
+      MOCKSERVER_PROPERTY_FILE: /config/mockserver.properties
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/mock-expectations.json
+    volumes:
+      - ../CsPlaywrightXun/src/config/mock-api:/config:ro
+    networks:
+      - ci-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:1080/mockserver/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    profiles:
+      - mock-api
+      - ci
+
+  # Selenium Grid Hub for distributed testing
+  selenium-hub-ci:
+    image: selenium/hub:4.15.0
+    container_name: selenium-hub-ci
+    ports:
+      - "${SELENIUM_HUB_PORT:-4444}:4444"
+      - "4442:4442"
+      - "4443:4443"
+    environment:
+      - GRID_MAX_SESSION=16
+      - GRID_BROWSER_TIMEOUT=300
+      - GRID_TIMEOUT=300
+      - GRID_NEW_SESSION_WAIT_TIMEOUT=10
+    networks:
+      - ci-network
+    profiles:
+      - selenium
+      - distributed-testing
+
+  # Chrome nodes for Selenium Grid
+  selenium-chrome-ci:
+    image: selenium/node-chrome:4.15.0
+    shm_size: 2gb
+    environment:
+      - HUB_HOST=selenium-hub-ci
+      - HUB_PORT=4444
+      - NODE_MAX_INSTANCES=2
+      - NODE_MAX_SESSION=2
+      - SE_EVENT_BUS_HOST=selenium-hub-ci
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks:
+      - ci-network
+    depends_on:
+      - selenium-hub-ci
+    profiles:
+      - selenium
+      - distributed-testing
+    deploy:
+      replicas: 2
+
+  # Firefox nodes for Selenium Grid
+  selenium-firefox-ci:
+    image: selenium/node-firefox:4.15.0
+    shm_size: 2gb
+    environment:
+      - HUB_HOST=selenium-hub-ci
+      - HUB_PORT=4444
+      - NODE_MAX_INSTANCES=2
+      - NODE_MAX_SESSION=2
+      - SE_EVENT_BUS_HOST=selenium-hub-ci
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    networks:
+      - ci-network
+    depends_on:
+      - selenium-hub-ci
+    profiles:
+      - selenium
+      - distributed-testing
+
+networks:
+  ci-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  ci_reports:
+    driver: local
+  ci_logs:
+    driver: local
+  ci_screenshots:
+    driver: local
+  ci_allure_results:
+    driver: local
+  ci_coverage:
+    driver: local
+  ci_postgres_data:
+    driver: local
+  ci_redis_data:
+    driver: local
+  ci_sonar_cache:
+    driver: local
+  ci_security_cache:
+    driver: local

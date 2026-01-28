@@ -1,0 +1,22 @@
+# Root Git attributes (merged for api-for-nopcommerce and nopCommerce)
+
+# Normalize text files by default
+* text=auto
+
+# Always use LF for shell scripts
+*.sh text eol=lf
+
+# Always use CRLF for Visual Studio solution and project files
+*.sln text eol=crlf
+*.csproj text eol=crlf
+
+# Binary assets should not be modified
+*.png -text
+*.jpg -text
+
+# Linguist hints
+nopCommerce/src/Presentation/Nop.Web/wwwroot/lib/** linguist-vendored
+nopCommerce/src/Presentation/Nop.Web/wwwroot/lib_npm/** linguist-vendored
+*.cshtml linguist-language=HTML
+
+

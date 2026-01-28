@@ -1,0 +1,81 @@
+# Prometheus configuration for Production environment
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+  external_labels:
+    cluster: 'automation-framework-prod'
+    environment: 'production'
+
+rule_files:
+  - "alert_rules.yml"
+  - "recording_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+      timeout: 10s
+      api_version: v2
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 60s
+
+  # Automation Framework application
+  - job_name: 'automation-framework'
+    static_configs:
+      - targets: ['automation-framework:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 15s
+    honor_labels: true
+
+  # High-frequency metrics for critical services
+  - job_name: 'automation-framework-critical'
+    static_configs:
+      - targets: ['automation-framework:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metric_relabel_configs:
+    - source_labels: [__name__]
+      regex: '(test_execution_duration|test_failure_rate|browser_crash_count)'
+      action: keep
+
+  # System metrics
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 30s
+
+  # Database metrics
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    scrape_interval: 30s
+
+  # Cache metrics
+  - job_name: 'redis-exporter'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    scrape_interval: 30s
+
+  # Load balancer metrics
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:9113']
+    scrape_interval: 30s
+
+remote_write:
+  - url: "https://prometheus-remote-write-endpoint/api/v1/write"
+    basic_auth:
+      username: "prometheus"
+      password: "remote-write-password"
+    queue_config:
+      max_samples_per_send: 1000
+      max_shards: 200
+      capacity: 2500

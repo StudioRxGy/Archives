@@ -1,0 +1,33 @@
+HomePage:
+  SearchBox:
+    selector: "#kw"
+    type: Input
+    timeout: 5000
+    attributes:
+      placeholder: "请输入搜索关键词"
+      maxlength: "100"
+  SearchButton:
+    selector: "#su"
+    type: Button
+    timeout: 5000
+  SearchResults:
+    selector: ".result"
+    type: Text
+    timeout: 10000
+
+LoginPage:
+  UsernameInput:
+    selector: "#username"
+    type: Input
+    timeout: 3000
+  PasswordInput:
+    selector: "#password"
+    type: Input
+    timeout: 3000
+  LoginButton:
+    selector: "#login-btn"
+    type: Button
+  RememberCheckbox:
+    selector: "#remember"
+    type: Checkbox
+    timeout: 2000

@@ -1,0 +1,38 @@
+[
+  {
+    "testName": "综合JSON测试1",
+    "searchQuery": "playwright comprehensive",
+    "expectedResultCount": 10,
+    "environment": "Development",
+    "isEnabled": true,
+    "testCategory": "Functional",
+    "priority": "High"
+  },
+  {
+    "testName": "综合JSON测试2",
+    "searchQuery": "自动化测试框架 comprehensive",
+    "expectedResultCount": 8,
+    "environment": "Development",
+    "isEnabled": true,
+    "testCategory": "Integration",
+    "priority": "Medium"
+  },
+  {
+    "testName": "综合JSON测试3",
+    "searchQuery": "C# UI测试 comprehensive",
+    "expectedResultCount": 15,
+    "environment": "Development",
+    "isEnabled": true,
+    "testCategory": "DataDriven",
+    "priority": "High"
+  },
+  {
+    "testName": "综合JSON测试4",
+    "searchQuery": "企业级自动化 comprehensive",
+    "expectedResultCount": 12,
+    "environment": "Development",
+    "isEnabled": false,
+    "testCategory": "Performance",
+    "priority": "Low"
+  }
+]

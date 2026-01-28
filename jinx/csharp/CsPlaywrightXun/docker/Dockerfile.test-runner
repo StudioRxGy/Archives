@@ -1,0 +1,200 @@
+# Enterprise Automation Framework - Test Runner Dockerfile
+# Specialized container for running automated tests
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+WORKDIR /tests
+
+# Install system dependencies for Playwright and testing
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    ca-certificates \
+    fonts-liberation \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libatspi2.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libwayland-client0 \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxrandr2 \
+    libxss1 \
+    libxtst6 \
+    lsb-release \
+    xdg-utils \
+    xvfb \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js for report generation tools
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Install global tools
+RUN npm install -g allure-commandline junit-report-merger && \
+    dotnet tool install --global Microsoft.Playwright.CLI && \
+    dotnet tool install --global trx2junit
+
+# Add tools to PATH
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+# Copy project files
+COPY ["CsPlaywrightXun/CsPlaywrightXun.csproj", "CsPlaywrightXun/"]
+COPY ["CsPlaywrightXun.slnx", "./"]
+
+# Restore dependencies
+RUN dotnet restore "CsPlaywrightXun/CsPlaywrightXun.csproj"
+
+# Copy source code
+COPY . .
+
+# Build the test project
+RUN dotnet build "CsPlaywrightXun/CsPlaywrightXun.csproj" -c Release
+
+# Install Playwright browsers
+RUN playwright install chromium firefox webkit && \
+    playwright install-deps
+
+# Create directories for test outputs
+RUN mkdir -p /tests/reports /tests/logs /tests/screenshots /tests/testdata /tests/allure-results
+
+# Copy test configuration and data
+COPY CsPlaywrightXun/src/config/ /tests/config/
+
+# Set environment variables
+ENV DOTNET_ENVIRONMENT=Test
+ENV PLAYWRIGHT_BROWSERS_PATH=/tests/.playwright
+ENV DISPLAY=:99
+
+# Create entrypoint script
+RUN cat > /tests/run-tests.sh << 'EOF'
+#!/bin/bash
+set -e
+
+# Start virtual display for UI tests
+Xvfb :99 -screen 0 1920x1080x24 &
+export DISPLAY=:99
+
+# Parse command line arguments
+ENVIRONMENT=${ENVIRONMENT:-test}
+TEST_CATEGORY=${TEST_CATEGORY:-""}
+BROWSER=${BROWSER:-chromium}
+OUTPUT_DIR=${OUTPUT_DIR:-/tests/reports}
+PARALLEL=${PARALLEL:-true}
+
+echo "Starting test execution..."
+echo "Environment: $ENVIRONMENT"
+echo "Test Category: $TEST_CATEGORY"
+echo "Browser: $BROWSER"
+echo "Output Directory: $OUTPUT_DIR"
+echo "Parallel Execution: $PARALLEL"
+
+# Build test filter
+FILTER=""
+if [ ! -z "$TEST_CATEGORY" ]; then
+    FILTER="--filter Category=$TEST_CATEGORY"
+fi
+
+# Set parallel execution
+PARALLEL_ARGS=""
+if [ "$PARALLEL" = "true" ]; then
+    PARALLEL_ARGS="--parallel"
+fi
+
+# Run tests
+dotnet test CsPlaywrightXun/CsPlaywrightXun.csproj \
+    --configuration Release \
+    --no-build \
+    $FILTER \
+    $PARALLEL_ARGS \
+    --logger "trx;LogFileName=test-results-$ENVIRONMENT-$TEST_CATEGORY-$BROWSER.trx" \
+    --logger "html;LogFileName=test-results-$ENVIRONMENT-$TEST_CATEGORY-$BROWSER.html" \
+    --collect:"XPlat Code Coverage" \
+    --results-directory "$OUTPUT_DIR" \
+    -- TestRunParameters.Parameter\(name=Environment,value=$ENVIRONMENT\) \
+    -- TestRunParameters.Parameter\(name=Browser,value=$BROWSER\)
+
+# Generate Allure report if allure-results exist
+if [ -d "/tests/allure-results" ] && [ "$(ls -A /tests/allure-results)" ]; then
+    echo "Generating Allure report..."
+    allure generate /tests/allure-results -o "$OUTPUT_DIR/allure-report" --clean
+fi
+
+# Convert TRX to JUnit format
+echo "Converting test results..."
+find "$OUTPUT_DIR" -name "*.trx" -exec trx2junit {} \;
+
+# Generate consolidated HTML report
+cat > "$OUTPUT_DIR/index.html" << 'HTML'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Results - Enterprise Automation Framework</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .header { background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .summary { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .links a { display: block; margin: 8px 0; padding: 12px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        .links a:hover { background-color: #0056b3; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6; color: #6c757d; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Enterprise Automation Framework - Test Results</h1>
+        <p><strong>Environment:</strong> '$ENVIRONMENT'</p>
+        <p><strong>Test Category:</strong> '$TEST_CATEGORY'</p>
+        <p><strong>Browser:</strong> '$BROWSER'</p>
+        <p><strong>Generated:</strong> $(date)</p>
+    </div>
+    <div class="summary">
+        <h2>Test Execution Summary</h2>
+        <p>Test execution completed. Individual reports are available below.</p>
+    </div>
+    <div class="links">
+        <h2>Available Reports</h2>
+HTML
+
+# Add links to available reports
+find "$OUTPUT_DIR" -name "*.html" -not -name "index.html" | while read file; do
+    filename=$(basename "$file")
+    echo "        <a href='$filename'>$filename</a>" >> "$OUTPUT_DIR/index.html"
+done
+
+if [ -d "$OUTPUT_DIR/allure-report" ]; then
+    echo "        <a href='allure-report/index.html'>Allure Report</a>" >> "$OUTPUT_DIR/index.html"
+fi
+
+cat >> "$OUTPUT_DIR/index.html" << 'HTML'
+    </div>
+    <div class="footer">
+        <p>Generated by Enterprise Automation Framework Test Runner</p>
+    </div>
+</body>
+</html>
+HTML
+
+echo "Test execution completed successfully!"
+echo "Reports available in: $OUTPUT_DIR"
+EOF
+
+# Make script executable
+RUN chmod +x /tests/run-tests.sh
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD dotnet --info || exit 1
+
+# Default command
+ENTRYPOINT ["/tests/run-tests.sh"]

@@ -1,0 +1,72 @@
+{
+  "Notifications": {
+    "Enabled": true,
+    "DefaultRecipients": [
+      "qa-team@company.com",
+      "dev-team@company.com"
+    ],
+    "Smtp": {
+      "Host": "smtp.company.com",
+      "Port": 587,
+      "EnableSsl": true,
+      "Username": "notifications@company.com",
+      "Password": "your-password-here",
+      "FromEmail": "notifications@company.com",
+      "FromDisplayName": "CsPlaywrightXun Test Automation",
+      "TimeoutSeconds": 30,
+      "MaxRetryAttempts": 3
+    },
+    "Rules": [
+      {
+        "Id": "test-start-notifications",
+        "Type": "TestStart",
+        "Recipients": [
+          "qa-lead@company.com"
+        ],
+        "IsEnabled": true,
+        "CooldownPeriod": "00:05:00",
+        "Conditions": {}
+      },
+      {
+        "Id": "test-success-notifications",
+        "Type": "TestSuccess",
+        "Recipients": [
+          "qa-team@company.com"
+        ],
+        "IsEnabled": true,
+        "Conditions": {}
+      },
+      {
+        "Id": "test-failure-notifications",
+        "Type": "TestFailure",
+        "Recipients": [
+          "qa-team@company.com",
+          "dev-team@company.com"
+        ],
+        "IsEnabled": true,
+        "Conditions": {}
+      },
+      {
+        "Id": "critical-failure-notifications",
+        "Type": "CriticalFailure",
+        "Recipients": [
+          "qa-lead@company.com",
+          "dev-lead@company.com",
+          "product-manager@company.com"
+        ],
+        "IsEnabled": true,
+        "Conditions": {}
+      },
+      {
+        "Id": "report-generated-notifications",
+        "Type": "ReportGenerated",
+        "Recipients": [
+          "qa-team@company.com",
+          "stakeholders@company.com"
+        ],
+        "IsEnabled": true,
+        "Conditions": {}
+      }
+    ]
+  }
+}

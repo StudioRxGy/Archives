@@ -1,0 +1,144 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>ec4d4a78-8863-46d9-8155-e14b2377b247</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>run.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>12306</Name>
+    <RootNamespace>12306</RootNamespace>
+    <InterpreterId>Global|PythonCore|3.7-32</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
+    <IsWindowsApplication>False</IsWindowsApplication>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.7-32" />
+    <InterpreterReference Include="Global|PythonCore|3.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".github\" />
+    <Folder Include=".github\ISSUE_TEMPLATE\" />
+    <Folder Include="agency\" />
+    <Folder Include="config\" />
+    <Folder Include="init\" />
+    <Folder Include="inter\" />
+    <Folder Include="myException\" />
+    <Folder Include="myUrllib\" />
+    <Folder Include="tmp\" />
+    <Folder Include="tmp\log\" />
+    <Folder Include="uml\" />
+    <Folder Include="UnitTest\" />
+    <Folder Include="verify\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".dockerignore" />
+    <Content Include=".github\ISSUE_TEMPLATE\bug_report.md" />
+    <Content Include=".github\ISSUE_TEMPLATE\feature_request.md" />
+    <Content Include=".gitignore" />
+    <Content Include="12306.image.model.h5" />
+    <Content Include="agency\proxy_list" />
+    <Content Include="cdn_list" />
+    <Content Include="docker-compose.yml" />
+    <Content Include="Dockerfile" />
+    <Content Include="Dockerfile37" />
+    <Content Include="docker_install_centos.sh" />
+    <Content Include="filter_cdn_list" />
+    <Content Include="LICENSE" />
+    <Content Include="model.v2.0.h5" />
+    <Content Include="README.md" />
+    <Content Include="requirements-docker37.txt" />
+    <Content Include="requirements.txt" />
+    <Content Include="station_name.txt" />
+    <Content Include="tkcode.png" />
+    <Content Include="uml\REIL_DEVICEID.png" />
+    <Content Include="uml\uml.png" />
+    <Content Include="uml\wx.jpeg" />
+    <Content Include="uml\zfb.jpeg" />
+    <Content Include="uml\登录.png" />
+    <Content Include="uml\程序主界面.png" />
+    <Content Include="Update.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="agency\agency_tools.py" />
+    <Compile Include="agency\cdn_utils.py" />
+    <Compile Include="agency\__init__.py" />
+    <Compile Include="config\AutoSynchroTime.py" />
+    <Compile Include="config\configCommon.py" />
+    <Compile Include="config\emailConf.py" />
+    <Compile Include="config\getCookie.py" />
+    <Compile Include="config\logger.py" />
+    <Compile Include="config\pushbearConf.py" />
+    <Compile Include="config\serverchanConf.py" />
+    <Compile Include="config\TicketEnmu.py" />
+    <Compile Include="config\urlConf.py" />
+    <Compile Include="config\__init__.py" />
+    <Compile Include="init\login.py" />
+    <Compile Include="init\select_ticket_info.py" />
+    <Compile Include="init\__init__.py" />
+    <Compile Include="inter\AutoSubmitOrderRequest.py" />
+    <Compile Include="inter\ChechFace.py" />
+    <Compile Include="inter\CheckOrderInfo.py" />
+    <Compile Include="inter\CheckRandCodeAnsyn.py" />
+    <Compile Include="inter\CheckUser.py" />
+    <Compile Include="inter\ConfirmHB.py" />
+    <Compile Include="inter\ConfirmSingleForQueue.py" />
+    <Compile Include="inter\ConfirmSingleForQueueAsys.py" />
+    <Compile Include="inter\GetPassCodeNewOrderAndLogin.py" />
+    <Compile Include="inter\GetPassengerDTOs.py" />
+    <Compile Include="inter\GetQueueCount.py" />
+    <Compile Include="inter\GetQueueCountAsync.py" />
+    <Compile Include="inter\GetRandCode.py" />
+    <Compile Include="inter\GetRepeatSubmitToken.py" />
+    <Compile Include="inter\GetSuccessRate.py" />
+    <Compile Include="inter\LiftTicketInit.py" />
+    <Compile Include="inter\LoginAysnSuggest.py" />
+    <Compile Include="inter\LoginConf.py" />
+    <Compile Include="inter\PassengerInitApi.py" />
+    <Compile Include="inter\Query.py" />
+    <Compile Include="inter\QueryOrderWaitTime.py" />
+    <Compile Include="inter\SubmitOrderRequest.py" />
+    <Compile Include="inter\__init__.py" />
+    <Compile Include="myException\balanceException.py" />
+    <Compile Include="myException\PassengerUserException.py" />
+    <Compile Include="myException\ticketConfigException.py" />
+    <Compile Include="myException\ticketIsExitsException.py" />
+    <Compile Include="myException\ticketNumOutException.py" />
+    <Compile Include="myException\UserPasswordException.py" />
+    <Compile Include="myException\__init__.py" />
+    <Compile Include="myUrllib\httpUtils.py" />
+    <Compile Include="myUrllib\MySocketUtils.py" />
+    <Compile Include="myUrllib\__init__.py" />
+    <Compile Include="run.py" />
+    <Compile Include="TickerConfig.py" />
+    <Compile Include="tmp\log\__init__.py" />
+    <Compile Include="tmp\__init__.py" />
+    <Compile Include="UnitTest\TestAll.py" />
+    <Compile Include="UnitTest\__init__.py" />
+    <Compile Include="verify\localVerifyCode.py" />
+    <Compile Include="verify\mlearn_for_image.py" />
+    <Compile Include="verify\pretreatment.py" />
+    <Compile Include="verify\__init__.py" />
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>

@@ -1,0 +1,554 @@
+# Azure DevOps Pipeline for Enterprise Automation Framework
+# Supports CI/CD with automated testing, Docker builds, and deployment
+
+trigger:
+  branches:
+    include:
+    - main
+    - develop
+  paths:
+    exclude:
+    - docs/*
+    - README.md
+
+pr:
+  branches:
+    include:
+    - main
+  paths:
+    exclude:
+    - docs/*
+    - README.md
+
+parameters:
+- name: environment
+  displayName: 'Target Environment'
+  type: string
+  default: 'test'
+  values:
+  - test
+  - staging
+  - production
+
+- name: runUITests
+  displayName: 'Run UI Tests'
+  type: boolean
+  default: true
+
+- name: browsers
+  displayName: 'Browsers for UI Testing'
+  type: object
+  default:
+  - chromium
+  - firefox
+  - webkit
+
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '8.0.x'
+  vmImageName: 'ubuntu-latest'
+  
+  # Version generation
+  ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+    buildVersion: 'pr-$(System.PullRequest.PullRequestNumber)-$(Build.SourceVersion)'
+  ${{ else }}:
+    buildVersion: '$(Build.BuildNumber)-$(Build.SourceVersion)'
+
+stages:
+# Stage 1: Build and Code Quality
+- stage: Build
+  displayName: 'Build and Code Quality'
+  jobs:
+  - job: CodeQuality
+    displayName: 'Code Quality Checks'
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - checkout: self
+      fetchDepth: 0
+
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore NuGet packages'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--no-restore --configuration $(buildConfiguration) -p:Version=$(buildVersion)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Code formatting check'
+      inputs:
+        command: 'custom'
+        custom: 'format'
+        arguments: '--verify-no-changes --verbosity diagnostic'
+
+    - task: SonarCloudPrepare@1
+      displayName: 'Prepare SonarCloud analysis'
+      inputs:
+        SonarCloud: 'SonarCloud'
+        organization: '$(sonarCloudOrganization)'
+        scannerMode: 'MSBuild'
+        projectKey: '$(sonarCloudProjectKey)'
+        projectName: 'Enterprise Automation Framework'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run SonarCloud analysis'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+
+    - task: SonarCloudAnalyze@1
+      displayName: 'Complete SonarCloud analysis'
+
+    - task: SonarCloudPublish@1
+      displayName: 'Publish SonarCloud results'
+      inputs:
+        pollingTimeoutSec: '300'
+
+  - job: BuildArtifacts
+    displayName: 'Build Artifacts'
+    dependsOn: CodeQuality
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - checkout: self
+
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        arguments: '--no-restore --configuration $(buildConfiguration) -p:Version=$(buildVersion)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish framework'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'CsPlaywrightXun/CsPlaywrightXun.csproj'
+        arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/framework -p:Version=$(buildVersion)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Create NuGet package'
+      inputs:
+        command: 'pack'
+        packagesToPack: 'CsPlaywrightXun/CsPlaywrightXun.csproj'
+        arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/packages -p:PackageVersion=$(buildVersion)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish build artifacts'
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'build-artifacts'
+
+# Stage 2: Testing
+- stage: Test
+  displayName: 'Automated Testing'
+  dependsOn: Build
+  jobs:
+  - job: UnitTests
+    displayName: 'Unit Tests'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      matrix:
+        TestEnvironment:
+          testEnvironment: 'test'
+        StagingEnvironment:
+          testEnvironment: 'staging'
+    
+    steps:
+    - checkout: self
+
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run Unit Tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: >
+          --no-build --configuration $(buildConfiguration)
+          --filter "Category=Unit"
+          --logger "trx;LogFileName=unit-test-results-$(testEnvironment).trx"
+          --logger "html;LogFileName=unit-test-results-$(testEnvironment).html"
+          --collect:"XPlat Code Coverage"
+          -- TestRunParameters.Parameter(name=Environment,value=$(testEnvironment))
+
+    - task: PublishTestResults@2
+      displayName: 'Publish unit test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/*unit-test-results*.trx'
+        testRunTitle: 'Unit Tests - $(testEnvironment)'
+
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish code coverage'
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '**/coverage.cobertura.xml'
+
+  - job: APITests
+    displayName: 'API Tests'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      matrix:
+        TestEnvironment:
+          testEnvironment: 'test'
+        StagingEnvironment:
+          testEnvironment: 'staging'
+    
+    steps:
+    - checkout: self
+
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run API Tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: >
+          --no-build --configuration $(buildConfiguration)
+          --filter "Category=API"
+          --logger "trx;LogFileName=api-test-results-$(testEnvironment).trx"
+          --logger "html;LogFileName=api-test-results-$(testEnvironment).html"
+          -- TestRunParameters.Parameter(name=Environment,value=$(testEnvironment))
+
+    - task: PublishTestResults@2
+      displayName: 'Publish API test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/*api-test-results*.trx'
+        testRunTitle: 'API Tests - $(testEnvironment)'
+
+  - job: UITests
+    displayName: 'UI Tests'
+    condition: eq('${{ parameters.runUITests }}', true)
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      matrix:
+        ${{ each browser in parameters.browsers }}:
+          ${{ each env in ['test', 'staging'] }}:
+            ${{ browser }}_${{ env }}:
+              browserType: ${{ browser }}
+              testEnvironment: ${{ env }}
+    
+    steps:
+    - checkout: self
+
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+
+    - task: PowerShell@2
+      displayName: 'Install Playwright browsers'
+      inputs:
+        targetType: 'inline'
+        script: |
+          dotnet build
+          pwsh CsPlaywrightXun/bin/Debug/net10.0/playwright.ps1 install $(browserType)
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run UI Tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: >
+          --no-build --configuration $(buildConfiguration)
+          --filter "Category=UI"
+          --logger "trx;LogFileName=ui-test-results-$(browserType)-$(testEnvironment).trx"
+          --logger "html;LogFileName=ui-test-results-$(browserType)-$(testEnvironment).html"
+          -- TestRunParameters.Parameter(name=Environment,value=$(testEnvironment))
+          -- TestRunParameters.Parameter(name=Browser,value=$(browserType))
+
+    - task: PublishTestResults@2
+      displayName: 'Publish UI test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/*ui-test-results*.trx'
+        testRunTitle: 'UI Tests - $(browserType) - $(testEnvironment)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish screenshots'
+      condition: always()
+      inputs:
+        pathToPublish: 'screenshots'
+        artifactName: 'screenshots-$(browserType)-$(testEnvironment)'
+
+# Stage 3: Docker Build
+- stage: Docker
+  displayName: 'Docker Build & Push'
+  dependsOn: Test
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.Reason'], 'Manual')))
+  jobs:
+  - job: DockerBuild
+    displayName: 'Build Docker Images'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      matrix:
+        Framework:
+          dockerFile: 'docker/Dockerfile'
+          imageName: 'enterprise-automation-framework'
+        TestRunner:
+          dockerFile: 'docker/Dockerfile.test-runner'
+          imageName: 'enterprise-automation-test-runner'
+    
+    steps:
+    - checkout: self
+
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download build artifacts'
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'build-artifacts'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: Docker@2
+      displayName: 'Build Docker image'
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: '$(imageName)'
+        command: 'build'
+        Dockerfile: '$(dockerFile)'
+        tags: |
+          $(buildVersion)
+          latest
+
+    - task: Docker@2
+      displayName: 'Push Docker image'
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: '$(imageName)'
+        command: 'push'
+        tags: |
+          $(buildVersion)
+          latest
+
+# Stage 4: Deploy
+- stage: Deploy
+  displayName: 'Deploy to ${{ parameters.environment }}'
+  dependsOn: Docker
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.Reason'], 'Manual')))
+  jobs:
+  - deployment: DeployToEnvironment
+    displayName: 'Deploy to ${{ parameters.environment }}'
+    pool:
+      vmImage: $(vmImageName)
+    environment: '${{ parameters.environment }}'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+
+          - task: KubernetesManifest@0
+            displayName: 'Deploy to Kubernetes'
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: 'k8s-${{ parameters.environment }}'
+              namespace: 'automation-framework'
+              manifests: |
+                k8s/namespace.yaml
+                k8s/configmap.yaml
+                k8s/secret.yaml
+                k8s/deployment.yaml
+                k8s/service.yaml
+                k8s/hpa.yaml
+              containers: |
+                enterprise-automation-framework:$(buildVersion)
+                enterprise-automation-test-runner:$(buildVersion)
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Run smoke tests'
+            inputs:
+              command: 'test'
+              projects: '**/*Tests.csproj'
+              arguments: >
+                --configuration $(buildConfiguration)
+                --filter "Category=Smoke"
+                --logger "trx;LogFileName=smoke-test-results-${{ parameters.environment }}.trx"
+                -- TestRunParameters.Parameter(name=Environment,value=${{ parameters.environment }})
+
+          - task: PublishTestResults@2
+            displayName: 'Publish smoke test results'
+            condition: always()
+            inputs:
+              testResultsFormat: 'VSTest'
+              testResultsFiles: '**/*smoke-test-results*.trx'
+              testRunTitle: 'Smoke Tests - ${{ parameters.environment }}'
+
+# Stage 5: Reports
+- stage: Reports
+  displayName: 'Generate Reports'
+  dependsOn: [Test, Deploy]
+  condition: always()
+  jobs:
+  - job: GenerateReports
+    displayName: 'Consolidate Test Reports'
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - checkout: self
+
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download all test artifacts'
+      inputs:
+        buildType: 'current'
+        downloadType: 'all'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: NodeTool@0
+      displayName: 'Setup Node.js'
+      inputs:
+        versionSpec: '18.x'
+
+    - script: |
+        npm install -g allure-commandline
+        npm install -g junit-report-merger
+      displayName: 'Install report tools'
+
+    - task: PowerShell@2
+      displayName: 'Generate consolidated report'
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Create consolidated HTML report
+          $reportDir = "$(Build.ArtifactStagingDirectory)/reports"
+          New-Item -ItemType Directory -Path $reportDir -Force
+          
+          # Create index page
+          $indexHtml = @"
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Enterprise Automation Framework - Test Results</title>
+              <style>
+                  body { font-family: Arial, sans-serif; margin: 40px; }
+                  .header { background-color: #f4f4f4; padding: 20px; border-radius: 5px; }
+                  .summary { margin: 20px 0; }
+                  .test-links { margin: 20px 0; }
+                  .test-links a { display: block; margin: 5px 0; padding: 10px; background-color: #e7f3ff; text-decoration: none; border-radius: 3px; }
+                  .test-links a:hover { background-color: #d1ecf1; }
+              </style>
+          </head>
+          <body>
+              <div class="header">
+                  <h1>Enterprise Automation Framework - Test Results</h1>
+                  <p><strong>Build:</strong> $(Build.BuildNumber)</p>
+                  <p><strong>Version:</strong> $(buildVersion)</p>
+                  <p><strong>Date:</strong> $(Get-Date)</p>
+                  <p><strong>Environment:</strong> ${{ parameters.environment }}</p>
+              </div>
+              <div class="summary">
+                  <h2>Test Summary</h2>
+                  <p>Detailed test results are available in the individual report files below.</p>
+              </div>
+              <div class="test-links">
+                  <h2>Test Reports</h2>
+          "@
+          
+          # Find and link all HTML reports
+          Get-ChildItem -Path "$(System.ArtifactsDirectory)" -Filter "*.html" -Recurse | ForEach-Object {
+              $relativePath = $_.Name
+              Copy-Item $_.FullName -Destination "$reportDir/$relativePath"
+              $indexHtml += "<a href='$relativePath'>$relativePath</a>`n"
+          }
+          
+          $indexHtml += @"
+              </div>
+          </body>
+          </html>
+          "@
+          
+          $indexHtml | Out-File -FilePath "$reportDir/index.html" -Encoding UTF8
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish consolidated reports'
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)/reports'
+        artifactName: 'test-reports'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish all test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '$(System.ArtifactsDirectory)/**/*.trx'
+        testRunTitle: 'All Tests - Build $(Build.BuildNumber)'
+        mergeTestResults: true

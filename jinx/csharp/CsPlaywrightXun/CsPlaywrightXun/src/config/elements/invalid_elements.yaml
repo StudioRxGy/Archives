@@ -1,0 +1,7 @@
+InvalidPage:
+  MissingSelector:
+    type: Button
+    timeout: 5000
+  EmptySelector:
+    selector: ""
+    type: Input

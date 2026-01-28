@@ -1,0 +1,34 @@
+-i https://pypi.tuna.tsinghua.edu.cn/simple
+allure-pytest
+PyHamcrest
+requests
+Appium-Python-Client
+selenium
+JPype1
+paramiko
+Pillow
+scikit-image
+opencv-python
+ujson
+locust
+mitmproxy
+pycryptodome
+python-binary-memcached
+kazoo
+websockets
+Js2Py
+# pytest
+pytest
+pytest-xdist
+allure-pytest
+pytest-rerunfailures
+pytest-collect-formatter2
+# database
+cx_Oracle
+PyMySQL
+redis
+sqlacodegen
+SQLAlchemy
+webdriver-manager
+PyHamcrest
+Pillow

@@ -1,0 +1,322 @@
+# Azure DevOps Pipeline for Enterprise Automation Framework
+
+trigger:
+  branches:
+    include:
+    - main
+    - develop
+    - feature/*
+  paths:
+    exclude:
+    - README.md
+    - docs/*
+
+pr:
+  branches:
+    include:
+    - main
+    - develop
+
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '8.0.x'
+  nodeVersion: '18.x'
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: 'Build and Unit Tests'
+  jobs:
+  - job: BuildAndTest
+    displayName: 'Build and Run Unit Tests'
+    pool:
+      vmImage: $(vmImage)
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET $(dotnetVersion)'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+        
+    - task: NodeTool@0
+      displayName: 'Use Node.js $(nodeVersion)'
+      inputs:
+        versionSpec: $(nodeVersion)
+        
+    - task: Cache@2
+      displayName: 'Cache NuGet packages'
+      inputs:
+        key: 'nuget | "$(Agent.OS)" | **/packages.lock.json,!**/bin/**,!**/obj/**'
+        restoreKeys: |
+          nuget | "$(Agent.OS)"
+        path: $(NUGET_PACKAGES)
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Run unit tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: '--no-build --configuration $(buildConfiguration) --logger trx --collect:"XPlat Code Coverage" --filter "Category=Unit"'
+        publishTestResults: true
+        
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish code coverage'
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+
+- stage: IntegrationTests
+  displayName: 'Integration Tests'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: APITests
+    displayName: 'API Integration Tests'
+    pool:
+      vmImage: $(vmImage)
+    strategy:
+      matrix:
+        Test:
+          environment: 'test'
+        Staging:
+          environment: 'staging'
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET $(dotnetVersion)'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Run API tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: '--no-build --configuration $(buildConfiguration) --logger trx --filter "Category=API" --environment $(environment)'
+      env:
+        ASPNETCORE_ENVIRONMENT: $(environment)
+        
+    - task: PublishTestResults@2
+      displayName: 'Publish API test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/*.trx'
+        testRunTitle: 'API Tests - $(environment)'
+
+  - job: UITests
+    displayName: 'UI Tests'
+    pool:
+      vmImage: $(vmImage)
+    strategy:
+      matrix:
+        Chrome:
+          browserType: 'chromium'
+        Firefox:
+          browserType: 'firefox'
+        Safari:
+          browserType: 'webkit'
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET $(dotnetVersion)'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+        
+    - task: NodeTool@0
+      displayName: 'Use Node.js $(nodeVersion)'
+      inputs:
+        versionSpec: $(nodeVersion)
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+        
+    - script: |
+        dotnet tool install --global Microsoft.Playwright.CLI
+        playwright install $(browserType)
+      displayName: 'Install Playwright browsers'
+      
+    - task: DotNetCoreCLI@2
+      displayName: 'Run UI tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: '--no-build --configuration $(buildConfiguration) --logger trx --filter "Category=UI"'
+      env:
+        BROWSER_TYPE: $(browserType)
+        HEADLESS: true
+        ASPNETCORE_ENVIRONMENT: test
+        
+    - task: PublishTestResults@2
+      displayName: 'Publish UI test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/*.trx'
+        testRunTitle: 'UI Tests - $(browserType)'
+        
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish screenshots'
+      condition: always()
+      inputs:
+        pathToPublish: 'screenshots'
+        artifactName: 'screenshots-$(browserType)'
+
+- stage: SecurityScan
+  displayName: 'Security and Quality Scan'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: SecurityScan
+    displayName: 'Security Scan'
+    pool:
+      vmImage: $(vmImage)
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET $(dotnetVersion)'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+        
+    - task: DotNetCoreCLI@2
+      displayName: 'Install security scan tool'
+      inputs:
+        command: 'custom'
+        custom: 'tool'
+        arguments: 'install --global security-scan'
+        
+    - script: |
+        security-scan --project . --output $(Agent.TempDirectory)/security-report.json
+      displayName: 'Run security scan'
+      continueOnError: true
+      
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish security report'
+      inputs:
+        pathToPublish: '$(Agent.TempDirectory)/security-report.json'
+        artifactName: 'security-report'
+
+- stage: Docker
+  displayName: 'Docker Build and Push'
+  dependsOn: 
+  - IntegrationTests
+  - SecurityScan
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/develop'))
+  jobs:
+  - job: DockerBuild
+    displayName: 'Build and Push Docker Image'
+    pool:
+      vmImage: $(vmImage)
+    
+    steps:
+    - task: Docker@2
+      displayName: 'Login to Docker Hub'
+      inputs:
+        containerRegistry: 'DockerHub'
+        command: 'login'
+        
+    - task: Docker@2
+      displayName: 'Build Docker image'
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: '$(dockerRepository)'
+        command: 'build'
+        Dockerfile: 'Dockerfile'
+        tags: |
+          $(Build.BuildNumber)
+          latest
+          
+    - task: Docker@2
+      displayName: 'Push Docker image'
+      inputs:
+        containerRegistry: 'DockerHub'
+        repository: '$(dockerRepository)'
+        command: 'push'
+        tags: |
+          $(Build.BuildNumber)
+          latest
+
+- stage: Deploy
+  displayName: 'Deploy to Environments'
+  dependsOn: Docker
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployToStaging
+    displayName: 'Deploy to Staging'
+    environment: 'staging'
+    pool:
+      vmImage: $(vmImage)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              echo "Deploying to staging environment..."
+              # Add deployment scripts here
+            displayName: 'Deploy to staging'
+            
+          - script: |
+              echo "Running smoke tests..."
+              # Add smoke test execution
+            displayName: 'Run smoke tests'
+            
+  - deployment: DeployToProduction
+    displayName: 'Deploy to Production'
+    dependsOn: DeployToStaging
+    condition: succeeded()
+    environment: 'production'
+    pool:
+      vmImage: $(vmImage)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              echo "Deploying to production environment..."
+              # Add production deployment scripts here
+            displayName: 'Deploy to production'
+            
+          - script: |
+              echo "Running production smoke tests..."
+              # Add production smoke tests
+            displayName: 'Run production smoke tests'

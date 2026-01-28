@@ -1,0 +1,52 @@
+@BlogApi.Api_HostAddress = http://localhost:5164
+
+# Authentication Endpoints
+
+### User Registration
+POST {{BlogApi.Api_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "TestPassword123",
+  "confirmPassword": "TestPassword123"
+}
+
+### User Login
+POST {{BlogApi.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "emailOrUsername": "test@example.com",
+  "password": "TestPassword123",
+  "rememberMe": false
+}
+
+### Refresh Token
+POST {{BlogApi.Api_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "accessToken": "your_access_token_here",
+  "refreshToken": "your_refresh_token_here"
+}
+
+### Test Invalid Registration (Missing fields)
+POST {{BlogApi.Api_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "",
+  "email": "invalid-email",
+  "password": "123"
+}
+
+### Test Invalid Login
+POST {{BlogApi.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "emailOrUsername": "nonexistent@example.com",
+  "password": "wrongpassword"
+}

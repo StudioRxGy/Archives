@@ -1,0 +1,63 @@
+[
+  {
+    "testName": "搜索API基础功能测试",
+    "endpoint": "/s",
+    "method": "GET",
+    "queryParameters": {
+      "wd": "playwright",
+      "ie": "utf-8"
+    },
+    "expectedStatusCode": 200,
+    "expectedContentContains": ["playwright", "自动化"],
+    "maxResponseTimeMs": 5000,
+    "description": "测试搜索API的基本功能，验证能够正确返回搜索结果"
+  },
+  {
+    "testName": "搜索API性能测试",
+    "endpoint": "/s",
+    "method": "GET",
+    "queryParameters": {
+      "wd": "性能测试",
+      "ie": "utf-8"
+    },
+    "expectedStatusCode": 200,
+    "maxResponseTimeMs": 3000,
+    "description": "测试搜索API的响应性能，确保在3秒内返回结果"
+  },
+  {
+    "testName": "搜索API空查询测试",
+    "endpoint": "/s",
+    "method": "GET",
+    "queryParameters": {
+      "wd": "",
+      "ie": "utf-8"
+    },
+    "expectedStatusCode": 200,
+    "maxResponseTimeMs": 5000,
+    "description": "测试搜索API处理空查询的能力"
+  },
+  {
+    "testName": "搜索API特殊字符测试",
+    "endpoint": "/s",
+    "method": "GET",
+    "queryParameters": {
+      "wd": "C# + Playwright 自动化测试",
+      "ie": "utf-8"
+    },
+    "expectedStatusCode": 200,
+    "maxResponseTimeMs": 5000,
+    "description": "测试搜索API处理特殊字符和符号的能力"
+  },
+  {
+    "testName": "搜索API长查询测试",
+    "endpoint": "/s",
+    "method": "GET",
+    "queryParameters": {
+      "wd": "这是一个非常长的搜索查询用来测试API对长文本的处理能力包含中文英文数字和特殊符号123!@#",
+      "ie": "utf-8"
+    },
+    "expectedStatusCode": 200,
+    "maxResponseTimeMs": 8000,
+    "description": "测试搜索API处理长查询文本的能力"
+  }
+]

@@ -1,0 +1,574 @@
+# Azure DevOps Pipeline for Enterprise Automation Framework
+# 企业自动化测试框架 CI/CD 管道
+
+trigger:
+  branches:
+    include:
+    - main
+    - develop
+  paths:
+    exclude:
+    - docs/*
+    - README.md
+
+pr:
+  branches:
+    include:
+    - main
+    - develop
+
+parameters:
+- name: environment
+  displayName: 'Target Environment'
+  type: string
+  default: 'test'
+  values:
+  - test
+  - staging
+  - production
+
+- name: runUITests
+  displayName: 'Run UI Tests'
+  type: boolean
+  default: true
+
+- name: browsers
+  displayName: 'Browsers to test'
+  type: object
+  default:
+  - chromium
+  - firefox
+  - webkit
+
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '8.0.x'
+  nodeVersion: '18.x'
+  vmImageName: 'ubuntu-latest'
+  
+  # 环境特定变量
+  ${{ if eq(parameters.environment, 'test') }}:
+    environmentSuffix: 'test'
+    kubernetesNamespace: 'automation-test'
+  ${{ if eq(parameters.environment, 'staging') }}:
+    environmentSuffix: 'staging'
+    kubernetesNamespace: 'automation-staging'
+  ${{ if eq(parameters.environment, 'production') }}:
+    environmentSuffix: 'prod'
+    kubernetesNamespace: 'automation-prod'
+
+stages:
+# 构建和代码质量阶段
+- stage: BuildAndQuality
+  displayName: 'Build and Code Quality'
+  jobs:
+  - job: Build
+    displayName: 'Build Solution'
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore NuGet packages'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-restore'
+    
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish build artifacts'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'build-artifacts'
+
+  - job: CodeQuality
+    displayName: 'Code Quality Analysis'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: Build
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+    
+    - task: SonarCloudPrepare@1
+      displayName: 'Prepare SonarCloud analysis'
+      inputs:
+        SonarCloud: 'SonarCloud'
+        organization: '$(sonarCloudOrganization)'
+        scannerMode: 'MSBuild'
+        projectKey: 'enterprise-automation-framework'
+        projectName: 'Enterprise Automation Framework'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore and build for analysis'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Run unit tests for coverage'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" --logger trx --results-directory $(Agent.TempDirectory)/TestResults'
+    
+    - task: SonarCloudAnalyze@1
+      displayName: 'Run SonarCloud analysis'
+    
+    - task: SonarCloudPublish@1
+      displayName: 'Publish SonarCloud results'
+      inputs:
+        pollingTimeoutSec: '300'
+
+# 测试阶段
+- stage: Testing
+  displayName: 'Automated Testing'
+  dependsOn: BuildAndQuality
+  jobs:
+  
+  # 单元测试
+  - job: UnitTests
+    displayName: 'Unit Tests'
+    strategy:
+      matrix:
+        Linux:
+          vmImage: 'ubuntu-latest'
+        Windows:
+          vmImage: 'windows-latest'
+        macOS:
+          vmImage: 'macOS-latest'
+    
+    pool:
+      vmImage: $(vmImage)
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore packages'
+      inputs:
+        command: 'restore'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Build solution'
+      inputs:
+        command: 'build'
+        arguments: '--configuration $(buildConfiguration) --no-restore'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Run unit tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-build --logger trx --results-directory $(Agent.TempDirectory)/TestResults --collect:"XPlat Code Coverage" --filter "Category=Unit"'
+    
+    - task: PublishTestResults@2
+      displayName: 'Publish unit test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '$(Agent.TempDirectory)/TestResults/**/*.trx'
+        testRunTitle: 'Unit Tests - $(Agent.OS)'
+    
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish code coverage'
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/TestResults/**/coverage.cobertura.xml'
+
+  # API 测试
+  - job: ApiTests
+    displayName: 'API Tests'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: UnitTests
+    
+    services:
+      mockapi:
+        image: mockserver/mockserver:latest
+        ports:
+        - 1080:1080
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore and build'
+      inputs:
+        command: 'build'
+        arguments: '--configuration $(buildConfiguration)'
+    
+    - script: |
+        timeout 60 bash -c 'until curl -f http://localhost:1080/mockserver/status; do sleep 2; done'
+      displayName: 'Wait for mock API service'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Run API tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-build --logger trx --results-directory $(Agent.TempDirectory)/TestResults --filter "Category=API"'
+      env:
+        TEST_API_BASE_URL: 'http://localhost:1080'
+    
+    - task: PublishTestResults@2
+      displayName: 'Publish API test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '$(Agent.TempDirectory)/TestResults/**/*.trx'
+        testRunTitle: 'API Tests'
+
+  # UI 测试
+  - ${{ if eq(parameters.runUITests, true) }}:
+    - job: UITests
+      displayName: 'UI Tests'
+      strategy:
+        matrix:
+          ${{ each browser in parameters.browsers }}:
+            ${{ browser }}:
+              browserName: ${{ browser }}
+      
+      pool:
+        vmImage: $(vmImageName)
+      dependsOn: UnitTests
+      
+      steps:
+      - task: UseDotNet@2
+        displayName: 'Setup .NET SDK'
+        inputs:
+          packageType: 'sdk'
+          version: $(dotnetVersion)
+      
+      - task: NodeTool@0
+        displayName: 'Setup Node.js'
+        inputs:
+          versionSpec: $(nodeVersion)
+      
+      - task: DotNetCoreCLI@2
+        displayName: 'Restore and build'
+        inputs:
+          command: 'build'
+          arguments: '--configuration $(buildConfiguration)'
+      
+      - script: |
+          pwsh CsPlaywrightXun/bin/Debug/net8.0/playwright.ps1 install --with-deps $(browserName)
+        displayName: 'Install Playwright browsers'
+      
+      - task: DotNetCoreCLI@2
+        displayName: 'Run UI tests'
+        inputs:
+          command: 'test'
+          projects: '**/*Tests.csproj'
+          arguments: '--configuration $(buildConfiguration) --no-build --logger trx --results-directory $(Agent.TempDirectory)/TestResults --filter "Category=UI"'
+        env:
+          BROWSER_TYPE: $(browserName)
+      
+      - task: PublishTestResults@2
+        displayName: 'Publish UI test results'
+        condition: always()
+        inputs:
+          testResultsFormat: 'VSTest'
+          testResultsFiles: '$(Agent.TempDirectory)/TestResults/**/*.trx'
+          testRunTitle: 'UI Tests - $(browserName)'
+      
+      - task: PublishPipelineArtifact@1
+        displayName: 'Publish screenshots'
+        condition: failed()
+        inputs:
+          targetPath: 'screenshots'
+          artifact: 'screenshots-$(browserName)'
+
+  # 集成测试
+  - job: IntegrationTests
+    displayName: 'Integration Tests'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: 
+    - ApiTests
+    - ${{ if eq(parameters.runUITests, true) }}:
+      - UITests
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+    
+    - task: NodeTool@0
+      displayName: 'Setup Node.js'
+      inputs:
+        versionSpec: $(nodeVersion)
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore and build'
+      inputs:
+        command: 'build'
+        arguments: '--configuration $(buildConfiguration)'
+    
+    - script: |
+        pwsh CsPlaywrightXun/bin/Debug/net8.0/playwright.ps1 install --with-deps
+      displayName: 'Install Playwright browsers'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Run integration tests'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests.csproj'
+        arguments: '--configuration $(buildConfiguration) --no-build --logger trx --results-directory $(Agent.TempDirectory)/TestResults --filter "Category=Integration"'
+    
+    - task: PublishTestResults@2
+      displayName: 'Publish integration test results'
+      condition: always()
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '$(Agent.TempDirectory)/TestResults/**/*.trx'
+        testRunTitle: 'Integration Tests'
+
+# Docker 构建阶段
+- stage: DockerBuild
+  displayName: 'Docker Build and Push'
+  dependsOn: Testing
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.SourceBranch'], 'refs/heads/develop')))
+  
+  jobs:
+  - job: BuildDocker
+    displayName: 'Build Docker Image'
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - task: Docker@2
+      displayName: 'Login to Container Registry'
+      inputs:
+        containerRegistry: '$(containerRegistryServiceConnection)'
+        command: 'login'
+    
+    - task: Docker@2
+      displayName: 'Build Docker image'
+      inputs:
+        containerRegistry: '$(containerRegistryServiceConnection)'
+        repository: 'enterprise-automation-framework'
+        command: 'build'
+        Dockerfile: 'docker/Dockerfile'
+        tags: |
+          $(Build.BuildId)
+          latest
+          $(Build.SourceBranchName)
+    
+    - task: Docker@2
+      displayName: 'Push Docker image'
+      inputs:
+        containerRegistry: '$(containerRegistryServiceConnection)'
+        repository: 'enterprise-automation-framework'
+        command: 'push'
+        tags: |
+          $(Build.BuildId)
+          latest
+          $(Build.SourceBranchName)
+
+# 报告生成阶段
+- stage: ReportGeneration
+  displayName: 'Generate Reports'
+  dependsOn: Testing
+  condition: always()
+  
+  jobs:
+  - job: GenerateReports
+    displayName: 'Generate Test Reports'
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download test results'
+      inputs:
+        buildType: 'current'
+        artifactName: 'TestResults'
+        targetPath: '$(Pipeline.Workspace)/TestResults'
+      continueOnError: true
+    
+    - task: UseDotNet@2
+      displayName: 'Setup .NET SDK'
+      inputs:
+        packageType: 'sdk'
+        version: $(dotnetVersion)
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Install ReportGenerator'
+      inputs:
+        command: 'custom'
+        custom: 'tool'
+        arguments: 'install --global dotnet-reportgenerator-globaltool'
+    
+    - script: |
+        reportgenerator \
+          -reports:"$(Pipeline.Workspace)/TestResults/**/coverage.cobertura.xml" \
+          -targetdir:"$(Build.ArtifactStagingDirectory)/coverage-report" \
+          -reporttypes:"Html;Cobertura;JsonSummary"
+      displayName: 'Generate coverage report'
+      continueOnError: true
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'Generate test report'
+      inputs:
+        command: 'run'
+        projects: 'scripts/ReportGenerator/ReportGenerator.csproj'
+        arguments: '-- --input "$(Pipeline.Workspace)/TestResults/**/*.trx" --output "$(Build.ArtifactStagingDirectory)/test-report/index.html" --format html'
+      continueOnError: true
+    
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish coverage report'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/coverage-report'
+        artifact: 'coverage-report'
+    
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish test report'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/test-report'
+        artifact: 'test-report'
+
+# 部署阶段
+- stage: Deploy
+  displayName: 'Deploy to ${{ parameters.environment }}'
+  dependsOn: 
+  - DockerBuild
+  - ReportGeneration
+  condition: and(succeeded('DockerBuild'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['Build.SourceBranch'], 'refs/heads/develop')))
+  
+  jobs:
+  - deployment: DeployToEnvironment
+    displayName: 'Deploy to $(environmentSuffix)'
+    pool:
+      vmImage: $(vmImageName)
+    environment: '$(environmentSuffix)'
+    
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: 'Deploy to Kubernetes'
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: '$(kubernetesServiceConnection)'
+              namespace: '$(kubernetesNamespace)'
+              manifests: |
+                k8s/namespace.yaml
+                k8s/configmap.yaml
+                k8s/secret.yaml
+                k8s/deployment.yaml
+                k8s/service.yaml
+              containers: '$(containerRegistry)/enterprise-automation-framework:$(Build.BuildId)'
+          
+          - task: Kubernetes@1
+            displayName: 'Wait for deployment'
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: '$(kubernetesServiceConnection)'
+              namespace: '$(kubernetesNamespace)'
+              command: 'wait'
+              arguments: '--for=condition=ready pod -l app=enterprise-automation-framework --timeout=300s'
+          
+          - task: DotNetCoreCLI@2
+            displayName: 'Run smoke tests'
+            inputs:
+              command: 'test'
+              projects: '**/*Tests.csproj'
+              arguments: '--configuration $(buildConfiguration) --filter "Category=Smoke"'
+            env:
+              TEST_BASE_URL: '$(testBaseUrl)'
+
+# 通知阶段
+- stage: Notification
+  displayName: 'Send Notifications'
+  dependsOn: 
+  - Deploy
+  condition: always()
+  
+  jobs:
+  - job: SendNotifications
+    displayName: 'Send Deployment Notifications'
+    pool:
+      vmImage: $(vmImageName)
+    
+    steps:
+    - task: InvokeRESTAPI@1
+      displayName: 'Send Slack notification'
+      inputs:
+        connectionType: 'connectedServiceName'
+        serviceConnection: 'SlackWebhook'
+        method: 'POST'
+        body: |
+          {
+            "channel": "#deployments",
+            "username": "Azure DevOps",
+            "text": "Deployment to $(environmentSuffix) completed with status: $(Agent.JobStatus)",
+            "attachments": [
+              {
+                "color": "${{ if eq(variables['Agent.JobStatus'], 'Succeeded') }}good${{ else }}danger${{ endif }}",
+                "fields": [
+                  {
+                    "title": "Environment",
+                    "value": "$(environmentSuffix)",
+                    "short": true
+                  },
+                  {
+                    "title": "Build",
+                    "value": "$(Build.BuildNumber)",
+                    "short": true
+                  },
+                  {
+                    "title": "Branch",
+                    "value": "$(Build.SourceBranchName)",
+                    "short": true
+                  }
+                ]
+              }
+            ]
+          }
+      condition: always()
+    
+    - task: EmailReport@1
+      displayName: 'Send email report'
+      inputs:
+        sendMailConditionConfig: 'Always'
+        subject: 'Deployment Report - $(Build.DefinitionName) - $(Build.BuildNumber)'
+        to: '$(notificationEmail)'
+        body: |
+          Deployment to $(environmentSuffix) environment has completed.
+          
+          Status: $(Agent.JobStatus)
+          Build: $(Build.BuildNumber)
+          Branch: $(Build.SourceBranchName)
+          Commit: $(Build.SourceVersion)
+          
+          View detailed results: $(System.TeamFoundationCollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)
+      condition: always()

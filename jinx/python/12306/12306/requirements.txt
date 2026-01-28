@@ -1,0 +1,15 @@
+beautifulsoup4
+bs4
+requests
+Pillow
+wrapcache
+ntplib
+sklearn
+opencv-python
+keras
+tensorflow
+matplotlib
+numpy
+scipy
+selenium
+fake-useragent

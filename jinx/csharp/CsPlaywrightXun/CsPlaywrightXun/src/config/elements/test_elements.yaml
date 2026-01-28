@@ -1,0 +1,16 @@
+TestPage:
+  TestButton:
+    selector: "#test-button"
+    type: Button
+    timeout: 5000
+  TestInput:
+    selector: "#test-input"
+    type: Input
+    timeout: 3000
+  TestText:
+    selector: "#test-text"
+    type: Text
+    timeout: 2000
+    attributes:
+      class: "test-class"
+      data-test: "test-value"

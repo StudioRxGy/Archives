@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- NUnit适配器配置 -->
+  <NUnit>
+    <!-- 运行参数对应 pytest.ini 中的 addopts -->
+    <TestOutputXml>./Reports</TestOutputXml>
+    <DisplayName>FullName</DisplayName>
+    <!-- 添加详细日志输出，类似 -v -s -->
+    <ConsoleOut>1</ConsoleOut>
+    <Where>cat == UI</Where>
+    <!-- 测试执行选项 -->
+    <NumberOfTestWorkers>1</NumberOfTestWorkers>
+    <InternalTraceLevel>Verbose</InternalTraceLevel>
+    <DefaultTimeout>60000</DefaultTimeout>
+    <WorkDirectory>./</WorkDirectory>
+    <RandomSeed>0</RandomSeed>
+    <!-- 设置中文显示，对应Python的disable_test_id_escaping_and_forfeit_all_rights_to_community_support配置 -->
+    <UseParentFQNForParametrizedTests>true</UseParentFQNForParametrizedTests>
+    <StopOnError>false</StopOnError>
+    <!-- 记录引擎内部日志 -->
+    <Trace>Verbose</Trace>
+    <UseVsKeepEngineRunning>true</UseVsKeepEngineRunning>
+    <ShadowCopyFiles>false</ShadowCopyFiles>
+    <BasePath>./</BasePath>
+    <PrivateBinPath>./bin</PrivateBinPath>
+  </NUnit>
+
+  <!-- 自定义日志配置，对应pytest.ini中的日志设置 -->
+  <Logging>
+    <!-- 对应log_file_level = INFO -->
+    <LogLevel>
+      <Default>Info</Default>
+      <System>Warning</System>
+      <Microsoft>Warning</Microsoft>
+    </LogLevel>
+    <!-- 对应log_file_format = %(asctime)s | %(levelname)s | %(filename)s - %(funcName)s[line:%(lineno)d]: %(message)s -->
+    <LogFormat>%(asctime)s | %(levelname)s | %(filename)s - %(funcName)s[line:%(lineno)d]: %(message)s</LogFormat>
+    <!-- 对应log_file_date_format = %Y-%m-%d %H:%M:%S -->
+    <DateFormat>yyyy-MM-dd HH:mm:ss</DateFormat>
+    <Console>
+      <!-- 对应log_cli = True -->
+      <Enabled>true</Enabled>
+      <!-- 对应log_cli_level = INFO -->
+      <Level>Info</Level>
+    </Console>
+    <!-- 日志文件滚动设置 -->
+    <LogFileSettings>
+      <MaxFileSizeKB>10240</MaxFileSizeKB>  <!-- 10MB -->
+      <MaxLogFiles>10</MaxLogFiles>
+    </LogFileSettings>
+  </Logging>
+
+  <!-- MSTest适配器设置 -->
+  <MSTest>
+    <MapInconclusiveToFailed>false</MapInconclusiveToFailed>
+    <CaptureTraceOutput>true</CaptureTraceOutput>
+    <DeleteDeploymentDirectoryAfterTestRunIsComplete>true</DeleteDeploymentDirectoryAfterTestRunIsComplete>
+    <DeploymentEnabled>true</DeploymentEnabled>
+    <DeployTestSourceDependencies>true</DeployTestSourceDependencies>
+    <MapNotRunnableToFailed>false</MapNotRunnableToFailed>
+    <SettingsFile>NUnitSettings.runsettings</SettingsFile>
+    <ForcedLegacyMode>false</ForcedLegacyMode>
+  </MSTest>
+
+  <!-- 数据收集器配置 -->
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <!-- 代码覆盖率收集器 -->
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0">
+        <Configuration>
+          <CodeCoverage>
+            <ModulePaths>
+              <Include>
+                <ModulePath>.*\.dll$</ModulePath>
+              </Include>
+              <Exclude>
+                <ModulePath>.*Test.dll</ModulePath>
+              </Exclude>
+            </ModulePaths>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+
+      <!-- 测试影响分析收集器 -->
+      <DataCollector friendlyName="TestImpact" uri="datacollector://Microsoft/TestImpact/1.0">
+        <Configuration>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+
+  <!-- 日志配置，对应Python的log_file相关设置 -->
+  <LoggerRunSettings>
+    <Loggers>
+      <Logger friendlyName="console" enabled="True">
+        <Configuration>
+          <Verbosity>Diagnostic</Verbosity>
+        </Configuration>
+      </Logger>
+      <Logger friendlyName="trx" enabled="True">
+        <Configuration>
+          <LogFileName>testresults.trx</LogFileName>
+        </Configuration>
+      </Logger>
+      <Logger friendlyName="html" enabled="True">
+        <Configuration>
+          <LogFileName>testresults.html</LogFileName>
+        </Configuration>
+      </Logger>
+      <!-- 添加nunit记录器 -->
+      <Logger friendlyName="nunit" enabled="True">
+        <Configuration>
+          <LogFilePath>./Reports/nunit-results.xml</LogFilePath>
+        </Configuration>
+      </Logger>
+    </Loggers>
+  </LoggerRunSettings>
+
+  <!-- 运行配置 -->
+  <RunConfiguration>
+    <MaxCpuCount>1</MaxCpuCount>
+    <ResultsDirectory>./Reports</ResultsDirectory>
+    <TargetPlatform>x64</TargetPlatform>
+    <TargetFrameworkVersion>net8.0</TargetFrameworkVersion>
+    <TestSessionTimeout>120000</TestSessionTimeout>
+    <TreatNoTestsAsError>false</TreatNoTestsAsError>
+    <DisableAppDomain>false</DisableAppDomain>
+    <DisableParallelization>true</DisableParallelization>
+    <DesignMode>false</DesignMode>
+    <CollectSourceInformation>true</CollectSourceInformation>
+    <!-- 环境变量 -->
+    <EnvironmentVariables>
+      <TEST_TYPE>UI</TEST_TYPE>
+      <ENVIRONMENT>测试环境</ENVIRONMENT>
+      <TESTER>QA团队</TESTER>
+      <!-- 指定日志级别 -->
+      <NUNIT_ENABLE_TRACE>true</NUNIT_ENABLE_TRACE>
+      <NUNIT_INTERNAL_TRACE>Verbose</NUNIT_INTERNAL_TRACE>
+      <!-- 日志配置环境变量 -->
+      <LOG_LEVEL>Info</LOG_LEVEL>
+      <LOG_FORMAT>%(asctime)s | %(levelname)s | %(filename)s - %(funcName)s[line:%(lineno)d]: %(message)s</LOG_FORMAT>
+      <LOG_DATE_FORMAT>yyyy-MM-dd HH:mm:ss</LOG_DATE_FORMAT>
+      <LOG_CONSOLE>true</LOG_CONSOLE>
+    </EnvironmentVariables>
+  </RunConfiguration>
+
+  <!-- 测试运行参数 -->
+  <TestRunParameters>
+    <Parameter name="BrowserType" value="Chrome" />
+    <Parameter name="BaseUrl" value="https://www.example.com" />
+    <Parameter name="ImplicitWaitSeconds" value="10" />
+    <Parameter name="PageLoadTimeoutSeconds" value="30" />
+    <Parameter name="ScriptTimeoutSeconds" value="30" />
+    <Parameter name="HeadlessMode" value="false" />
+    <Parameter name="LogLevel" value="Verbose" />
+    <Parameter name="EnableDetailedLogs" value="true" />
+  </TestRunParameters>
+</RunSettings> 
