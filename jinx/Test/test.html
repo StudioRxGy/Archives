@@ -143,16 +143,21 @@
         let scene, camera, renderer, composer, mainGroup, particleSystem=[], photoMeshGroup=new THREE.Group(), snowInstancedMesh, snowDummy=new THREE.Object3D(), snowData=[], clock=new THREE.Clock(), handLandmarker, videoElement, caneTexture, bgmAudio=new Audio(); bgmAudio.loop=true; let isMusicPlaying=false;
 
         async function init() {
-            if (EXPORTED_DATA) {
-                document.body.classList.add('exported-mode');
-                CONFIG = EXPORTED_DATA.config;
-                setTimeout(() => applyTextConfig(EXPORTED_DATA.text.fontKey, EXPORTED_DATA.text.line1, EXPORTED_DATA.text.line2, EXPORTED_DATA.text.size, EXPORTED_DATA.text.color), 100);
-            }
+            try {
+                if (EXPORTED_DATA) {
+                    document.body.classList.add('exported-mode');
+                    CONFIG = EXPORTED_DATA.config;
+                    setTimeout(() => applyTextConfig(EXPORTED_DATA.text.fontKey, EXPORTED_DATA.text.line1, EXPORTED_DATA.text.line2, EXPORTED_DATA.text.size, EXPORTED_DATA.text.color), 100);
+                }
 
-            initThree(); setupEnvironment(); setupLights(); createTextures(); createParticles(); createDust(); createSnow(); createDefaultPhotos(); setupPostProcessing(); setupEvents(); animate();
-            
-            const loader = document.getElementById('loader');
-            if(loader) { loader.style.opacity = 0; setTimeout(() => loader.remove(), 500); }
+                initThree(); setupEnvironment(); setupLights(); createTextures(); createParticles(); createDust(); createSnow(); createDefaultPhotos(); setupPostProcessing(); setupEvents(); animate();
+                
+                // 添加超时保护 - 5秒后强制隐藏加载界面
+                setTimeout(() => hideLoader(), 5000);
+            } catch(e) {
+                console.error('初始化错误:', e);
+                hideLoader();
+            }
 
             try {
                 await initDB();
@@ -163,12 +168,24 @@
                 
                 const ms=await loadMusicFromDB(); 
                 if(ms){ bgmAudio.src=URL.createObjectURL(ms); if(EXPORTED_DATA) { document.body.addEventListener('click', () => { if(!isMusicPlaying) toggleMusicPlay(); }, { once: true }); } updatePlayBtnUI(false); } 
-            } catch(e){console.warn(e);}
+            } catch(e){console.warn('数据库加载错误:', e);}
             
-            initMediaPipe(); 
+            // MediaPipe 初始化不阻塞主流程
+            initMediaPipe().catch(e => console.warn('MediaPipe初始化失败:', e)); 
             initDraggableTitle();
             
             setMode('TREE');
+            
+            // 确保加载界面消失
+            hideLoader();
+        }
+        
+        function hideLoader() {
+            const loader = document.getElementById('loader');
+            if(loader && loader.style.opacity !== '0') { 
+                loader.style.opacity = 0; 
+                setTimeout(() => loader.remove(), 500); 
+            }
         }
 
         function initDraggableTitle() { const t=document.getElementById('title-container'); let d=false,o={x:0,y:0}; t.onmousedown=e=>{d=true;const r=t.getBoundingClientRect();o.x=e.clientX-r.left;o.y=e.clientY-r.top;t.style.transform='none';t.style.left=r.left+'px';t.style.top=r.top+'px'}; window.onmousemove=e=>{if(d){t.style.left=(e.clientX-o.x)+'px';t.style.top=(e.clientY-o.y)+'px'}}; window.onmouseup=()=>d=false; }
@@ -221,7 +238,8 @@
         window.stopRotate=()=> { manualRotateState={x:0,y:0}; };
         window.resetRotation=()=> { STATE.rotation={x:0,y:0}; if(STATE.mode!=='TREE')setMode('TREE'); };
 
-        // ================= V17.6.5: UI + Keyboard =================window.setupEvents = function() {
+        // ================= V17.6.5: UI + Keyboard =================
+        window.setupEvents = function() {
             window.addEventListener('resize', () => { 
                 camera.aspect = window.innerWidth/window.innerHeight; 
                 camera.updateProjectionMatrix(); 
@@ -250,7 +268,8 @@
                 }
             });
 
-            // --- Keyboard Controls ---window.addEventListener('keydown', (e) => {
+            // --- Keyboard Controls ---
+            window.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
 
                 const k = e.key.toLowerCase();
@@ -329,36 +348,31 @@
         }
         window.applyParticleSettings=()=>{const ph=particleSystem.filter(p=>p.type==='PHOTO');const tr=[];mainGroup.children.forEach(c=>{if(c!==photoMeshGroup)tr.push(c)});tr.forEach(c=>mainGroup.remove(c));particleSystem=[...ph];CONFIG.particles.count=parseInt(document.getElementById('slider-tree').value);CONFIG.particles.dustCount=parseInt(document.getElementById('slider-dust').value);createParticles();createDust();createSnow();};
 
-        async function initMediaPipe(){videoElement=document.getElementById('webcam-video');if(navigator.mediaDevices?.getUserMedia){try{const s=await navigator.mediaDevices.getUserMedia({video:true});videoElement.srcObject=s;videoElement.onloadedmetadata=()=>{videoElement.play();renderWebcamPreview()};}catch(e){console.error(e)}}try{const v=await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm");handLandmarker=await HandLandmarker.createFromOptions(v,{baseOptions:{modelAssetPath:`https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task`,delegate:"GPU"},runningMode:"VIDEO",numHands:1});predictWebcam();}catch(e){console.warn(e)}}
+        async function initMediaPipe(){
+            videoElement=document.getElementById('webcam-video');
+            if(navigator.mediaDevices?.getUserMedia){
+                try{
+                    const s=await navigator.mediaDevices.getUserMedia({video:true});
+                    videoElement.srcObject=s;
+                    videoElement.onloadedmetadata=()=>{videoElement.play();renderWebcamPreview()};
+                }catch(e){
+                    console.warn('摄像头访问失败:', e);
+                    document.getElementById('gesture-hint').innerText = '摄像头未启用 - 使用键盘/鼠标控制';
+                }
+            }
+            try{
+                const v=await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm");
+                handLandmarker=await HandLandmarker.createFromOptions(v,{baseOptions:{modelAssetPath:`https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task`,delegate:"GPU"},runningMode:"VIDEO",numHands:1});
+                predictWebcam();
+            }catch(e){
+                console.warn('手势识别初始化失败:', e);
+                document.getElementById('gesture-hint').innerText = '手势识别未启用 - 使用键盘/鼠标控制';
+            }
+        }
         function renderWebcamPreview(){const c=document.getElementById('webcam-canvas'),x=c.getContext('2d',{willReadFrequently:true});function d(){if(videoElement.readyState>=2)x.drawImage(videoElement,0,0,c.width,c.height);requestAnimationFrame(d)}d()}
         let lvt=-1;async function predictWebcam(){if(videoElement&&videoElement.currentTime!==lvt&&handLandmarker){lvt=videoElement.currentTime;const r=handLandmarker.detectForVideo(videoElement,performance.now());processGestures(r);document.getElementById('cam-status').classList.toggle('active',r.landmarks.length>0);}requestAnimationFrame(predictWebcam);}
         function processGestures(r){if(r.landmarks&&r.landmarks.length>0){STATE.hand.detected=true;const lm=r.landmarks[0];STATE.hand.x=(lm[9].x-0.5)*2;STATE.hand.y=(lm[9].y-0.5)*2;const thumb=lm[4],index=lm[8],wrist=lm[0],middle=lm[12];const pd=Math.hypot(thumb.x-index.x,thumb.y-index.y);const od=Math.hypot(middle.x-wrist.x,middle.y-wrist.y);if(STATE.mode==='FOCUS'){if(pd>0.1)setMode('SCATTER');return;}if(pd<0.05&&STATE.mode!=='FOCUS')triggerPhotoGrab();else if(od>0.4)setMode('SCATTER');else if(od<0.2)setMode('TREE');}else STATE.hand.detected=false;}
 
-        window.setupEvents=()=>{
-            window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);composer.setSize(window.innerWidth,window.innerHeight)});
-            document.getElementById('file-input').addEventListener('change',e=>{Array.from(e.target.files).forEach(f=>{const r=new FileReader();r.onload=ev=>{const i=new Image();i.src=ev.target.result;i.onload=()=>{const id=savePhotoToDB(ev.target.result);createPhotoTexture(ev.target.result,id)}};r.readAsDataURL(f)})});
-            document.getElementById('music-input').addEventListener('change',e=>{const f=e.target.files[0];if(f){saveMusicToDB(f);bgmAudio.src=URL.createObjectURL(f);bgmAudio.play().then(()=>{isMusicPlaying=true;updatePlayBtnUI(true)}).catch(console.error)}});
-            
-            // 键盘交互window.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-                const code = e.code;
-                const k = e.key.toLowerCase();
-                
-                if (k === 'h') window.toggleUI();
-                if (code === 'Space') { e.preventDefault(); setMode('TREE'); }
-                if (k === 'z') setMode('SCATTER');
-                if (k === 'x') triggerPhotoGrab();
-
-                if (code === 'ArrowUp') manualRotateState.x = -1;
-                if (code === 'ArrowDown') manualRotateState.x = 1;
-                if (code === 'ArrowLeft') manualRotateState.y = -1;
-                if (code === 'ArrowRight') manualRotateState.y = 1;
-            });
-            window.addEventListener('keyup', (e) => {
-                const code = e.code;
-                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code)) manualRotateState = { x: 0, y: 0 };
-            });
-        }
         window.openDeleteManager=async()=>{document.getElementById('delete-manager').classList.remove('hidden');const g=document.getElementById('photo-grid');g.innerHTML='';const ps=await loadPhotosFromDB();if(!ps||ps.length===0)g.innerHTML='<div style="color:#888;">暂无照片</div>';else ps.forEach(p=>{const d=document.createElement('div');d.className='photo-item';const i=document.createElement('img');i.className='photo-thumb';i.src=p.data;const b=document.createElement('div');b.className='delete-x';b.innerText='X';b.onclick=e=>{e.stopPropagation();confirmDelete(p.id,d)};d.appendChild(i);d.appendChild(b);g.appendChild(d)})}
         window.confirmDelete=(id,el)=>{deletePhotoFromDB(id);el.remove();const p=particleSystem.find(pa=>pa.photoId===id);if(p){photoMeshGroup.remove(p.mesh);particleSystem.splice(particleSystem.indexOf(p),1)}}
         window.clearAllPhotos=()=>{if(confirm("确定要清空所有照片吗？")){clearPhotosDB();particleSystem.filter(p=>p.type==='PHOTO').forEach(p=>photoMeshGroup.remove(p.mesh));particleSystem=particleSystem.filter(p=>p.type!=='PHOTO');window.openDeleteManager()}}
