@@ -1,3 +1,10 @@
+// ---------------------------------------------------------------
+// 文件描述：应用配置设置类
+// 创建时间：
+// 创建人：eleven
+// 修改历史：
+// ---------------------------------------------------------------
+
 using System.Text.Json;
 
 namespace CsPlaywrightApi.src.playwright.Core.Config
@@ -7,10 +14,10 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
     /// </summary>
     public enum Environment
     {
-        Development,    // 开发环境
-        Test,          // 测试环境
-        Staging,       // 预发布环境
-        Production     // 生产环境
+        Development, // 开发环境
+        Test, // 测试环境
+        Staging, // 预发布环境
+        Production, // 生产环境
     }
 
     /// <summary>
@@ -43,13 +50,12 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
         {
             // 从环境变量读取当前环境，默认为开发环境
             var envString = System.Environment.GetEnvironmentVariable("ENV") ?? "Development";
-            CurrentEnvironment = Enum.TryParse<Environment>(envString, true, out var env) 
-                ? env 
+            CurrentEnvironment = Enum.TryParse<Environment>(envString, true, out var env)
+                ? env
                 : Environment.Development;
 
             // 初始化路径
             InitializePaths();
-            
             // 加载环境配置
             LoadEnvironmentConfig();
         }
@@ -132,12 +138,8 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
         /// <summary>
         /// 浏览器启动参数
         /// </summary>
-        public string[] BrowserArgs { get; set; } = 
-        [
-            "--disable-blink-features=AutomationControlled",
-            "--disable-dev-shm-usage",
-            "--no-sandbox"
-        ];
+        public string[] BrowserArgs { get; set; } =
+        ["--disable-blink-features=AutomationControlled", "--disable-dev-shm-usage", "--no-sandbox"];
 
         #endregion
 
@@ -186,7 +188,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
         {
             // 获取项目根目录（向上查找到包含 .csproj 的目录）
             BaseDirectory = FindProjectRoot(AppContext.BaseDirectory);
-            
+
             SrcDirectory = Path.Combine(BaseDirectory, "src");
             PlaywrightDirectory = Path.Combine(SrcDirectory, "playwright");
             OutputDirectory = Path.Combine(SrcDirectory, "output");
@@ -207,19 +209,18 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
         private static string FindProjectRoot(string startPath)
         {
             var directory = new DirectoryInfo(startPath);
-            
+
             while (directory != null)
             {
                 // 查找 .csproj 或 .sln 文件
-                if (directory.GetFiles("*.csproj").Length > 0 || 
-                    directory.GetFiles("*.sln*").Length > 0)
+                if (directory.GetFiles("*.csproj").Length > 0 || directory.GetFiles("*.sln*").Length > 0)
                 {
                     return directory.FullName;
                 }
-                
+
                 directory = directory.Parent;
             }
-            
+
             // 如果找不到，返回当前目录
             return startPath;
         }
@@ -248,7 +249,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
                     Timeout = 30,
                     Headless = false,
                     SlowMo = 100,
-                    LogLevel = "DEBUG"
+                    LogLevel = "DEBUG",
                 },
                 Environment.Test => new EnvironmentConfig
                 {
@@ -256,7 +257,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
                     Timeout = 30,
                     Headless = false,
                     SlowMo = 50,
-                    LogLevel = "INFO"
+                    LogLevel = "INFO",
                 },
                 Environment.Staging => new EnvironmentConfig
                 {
@@ -264,7 +265,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
                     Timeout = 20,
                     Headless = true,
                     SlowMo = 0,
-                    LogLevel = "INFO"
+                    LogLevel = "INFO",
                 },
                 Environment.Production => new EnvironmentConfig
                 {
@@ -272,9 +273,9 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
                     Timeout = 15,
                     Headless = true,
                     SlowMo = 0,
-                    LogLevel = "WARNING"
+                    LogLevel = "WARNING",
                 },
-                _ => throw new ArgumentException($"未知的环境: {CurrentEnvironment}")
+                _ => throw new ArgumentException($"未知的环境: {CurrentEnvironment}"),
             };
 
             // 从环境变量读取浏览器类型
@@ -286,7 +287,8 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
         /// </summary>
         public void PrintConfigInfo()
         {
-            Console.WriteLine(@"
+            Console.WriteLine(
+                @"
               ⠰⢷⢿⠄
               ⠀⠀⠀⠀⠀⣼⣷⣄
               ⠀⠀⣤⣿⣇⣿⣿⣧⣿⡄
@@ -296,7 +298,8 @@ namespace CsPlaywrightApi.src.playwright.Core.Config
               ⠀⠀⠀⢿⣿⠀⠀⠹⣿
               ⠀⠀⠀⠀⠹⣷⡀⠀⣿⡄
               ⠀⠀⠀⠀⣀⣼⣿⠀⢈⣧.
-");
+"
+            );
             Console.WriteLine(new string('=', 80));
             Console.WriteLine($"当前环境: {CurrentEnvironment}");
             Console.WriteLine($"项目根目录: {BaseDirectory}");
