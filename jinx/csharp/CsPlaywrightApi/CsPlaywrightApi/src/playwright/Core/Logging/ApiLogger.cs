@@ -1,203 +1,229 @@
+// ---------------------------------------------------------------
+// 文件描述：API 日志记录器
+// 创建时间：
+// 创建人：eleven
+// 修改历史：
+// ---------------------------------------------------------------
+
 using System.Text.Json;
 using CsPlaywrightApi.src.playwright.Core.Config;
 
-namespace CsPlaywrightApi.src.playwright.Core.Logging
+namespace CsPlaywrightApi.src.playwright.Core.Logging;
+
+/// <summary>
+/// API日志记录器
+/// </summary>
+public class ApiLogger
 {
-    /// <summary>
-    /// API日志记录器
-    /// </summary>
-    public class ApiLogger
+    private readonly string _sessionDirectory;
+    private readonly bool _enableConsoleLog;
+    private readonly List<ApiLogEntry> _logEntries = [];
+    private readonly string _sessionTimestamp;
+    private readonly AppSettings _settings;
+
+    // 测试上下文信息（由测试类设置）
+    public string? CurrentTestMethod { get; set; }
+    public string? CurrentTestClass { get; set; }
+    public string? CurrentSourceFile { get; set; }
+    public string? CurrentTestScenario { get; set; }
+    public List<string>? CurrentTestCategories { get; set; }
+    public string? CurrentTestPriority { get; set; }
+    public string? CurrentTestDisplayName { get; set; }
+
+    private static readonly JsonSerializerOptions JsonOptions = new()
     {
-        private readonly string _sessionDirectory;
-        private readonly bool _enableConsoleLog;
-        private readonly List<ApiLogEntry> _logEntries = [];
-        private readonly string _sessionTimestamp;
-        private readonly AppSettings _settings;
-        
-        // 测试上下文信息（由测试类设置）
-        public string? CurrentTestMethod { get; set; }
-        public string? CurrentTestClass { get; set; }
-        public string? CurrentSourceFile { get; set; }
-        public string? CurrentTestScenario { get; set; }
-        public List<string>? CurrentTestCategories { get; set; }
-        public string? CurrentTestPriority { get; set; }
-        public string? CurrentTestDisplayName { get; set; }
-        
-        private static readonly JsonSerializerOptions JsonOptions = new()
-        {
-            WriteIndented = true,
-            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-        };
+        WriteIndented = true,
+        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
 
-        /// <summary>
-        /// 创建 API 日志记录器
-        /// </summary>
-        /// <param name="logDirectory">日志目录（可选，默认使用配置中的目录）</param>
-        /// <param name="enableConsoleLog">是否启用控制台日志（可选，默认使用配置）</param>
-        public ApiLogger(string? logDirectory = null, bool? enableConsoleLog = null)
-        {
-            // 获取配置实例
-            _settings = AppSettings.Instance;
-            
-            // 使用传入的参数或配置中的默认值
-            var baseLogDirectory = logDirectory ?? _settings.LogDirectory;
-            _enableConsoleLog = enableConsoleLog ?? _settings.EnableConsoleLog;
-            
-            // 生成会话时间戳（精确到秒）
-            _sessionTimestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            
-            // 创建会话目录
-            _sessionDirectory = Path.Combine(baseLogDirectory, _sessionTimestamp);
-            
-            // 确保会话目录存在
-            if (!Directory.Exists(_sessionDirectory))
-            {
-                Directory.CreateDirectory(_sessionDirectory);
-                if (_enableConsoleLog)
-                {
-                    Console.WriteLine($"创建日志目录: {_sessionDirectory}");
-                    Console.WriteLine($"当前环境: {_settings.CurrentEnvironment}");
-                    Console.WriteLine($"Base URL: {_settings.Config.BaseUrl}");
-                }
-            }
-        }
+    /// <summary>
+    /// 创建 API 日志记录器
+    /// </summary>
+    /// <param name="logDirectory">日志目录（可选，默认使用配置中的目录）</param>
+    /// <param name="enableConsoleLog">是否启用控制台日志（可选，默认使用配置）</param>
+    public ApiLogger(string? logDirectory = null, bool? enableConsoleLog = null)
+    {
+        // 获取配置实例
+        _settings = AppSettings.Instance;
 
-        /// <summary>
-        /// 记录API请求和响应
-        /// </summary>
-        public async Task LogApiRequestAsync(ApiLogEntry logEntry)
-        {
-            // 添加到内存列表
-            _logEntries.Add(logEntry);
-            
-            var logFileName = $"api_log.log";
-            var logFilePath = Path.Combine(_sessionDirectory, logFileName);
+        // 使用传入的参数或配置中的默认值
+        var baseLogDirectory = logDirectory ?? _settings.LogDirectory;
+        _enableConsoleLog = enableConsoleLog ?? _settings.EnableConsoleLog;
 
-            // 控制台输出
+        // 生成会话时间戳（精确到秒）
+        _sessionTimestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+        // 创建会话目录
+        _sessionDirectory = Path.Combine(baseLogDirectory, _sessionTimestamp);
+
+        // 确保会话目录存在
+        if (!Directory.Exists(_sessionDirectory))
+        {
+            Directory.CreateDirectory(_sessionDirectory);
             if (_enableConsoleLog)
             {
-                Console.WriteLine("\n" + new string('=', 80));
-                Console.WriteLine($"[{logEntry.Timestamp:yyyy-MM-dd HH:mm:ss.fff}] API请求日志");
-                Console.WriteLine(new string('=', 80));
-                
-                // 显示测试场景信息
-                if (!string.IsNullOrEmpty(logEntry.TestScenario) || !string.IsNullOrEmpty(logEntry.TestDisplayName))
-                {
-                    Console.WriteLine("【测试场景】");
-                    if (!string.IsNullOrEmpty(logEntry.TestDisplayName))
-                        Console.WriteLine($"  测试名称: {logEntry.TestDisplayName}");
-                    if (!string.IsNullOrEmpty(logEntry.TestScenario))
-                        Console.WriteLine($"  测试场景: {logEntry.TestScenario}");
-                    if (logEntry.TestCategories != null && logEntry.TestCategories.Count > 0)
-                        Console.WriteLine($"  测试分类: {string.Join(", ", logEntry.TestCategories)}");
-                    if (!string.IsNullOrEmpty(logEntry.TestPriority))
-                        Console.WriteLine($"  优先级: {logEntry.TestPriority}");
-                    Console.WriteLine(new string('-', 80));
-                }
-                
-                // 显示代码位置信息
-                if (!string.IsNullOrEmpty(logEntry.TestClass) || !string.IsNullOrEmpty(logEntry.TestMethod))
-                {
-                    Console.WriteLine("【代码位置】");
-                    if (!string.IsNullOrEmpty(logEntry.TestClass))
-                        Console.WriteLine($"  测试类: {logEntry.TestClass}");
-                    if (!string.IsNullOrEmpty(logEntry.TestMethod))
-                        Console.WriteLine($"  测试方法: {logEntry.TestMethod}");
-                    if (!string.IsNullOrEmpty(logEntry.SourceFile))
-                        Console.WriteLine($"  源文件: {logEntry.SourceFile}");
-                    Console.WriteLine(new string('-', 80));
-                }
-                
-                Console.WriteLine($"请求地址: {logEntry.Url}");
-                Console.WriteLine($"请求方法: {logEntry.Method}");
-                Console.WriteLine($"请求参数: {logEntry.RequestBody}");
-                Console.WriteLine($"响应状态码: {logEntry.StatusCode}");
-                Console.WriteLine($"响应Code: {logEntry.ResponseCode}");
-                Console.WriteLine($"响应结果: {logEntry.ResponseBody}");
-                Console.WriteLine($"耗时: {logEntry.Duration}ms");
-                Console.WriteLine(new string('=', 80) + "\n");
-            }
-
-            // 写入文件
-            try
-            {
-                var logJson = JsonSerializer.Serialize(logEntry, JsonOptions);
-                
-                // 追加到日志文件
-                await File.AppendAllTextAsync(logFilePath, logJson + ",\n");
-                
-                if (_enableConsoleLog)
-                {
-                    Console.WriteLine($"✓ 日志已保存到: {Path.GetFullPath(logFilePath)}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"✗ 写入日志文件失败: {ex.Message}");
-                Console.WriteLine($"  尝试写入路径: {Path.GetFullPath(logFilePath)}");
-                Console.WriteLine($"  异常详情: {ex}");
+                Console.WriteLine($"创建日志目录: {_sessionDirectory}");
+                Console.WriteLine($"当前环境: {_settings.CurrentEnvironment}");
+                Console.WriteLine($"Base URL: {_settings.Config.BaseUrl}");
             }
         }
+    }
 
-        /// <summary>
-        /// 生成HTML报告
-        /// </summary>
-        public async Task GenerateHtmlReportAsync()
+    /// <summary>
+    /// 记录API请求和响应
+    /// </summary>
+    public async Task LogApiRequestAsync(ApiLogEntry logEntry)
+    {
+        // 添加到内存列表
+        _logEntries.Add(logEntry);
+
+        var logFileName = $"api_log.log";
+        var logFilePath = Path.Combine(_sessionDirectory, logFileName);
+
+        // 控制台输出
+        if (_enableConsoleLog)
         {
-            var htmlFileName = $"api_report.html";
-            var htmlFilePath = Path.Combine(_sessionDirectory, htmlFileName);
+            Console.WriteLine("\n" + new string('=', 80));
+            Console.WriteLine($"[{logEntry.Timestamp:yyyy-MM-dd HH:mm:ss.fff}] API请求日志");
+            Console.WriteLine(new string('=', 80));
 
-            var html = GenerateHtmlContent();
-            await File.WriteAllTextAsync(htmlFilePath, html);
-            
-            Console.WriteLine($"\n✓ HTML报告已生成: {Path.GetFullPath(htmlFilePath)}");
-            Console.WriteLine($"✓ 测试会话目录: {Path.GetFullPath(_sessionDirectory)}");
+            // 显示测试场景信息
+            if (!string.IsNullOrEmpty(logEntry.TestScenario) || !string.IsNullOrEmpty(logEntry.TestDisplayName))
+            {
+                Console.WriteLine("【测试场景】");
+                if (!string.IsNullOrEmpty(logEntry.TestDisplayName))
+                {
+                    Console.WriteLine($"  测试名称: {logEntry.TestDisplayName}");
+                }
+                if (!string.IsNullOrEmpty(logEntry.TestScenario))
+                {
+                    Console.WriteLine($"  测试场景: {logEntry.TestScenario}");
+                }
+                if (logEntry.TestCategories != null && logEntry.TestCategories.Count > 0)
+                {
+                    Console.WriteLine($"  测试分类: {string.Join(", ", logEntry.TestCategories)}");
+                }
+                if (!string.IsNullOrEmpty(logEntry.TestPriority))
+                {
+                    Console.WriteLine($"  优先级: {logEntry.TestPriority}");
+                }
+                Console.WriteLine(new string('-', 80));
+            }
+
+            // 显示代码位置信息
+            if (!string.IsNullOrEmpty(logEntry.TestClass) || !string.IsNullOrEmpty(logEntry.TestMethod))
+            {
+                Console.WriteLine("【代码位置】");
+                if (!string.IsNullOrEmpty(logEntry.TestClass))
+                {
+                    Console.WriteLine($"  测试类: {logEntry.TestClass}");
+                }
+                if (!string.IsNullOrEmpty(logEntry.TestMethod))
+                {
+                    Console.WriteLine($"  测试方法: {logEntry.TestMethod}");
+                }
+                if (!string.IsNullOrEmpty(logEntry.SourceFile))
+                {
+                    Console.WriteLine($"  源文件: {logEntry.SourceFile}");
+                }
+                Console.WriteLine(new string('-', 80));
+            }
+
+            Console.WriteLine($"请求地址: {logEntry.Url}");
+            Console.WriteLine($"请求方法: {logEntry.Method}");
+            Console.WriteLine($"请求参数: {logEntry.RequestBody}");
+            Console.WriteLine($"响应状态码: {logEntry.StatusCode}");
+            Console.WriteLine($"响应Code: {logEntry.ResponseCode}");
+            Console.WriteLine($"响应结果: {logEntry.ResponseBody}");
+            Console.WriteLine($"耗时: {logEntry.Duration}ms");
+            Console.WriteLine(new string('=', 80) + "\n");
         }
 
-        private string GenerateHtmlContent()
+        // 写入文件
+        try
         {
-            var totalRequests = _logEntries.Count;
-            var successRequests = _logEntries.Count(e => e.StatusCode >= 200 && e.StatusCode < 300);
-            var failedRequests = _logEntries.Count(e => e.StatusCode >= 400);
-            var warningRequests = totalRequests - successRequests - failedRequests;
-            var avgDuration = _logEntries.Count > 0 ? _logEntries.Average(e => e.Duration) : 0;
-            var maxDuration = _logEntries.Count > 0 ? _logEntries.Max(e => e.Duration) : 0;
-            var minDuration = _logEntries.Count > 0 ? _logEntries.Min(e => e.Duration) : 0;
-            var totalDuration = _logEntries.Sum(e => e.Duration);
-            var successRate = totalRequests > 0 ? (successRequests * 100.0 / totalRequests) : 0;
-            
-            // 统计各HTTP方法的数量
-            var methodStats = _logEntries.GroupBy(e => e.Method)
-                .Select(g => new { Method = g.Key, Count = g.Count() })
-                .OrderByDescending(x => x.Count)
-                .ToList();
-            
-            // 生成图表数据
-            var methodLabels = string.Join(",", methodStats.Select(m => $"'{m.Method}'"));
-            var methodData = string.Join(",", methodStats.Select(m => m.Count));
-            
-            // 状态码分布统计
-            var statusGroups = _logEntries.GroupBy(e => GetStatusCategory(e.StatusCode))
-                .Select(g => new { Category = g.Key, Count = g.Count() })
-                .ToList();
-            
-            var successCount = statusGroups.FirstOrDefault(g => g.Category == "成功")?.Count ?? 0;
-            var failedCount = statusGroups.FirstOrDefault(g => g.Category == "失败")?.Count ?? 0;
-            var warningCount = statusGroups.FirstOrDefault(g => g.Category == "警告")?.Count ?? 0;
-            
-            // 响应时间数据（用于趋势图）
-            var timeLabels = string.Join(",", _logEntries.Select((e, i) => $"'请求{i + 1}'"));
-            var timeData = string.Join(",", _logEntries.Select(e => e.Duration));
-            
-            // 格式化总执行时间
-            var totalDurationFormatted = FormatDuration(totalDuration);
+            var logJson = JsonSerializer.Serialize(logEntry, JsonOptions);
 
-            var requestRows = string.Join("\n", _logEntries.Select((entry, index) =>
+            // 追加到日志文件
+            await File.AppendAllTextAsync(logFilePath, logJson + ",\n");
+
+            if (_enableConsoleLog)
             {
-                var testScenarioSection = BuildTestScenarioSection(entry);
-                var codeLocationSection = BuildCodeLocationSection(entry);
-                
-                return $@"
+                Console.WriteLine($"✓ 日志已保存到: {Path.GetFullPath(logFilePath)}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"✗ 写入日志文件失败: {ex.Message}");
+            Console.WriteLine($"  尝试写入路径: {Path.GetFullPath(logFilePath)}");
+            Console.WriteLine($"  异常详情: {ex}");
+        }
+    }
+
+    /// <summary>
+    /// 生成HTML报告
+    /// </summary>
+    public async Task GenerateHtmlReportAsync()
+    {
+        var htmlFileName = $"api_report.html";
+        var htmlFilePath = Path.Combine(_sessionDirectory, htmlFileName);
+
+        var html = GenerateHtmlContent();
+        await File.WriteAllTextAsync(htmlFilePath, html);
+
+        Console.WriteLine($"\n✓ HTML报告已生成: {Path.GetFullPath(htmlFilePath)}");
+        Console.WriteLine($"✓ 测试会话目录: {Path.GetFullPath(_sessionDirectory)}");
+    }
+
+    private string GenerateHtmlContent()
+    {
+        var totalRequests = _logEntries.Count;
+        var successRequests = _logEntries.Count(e => e.StatusCode >= 200 && e.StatusCode < 300);
+        var failedRequests = _logEntries.Count(e => e.StatusCode >= 400);
+        var warningRequests = totalRequests - successRequests - failedRequests;
+        var avgDuration = _logEntries.Count > 0 ? _logEntries.Average(e => e.Duration) : 0;
+        var maxDuration = _logEntries.Count > 0 ? _logEntries.Max(e => e.Duration) : 0;
+        var minDuration = _logEntries.Count > 0 ? _logEntries.Min(e => e.Duration) : 0;
+        var totalDuration = _logEntries.Sum(e => e.Duration);
+        var successRate = totalRequests > 0 ? (successRequests * 100.0 / totalRequests) : 0;
+
+        // 统计各HTTP方法的数量
+        var methodStats = _logEntries
+            .GroupBy(e => e.Method)
+            .Select(g => new { Method = g.Key, Count = g.Count() })
+            .OrderByDescending(x => x.Count)
+            .ToList();
+
+        // 生成图表数据
+        var methodLabels = string.Join(",", methodStats.Select(m => $"'{m.Method}'"));
+        var methodData = string.Join(",", methodStats.Select(m => m.Count));
+
+        // 状态码分布统计
+        var statusGroups = _logEntries
+            .GroupBy(e => GetStatusCategory(e.StatusCode))
+            .Select(g => new { Category = g.Key, Count = g.Count() })
+            .ToList();
+
+        var successCount = statusGroups.FirstOrDefault(g => g.Category == "成功")?.Count ?? 0;
+        var failedCount = statusGroups.FirstOrDefault(g => g.Category == "失败")?.Count ?? 0;
+        var warningCount = statusGroups.FirstOrDefault(g => g.Category == "警告")?.Count ?? 0;
+
+        // 响应时间数据（用于趋势图）
+        var timeLabels = string.Join(",", _logEntries.Select((e, i) => $"'请求{i + 1}'"));
+        var timeData = string.Join(",", _logEntries.Select(e => e.Duration));
+
+        // 格式化总执行时间
+        var totalDurationFormatted = FormatDuration(totalDuration);
+
+        var requestRows = string.Join(
+            "\n",
+            _logEntries.Select(
+                (entry, index) =>
+                {
+                    var testScenarioSection = BuildTestScenarioSection(entry);
+                    var codeLocationSection = BuildCodeLocationSection(entry);
+
+                    return $@"
                 <tr class=""request-row"" onclick=""toggleDetails({index})"">
                     <td>{index + 1}</td>
                     <td>{entry.Timestamp:HH:mm:ss.fff}</td>
@@ -245,9 +271,11 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
                         </div>
                     </td>
                 </tr>";
-            }));
+                }
+            )
+        );
 
-            return $@"<!DOCTYPE html>
+        return $@"<!DOCTYPE html>
 <html lang=""zh-CN"">
 <head>
     <meta charset=""UTF-8"">
@@ -335,7 +363,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
         <div class=""header"">
             <h1><i class=""fas fa-clipboard-check""></i> API测试报告</h1>
             <p class=""subtitle"">自动化接口测试执行结果摘要</p>
-            
+
             <div class=""report-info"">
                 <div class=""info-item"">
                     <span class=""info-label"">生成日期</span>
@@ -355,58 +383,58 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
                 </div>
             </div>
         </div>
-        
+
         <div class=""content"">
             <div class=""section"">
                 <h2 class=""section-title""><i class=""fas fa-chart-pie""></i> 测试摘要</h2>
-                
+
                 <div class=""stats-cards"">
                     <div class=""stat-card"">
                         <h3>总请求数</h3>
                         <div class=""stat-value"">{totalRequests}</div>
                         <p>Total Requests</p>
                     </div>
-                    
+
                     <div class=""stat-card passed"">
                         <h3>成功的请求</h3>
                         <div class=""stat-value passed"">{successRequests}</div>
                         <p>占总数的 {successRate:F1}%</p>
                     </div>
-                    
+
                     <div class=""stat-card failed"">
                         <h3>失败的请求</h3>
                         <div class=""stat-value failed"">{failedRequests}</div>
                         <p>占总数的 {(totalRequests > 0 ? failedRequests * 100.0 / totalRequests : 0):F1}%</p>
                     </div>
-                    
+
                     <div class=""stat-card duration"">
                         <h3>总执行时间</h3>
                         <div class=""stat-value duration"">{totalDurationFormatted}</div>
                         <p>平均 {avgDuration:F0}ms/请求</p>
                     </div>
                 </div>
-                
+
                 <div class=""charts-row"">
                     <div class=""chart-container"">
                         <h3 class=""chart-title"">请求结果分布</h3>
                         <canvas id=""resultsChart""></canvas>
                     </div>
-                    
+
                     <div class=""chart-container"">
                         <h3 class=""chart-title"">HTTP方法统计</h3>
                         <canvas id=""methodsChart""></canvas>
                     </div>
                 </div>
-                
+
                 <div class=""chart-container"">
                     <h3 class=""chart-title"">响应时间趋势</h3>
                     <canvas id=""timeChart""></canvas>
                 </div>
             </div>
-            
+
             <div class=""section"">
                 <h2 class=""section-title""><i class=""fas fa-list-alt""></i> 详细测试结果</h2>
-                
+
                 <div class=""test-results"">
                     <table>
                         <thead>
@@ -426,7 +454,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
                 </div>
             </div>
         </div>
-        
+
         <div class=""footer"">
             <p>报告生成于 {DateTime.Now:yyyy-MM-dd HH:mm:ss} | 本报告由API自动化测试系统生成</p>
         </div>
@@ -441,7 +469,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
                 detailsRow.style.display = 'none';
             }}
         }}
-        
+
         // 初始化图表
         document.addEventListener('DOMContentLoaded', function() {{
             // 请求结果分布图表
@@ -471,7 +499,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
                     cutout: '65%'
                 }}
             }});
-            
+
             // HTTP方法统计图表
             const methodsCtx = document.getElementById('methodsChart').getContext('2d');
             new Chart(methodsCtx, {{
@@ -503,7 +531,7 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
                     }}
                 }}
             }});
-            
+
             // 响应时间趋势图表
             const timeCtx = document.getElementById('timeChart').getContext('2d');
             new Chart(timeCtx, {{
@@ -538,168 +566,199 @@ namespace CsPlaywrightApi.src.playwright.Core.Logging
     </script>
 </body>
 </html>";
+    }
+
+    private static string ShortenUrl(string url)
+    {
+        if (url.Length <= 60)
+        {
+            return System.Net.WebUtility.HtmlEncode(url);
+        }
+        return System.Net.WebUtility.HtmlEncode(string.Concat(url.AsSpan(0, 57), "..."));
+    }
+
+    private static string GetStatusClass(int statusCode)
+    {
+        if (statusCode >= 200 && statusCode < 300)
+        {
+            return "success";
+        }
+        if (statusCode >= 400)
+        {
+            return "error";
+        }
+        return "warning";
+    }
+
+    private static string GetStatusCategory(int statusCode)
+    {
+        if (statusCode >= 200 && statusCode < 300)
+        {
+            return "成功";
+        }
+        if (statusCode >= 400)
+        {
+            return "失败";
+        }
+        return "警告";
+    }
+
+    private static string GetStatusBadge(int statusCode)
+    {
+        var statusClass = GetStatusClass(statusCode);
+        var icon = statusClass switch
+        {
+            "success" => "fa-check-circle",
+            "error" => "fa-times-circle",
+            _ => "fa-exclamation-circle",
+        };
+        return $@"<span class=""status-badge status-{statusClass}""><i class=""fas {icon}""></i> {statusCode}</span>";
+    }
+
+    private static string FormatDuration(long milliseconds)
+    {
+        if (milliseconds < 1000)
+        {
+            return $"{milliseconds}ms";
         }
 
-        private static string ShortenUrl(string url)
+        var seconds = milliseconds / 1000.0;
+        if (seconds < 60)
         {
-            if (url.Length <= 60) return System.Net.WebUtility.HtmlEncode(url);
-            return System.Net.WebUtility.HtmlEncode(string.Concat(url.AsSpan(0, 57), "..."));
+            return $"{seconds:F1}s";
         }
 
-        private static string GetStatusClass(int statusCode)
+        var minutes = (int)(seconds / 60);
+        var remainingSeconds = (int)(seconds % 60);
+        return $"{minutes}m {remainingSeconds}s";
+    }
+
+    private static string FormatHeaders(Dictionary<string, string> headers)
+    {
+        return System.Net.WebUtility.HtmlEncode(string.Join("\n", headers.Select(h => $"{h.Key}: {h.Value}")));
+    }
+
+    private static string FormatJson(string json)
+    {
+        try
         {
-            if (statusCode >= 200 && statusCode < 300) return "success";
-            if (statusCode >= 400) return "error";
-            return "warning";
+            var jsonDoc = JsonDocument.Parse(json);
+            return System.Net.WebUtility.HtmlEncode(JsonSerializer.Serialize(jsonDoc, JsonOptions));
+        }
+        catch
+        {
+            return System.Net.WebUtility.HtmlEncode(json);
+        }
+    }
+
+    private static string BuildTestScenarioSection(ApiLogEntry entry)
+    {
+        if (
+            string.IsNullOrEmpty(entry.TestScenario)
+            && string.IsNullOrEmpty(entry.TestDisplayName)
+            && (entry.TestCategories == null || entry.TestCategories.Count == 0)
+            && string.IsNullOrEmpty(entry.TestPriority)
+        )
+        {
+            return string.Empty;
         }
 
-        private static string GetStatusCategory(int statusCode)
-        {
-            if (statusCode >= 200 && statusCode < 300) return "成功";
-            if (statusCode >= 400) return "失败";
-            return "警告";
-        }
-
-        private static string GetStatusBadge(int statusCode)
-        {
-            var statusClass = GetStatusClass(statusCode);
-            var icon = statusClass switch
-            {
-                "success" => "fa-check-circle",
-                "error" => "fa-times-circle",
-                _ => "fa-exclamation-circle"
-            };
-            return $@"<span class=""status-badge status-{statusClass}""><i class=""fas {icon}""></i> {statusCode}</span>";
-        }
-
-        private static string FormatDuration(long milliseconds)
-        {
-            if (milliseconds < 1000)
-                return $"{milliseconds}ms";
-            
-            var seconds = milliseconds / 1000.0;
-            if (seconds < 60)
-                return $"{seconds:F1}s";
-            
-            var minutes = (int)(seconds / 60);
-            var remainingSeconds = (int)(seconds % 60);
-            return $"{minutes}m {remainingSeconds}s";
-        }
-
-        private static string FormatHeaders(Dictionary<string, string> headers)
-        {
-            return System.Net.WebUtility.HtmlEncode(string.Join("\n", headers.Select(h => $"{h.Key}: {h.Value}")));
-        }
-
-        private static string FormatJson(string json)
-        {
-            try
-            {
-                var jsonDoc = JsonDocument.Parse(json);
-                return System.Net.WebUtility.HtmlEncode(JsonSerializer.Serialize(jsonDoc, JsonOptions));
-            }
-            catch
-            {
-                return System.Net.WebUtility.HtmlEncode(json);
-            }
-        }
-
-        private static string BuildTestScenarioSection(ApiLogEntry entry)
-        {
-            if (string.IsNullOrEmpty(entry.TestScenario) && 
-                string.IsNullOrEmpty(entry.TestDisplayName) && 
-                (entry.TestCategories == null || entry.TestCategories.Count == 0) && 
-                string.IsNullOrEmpty(entry.TestPriority))
-            {
-                return string.Empty;
-            }
-
-            var html = @"<div class=""detail-section"">
+        var html =
+            @"<div class=""detail-section"">
                 <h4><i class=""fas fa-flask""></i> 测试场景</h4>";
 
-            if (!string.IsNullOrEmpty(entry.TestDisplayName))
-            {
-                html += $"<p><strong>测试名称:</strong> {System.Net.WebUtility.HtmlEncode(entry.TestDisplayName)}</p>";
-            }
-
-            if (!string.IsNullOrEmpty(entry.TestScenario))
-            {
-                html += $"<p><strong>测试场景:</strong> <span class=\"badge badge-scenario\">{System.Net.WebUtility.HtmlEncode(entry.TestScenario)}</span></p>";
-            }
-
-            if (entry.TestCategories != null && entry.TestCategories.Count > 0)
-            {
-                var badges = string.Join(" ", entry.TestCategories.Select(c => 
-                    $"<span class=\"badge badge-category\">{System.Net.WebUtility.HtmlEncode(c)}</span>"));
-                html += $"<p><strong>测试分类:</strong> {badges}</p>";
-            }
-
-            if (!string.IsNullOrEmpty(entry.TestPriority))
-            {
-                html += $"<p><strong>优先级:</strong> <span class=\"badge badge-priority-{entry.TestPriority.ToLower()}\">{System.Net.WebUtility.HtmlEncode(entry.TestPriority)}</span></p>";
-            }
-
-            html += "</div>";
-            return html;
+        if (!string.IsNullOrEmpty(entry.TestDisplayName))
+        {
+            html += $"<p><strong>测试名称:</strong> {System.Net.WebUtility.HtmlEncode(entry.TestDisplayName)}</p>";
         }
 
-        private static string BuildCodeLocationSection(ApiLogEntry entry)
+        if (!string.IsNullOrEmpty(entry.TestScenario))
         {
-            if (string.IsNullOrEmpty(entry.TestMethod) && 
-                string.IsNullOrEmpty(entry.TestClass) && 
-                string.IsNullOrEmpty(entry.SourceFile))
-            {
-                return string.Empty;
-            }
+            html +=
+                $"<p><strong>测试场景:</strong> <span class=\"badge badge-scenario\">{System.Net.WebUtility.HtmlEncode(entry.TestScenario)}</span></p>";
+        }
 
-            var html = @"<div class=""detail-section"">
+        if (entry.TestCategories != null && entry.TestCategories.Count > 0)
+        {
+            var badges = string.Join(
+                " ",
+                entry.TestCategories.Select(c =>
+                    $"<span class=\"badge badge-category\">{System.Net.WebUtility.HtmlEncode(c)}</span>"
+                )
+            );
+            html += $"<p><strong>测试分类:</strong> {badges}</p>";
+        }
+
+        if (!string.IsNullOrEmpty(entry.TestPriority))
+        {
+            html +=
+                $"<p><strong>优先级:</strong> <span class=\"badge badge-priority-{entry.TestPriority.ToLower()}\">{System.Net.WebUtility.HtmlEncode(entry.TestPriority)}</span></p>";
+        }
+
+        html += "</div>";
+        return html;
+    }
+
+    private static string BuildCodeLocationSection(ApiLogEntry entry)
+    {
+        if (
+            string.IsNullOrEmpty(entry.TestMethod)
+            && string.IsNullOrEmpty(entry.TestClass)
+            && string.IsNullOrEmpty(entry.SourceFile)
+        )
+        {
+            return string.Empty;
+        }
+
+        var html =
+            @"<div class=""detail-section"">
                 <h4><i class=""fas fa-code""></i> 代码位置</h4>";
 
-            if (!string.IsNullOrEmpty(entry.TestClass))
-            {
-                html += $"<p><strong>测试类:</strong> {System.Net.WebUtility.HtmlEncode(entry.TestClass)}</p>";
-            }
-
-            if (!string.IsNullOrEmpty(entry.TestMethod))
-            {
-                html += $"<p><strong>测试方法:</strong> {System.Net.WebUtility.HtmlEncode(entry.TestMethod)}</p>";
-            }
-
-            if (!string.IsNullOrEmpty(entry.SourceFile))
-            {
-                html += $"<p><strong>源文件:</strong> <code>{System.Net.WebUtility.HtmlEncode(entry.SourceFile)}</code></p>";
-            }
-
-            html += "</div>";
-            return html;
+        if (!string.IsNullOrEmpty(entry.TestClass))
+        {
+            html += $"<p><strong>测试类:</strong> {System.Net.WebUtility.HtmlEncode(entry.TestClass)}</p>";
         }
-    }
 
-    /// <summary>
-    /// API日志条目
-    /// </summary>
-    public class ApiLogEntry
-    {
-        public DateTime Timestamp { get; set; } = DateTime.Now;
-        public string Url { get; set; } = string.Empty;
-        public string Method { get; set; } = string.Empty;
-        public string RequestBody { get; set; } = string.Empty;
-        public int StatusCode { get; set; }
-        public string? ResponseCode { get; set; }
-        public string ResponseBody { get; set; } = string.Empty;
-        public long Duration { get; set; }
-        public Dictionary<string, string>? RequestHeaders { get; set; }
-        public Dictionary<string, string>? ResponseHeaders { get; set; }
-        
-        // 测试上下文信息
-        public string? TestMethod { get; set; }
-        public string? TestClass { get; set; }
-        public string? SourceFile { get; set; }
-        
-        // 测试场景信息
-        public string? TestScenario { get; set; }
-        public List<string>? TestCategories { get; set; }
-        public string? TestPriority { get; set; }
-        public string? TestDisplayName { get; set; }
+        if (!string.IsNullOrEmpty(entry.TestMethod))
+        {
+            html += $"<p><strong>测试方法:</strong> {System.Net.WebUtility.HtmlEncode(entry.TestMethod)}</p>";
+        }
+
+        if (!string.IsNullOrEmpty(entry.SourceFile))
+        {
+            html +=
+                $"<p><strong>源文件:</strong> <code>{System.Net.WebUtility.HtmlEncode(entry.SourceFile)}</code></p>";
+        }
+
+        html += "</div>";
+        return html;
     }
+}
+
+/// <summary>
+/// API日志条目
+/// </summary>
+public class ApiLogEntry
+{
+    public DateTime Timestamp { get; set; } = DateTime.Now;
+    public string Url { get; set; } = string.Empty;
+    public string Method { get; set; } = string.Empty;
+    public string RequestBody { get; set; } = string.Empty;
+    public int StatusCode { get; set; }
+    public string? ResponseCode { get; set; }
+    public string ResponseBody { get; set; } = string.Empty;
+    public long Duration { get; set; }
+    public Dictionary<string, string>? RequestHeaders { get; set; }
+    public Dictionary<string, string>? ResponseHeaders { get; set; }
+
+    // 测试上下文信息
+    public string? TestMethod { get; set; }
+    public string? TestClass { get; set; }
+    public string? SourceFile { get; set; }
+
+    // 测试场景信息
+    public string? TestScenario { get; set; }
+    public List<string>? TestCategories { get; set; }
+    public string? TestPriority { get; set; }
+    public string? TestDisplayName { get; set; }
 }

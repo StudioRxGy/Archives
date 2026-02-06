@@ -1,5 +1,12 @@
+// ---------------------------------------------------------------
+// 文件描述：U合约程序入口
+// 创建时间：
+// 创建人：eleven
+// 修改历史：
+// ---------------------------------------------------------------
+
 using Microsoft.Playwright;
-using CsPlaywrightApi.src.playwright.Flows.Api.Uheyue;
+using CsPlaywrightApi.src.playwright.Flows.Api.astralx.Uheyue;
 using CsPlaywrightApi.src.playwright.Core.Api;
 using CsPlaywrightApi.src.playwright.Core.Logging;
 using CsPlaywrightApi.src.playwright.Core.Config;
@@ -9,85 +16,85 @@ Console.WriteLine("开始执行API");
 try
 {
     // 获取配置实例
-    var settings = AppSettings.Instance;
-    
+    AppSettings settings = AppSettings.Instance;
+
     Console.WriteLine($"当前环境: {settings.CurrentEnvironment}");
     Console.WriteLine($"Base URL: {settings.Config.BaseUrl}");
     Console.WriteLine($"日志目录: {settings.LogDirectory}");
-    
+
     // 创建日志记录器（使用配置中的设置）
-    var logger = new ApiLogger();
-    
+    ApiLogger logger = new();
+
     // 设置测试上下文信息
     logger.CurrentTestClass = "Program";
     logger.CurrentTestMethod = "Main";
     logger.CurrentSourceFile = "CsPlaywrightApi/src/playwright/Flows/Api/astralx/Uheyue/Program.cs";
     logger.CurrentTestScenario = "U本位合约交易流程";
     logger.CurrentTestDisplayName = "登录->创建U本位订单->闪电平仓";
-    logger.CurrentTestCategories = new List<string> { "API测试", "合约交易", "完整流程" };
+    logger.CurrentTestCategories = ["API测试", "合约交易", "完整流程"];
     logger.CurrentTestPriority = "High";
-    
+
     // 创建Playwright实例
-    using var playwright = await Playwright.CreateAsync();
-    
+    using IPlaywright playwright = await Playwright.CreateAsync().ConfigureAwait(false);
+
     // 创建API请求上下文（使用配置中的BaseURL）
-    var apiContext = await playwright.APIRequest.NewContextAsync(new APIRequestNewContextOptions
+    IAPIRequestContext apiContext = await playwright.APIRequest.NewContextAsync(new APIRequestNewContextOptions
     {
         BaseURL = settings.Config.BaseUrl
-    });
+    }).ConfigureAwait(false);
 
     try
     {
         Console.WriteLine("\n=== 执行登录 ===");
-        var loginApi = new Login(apiContext, logger);
-        
+        Login loginApi = new(apiContext, logger);
+
         // 执行登录
-        var loginResponse = await loginApi.AuthorizeUserAsync();
-        
+        IAPIResponse loginResponse = await loginApi.AuthorizeUserAsync().ConfigureAwait(false);
+
         // 验证登录成功
         ApiAssertions.AssertSuccess(loginResponse);
         Console.WriteLine("✓ 登录成功");
 
         Console.WriteLine("\n=== 提取Token ===");
         // 从登录响应中提取 c_token（从set-cookie头中提取）
-        var cToken = ExtractCTokenFromHeaders(loginResponse.Headers);
-        
+        string? cToken = ExtractCTokenFromHeaders(loginResponse.Headers);
+
         if (!string.IsNullOrEmpty(cToken))
         {
             Console.WriteLine($"✓ 成功提取到 c_token: {cToken}\n");
-            
+
             Console.WriteLine("=== 创建U本位订单 ===");
             // 创建BTC API实例
-            var btcApi = new ShijiaBuy(apiContext, logger);
+            ShijiaBuy btcApi = new(apiContext, logger);
             btcApi.SetCToken(cToken);
-            
+
             // 执行BTC订单创建
-            var btcResponse = await btcApi.CreateBtcOrderAsync();
-            
+            IAPIResponse btcResponse = await btcApi.CreateBtcOrderAsync().ConfigureAwait(false);
+
             // 验证订单创建
             ApiAssertions.AssertSuccess(btcResponse);
-            
-            var isSuccess = await btcApi.IsOrderCreatedSuccessfullyAsync(btcResponse);
+
+            bool isSuccess = await btcApi.IsOrderCreatedSuccessfullyAsync(btcResponse).ConfigureAwait(false);
             if (isSuccess)
             {
-                var orderId = await btcApi.GetOrderIdFromResponseAsync(btcResponse);
+                string? orderId = await btcApi.GetOrderIdFromResponseAsync(btcResponse).ConfigureAwait(false);
                 Console.WriteLine($"✓ BTC订单创建成功，订单ID: {orderId}");
-                
+
                 Console.WriteLine("\n=== 执行闪电平仓 ===");
                 // 创建平仓API实例
-                var pingcangApi = new Pingcang(apiContext, logger);
+                Pingcang pingcangApi = new(apiContext, logger);
                 pingcangApi.SetCToken(cToken);
-                
+
                 // 执行平仓操作
-                var pingcangResponse = await pingcangApi.CreateBtcOrderAsync();
-                
+                IAPIResponse pingcangResponse = await pingcangApi.CreateBtcOrderAsync().ConfigureAwait(false);
+
                 // 验证平仓操作
                 ApiAssertions.AssertSuccess(pingcangResponse);
-                
-                var isPingcangSuccess = await pingcangApi.IsOrderCreatedSuccessfullyAsync(pingcangResponse);
+
+                bool isPingcangSuccess = await pingcangApi.IsOrderCreatedSuccessfullyAsync(pingcangResponse).ConfigureAwait(false);
                 if (isPingcangSuccess)
                 {
-                    var pingcangOrderId = await pingcangApi.GetOrderIdFromResponseAsync(pingcangResponse);
+                    string? pingcangOrderId = await pingcangApi.GetOrderIdFromResponseAsync(pingcangResponse).ConfigureAwait(false);
                     Console.WriteLine($"✓ 平仓订单创建成功，订单ID: {pingcangOrderId}");
                 }
                 else
@@ -107,11 +114,11 @@ try
     }
     finally
     {
-        await apiContext.DisposeAsync();
+        await apiContext.DisposeAsync().ConfigureAwait(false);
     }
-    
+
     // 生成HTML报告
-    await logger.GenerateHtmlReportAsync();
+    await logger.GenerateHtmlReportAsync().ConfigureAwait(false);
     
     Console.WriteLine("\n=== 执行完成 ===");
 }
@@ -127,16 +134,16 @@ Console.ReadKey();
 // 从Set-Cookie头中提取c_token的辅助方法
 static string? ExtractCTokenFromHeaders(IDictionary<string, string> headers)
 {
-    if (headers.TryGetValue("set-cookie", out var setCookieHeader))
+    if (headers.TryGetValue("set-cookie", out string? setCookieHeader))
     {
         // 查找c_token
-        var cookies = setCookieHeader.Split('\n');
-        foreach (var cookie in cookies)
+        string[] cookies = setCookieHeader.Split('\n');
+        foreach (string cookie in cookies)
         {
-            if (cookie.Trim().StartsWith("c_token="))
+            if (cookie.Trim().StartsWith("c_token=", StringComparison.Ordinal))
             {
-                var tokenPart = cookie.Trim().Split(';')[0];
-                return tokenPart.Substring("c_token=".Length);
+                string tokenPart = cookie.Trim().Split(';')[0];
+                return tokenPart["c_token=".Length..];
             }
         }
     }

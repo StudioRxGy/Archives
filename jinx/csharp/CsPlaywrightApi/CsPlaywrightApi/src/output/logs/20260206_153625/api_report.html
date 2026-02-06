@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API测试报告 - 2026-01-26 18:38:08</title>
+    <title>API测试报告 - 2026-02-06 15:36:42</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -86,15 +86,15 @@
         <div class="header">
             <h1><i class="fas fa-clipboard-check"></i> API测试报告</h1>
             <p class="subtitle">自动化接口测试执行结果摘要</p>
-            
+
             <div class="report-info">
                 <div class="info-item">
                     <span class="info-label">生成日期</span>
-                    <span class="info-value">2026年01月26日</span>
+                    <span class="info-value">2026年02月06日</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">生成时间</span>
-                    <span class="info-value">18:38:08</span>
+                    <span class="info-value">15:36:42</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">测试环境</span>
@@ -102,62 +102,62 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">成功率</span>
-                    <span class="info-value">78.6%</span>
+                    <span class="info-value">58.3%</span>
                 </div>
             </div>
         </div>
-        
+
         <div class="content">
             <div class="section">
                 <h2 class="section-title"><i class="fas fa-chart-pie"></i> 测试摘要</h2>
-                
+
                 <div class="stats-cards">
                     <div class="stat-card">
                         <h3>总请求数</h3>
-                        <div class="stat-value">14</div>
+                        <div class="stat-value">12</div>
                         <p>Total Requests</p>
                     </div>
-                    
+
                     <div class="stat-card passed">
                         <h3>成功的请求</h3>
-                        <div class="stat-value passed">11</div>
-                        <p>占总数的 78.6%</p>
+                        <div class="stat-value passed">7</div>
+                        <p>占总数的 58.3%</p>
                     </div>
-                    
+
                     <div class="stat-card failed">
                         <h3>失败的请求</h3>
-                        <div class="stat-value failed">3</div>
-                        <p>占总数的 21.4%</p>
+                        <div class="stat-value failed">5</div>
+                        <p>占总数的 41.7%</p>
                     </div>
-                    
+
                     <div class="stat-card duration">
                         <h3>总执行时间</h3>
-                        <div class="stat-value duration">2.6s</div>
-                        <p>平均 188ms/请求</p>
+                        <div class="stat-value duration">2.5s</div>
+                        <p>平均 207ms/请求</p>
                     </div>
                 </div>
-                
+
                 <div class="charts-row">
                     <div class="chart-container">
                         <h3 class="chart-title">请求结果分布</h3>
                         <canvas id="resultsChart"></canvas>
                     </div>
-                    
+
                     <div class="chart-container">
                         <h3 class="chart-title">HTTP方法统计</h3>
                         <canvas id="methodsChart"></canvas>
                     </div>
                 </div>
-                
+
                 <div class="chart-container">
                     <h3 class="chart-title">响应时间趋势</h3>
                     <canvas id="timeChart"></canvas>
                 </div>
             </div>
-            
+
             <div class="section">
                 <h2 class="section-title"><i class="fas fa-list-alt"></i> 详细测试结果</h2>
-                
+
                 <div class="test-results">
                     <table>
                         <thead>
@@ -174,11 +174,11 @@
                             
                 <tr class="request-row" onclick="toggleDetails(0)">
                     <td>1</td>
-                    <td>18:38:05.662</td>
+                    <td>15:36:39.556</td>
                     <td><span class="method method-post">POST</span></td>
                     <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
-                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">298ms</span></td>
+                    <td><span class="status-badge status-error"><i class="fas fa-times-circle"></i> 500</span></td>
+                    <td><span class="execution-time">246ms</span></td>
                 </tr>
                 <tr id="details-0" class="details-row" style="display: none;">
                     <td colspan="6">
@@ -186,12 +186,12 @@
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试04 - 验证订单响应包含必要字段</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">市价买入测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">Trade</span> <span class="badge badge-category">Validation</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-medium">Medium</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test04_CreateBtcOrder_ShouldContainOrderId</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test04_CreateBtcOrder_ShouldContainOrderId</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
                                 <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:05.662</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:39.556</p>
                             </div>
                             
                             <div class="detail-section">
@@ -205,69 +205,25 @@
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
-                                <p><strong>状态码:</strong> 200</p>
-                                
-                                <p><strong>耗时:</strong> 298ms</p>
+                                <p><strong>状态码:</strong> 500</p>
+                                <p><strong>业务Code:</strong> -1001</p>
+                                <p><strong>耗时:</strong> 246ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:05 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:39 GMT
 content-type: application/json;charset=UTF-8
-content-length: 859
+content-length: 23
 connection: keep-alive
-tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg1NzkwLCJfciI6Ik5abFBsN1VLbVVxdiIsIl9wIjoiYzE1YjM3MzUwNGY0ZmIyYWJhMjQzNTRiNzczZmE1ZGIifQ.BHEEZg3pwKpMXCFvPjtfGkp3cV5ScJfUzGmBp-Dhbg8; Domain=ast1001.com; Path=/
-user_id=97838347; Domain=ast1001.com; Path=/
-account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=284YzwnNUjPZA6dn3s5EV8EyKOb2dmi8; Domain=ast1001.com; Path=/
-sl-session=X3rkEY2VeGmxWvCuCnXnGg==; SameSite=None; Secure; Path=/; Max-Age=86400; HttpOnly</pre>
+error_code: -1001
+set-cookie: sl-session=IXPbR4frhmm9D0GgoN9Qhg==; SameSite=None; Secure; Path=/; Max-Age=86400; HttpOnly</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
                                 <pre class="json-content">{
-  &quot;bindMobile&quot;: false,
-  &quot;bindEmail&quot;: false,
-  &quot;bindGA&quot;: false,
-  &quot;need2FA&quot;: false,
-  &quot;authType&quot;: &quot;&quot;,
-  &quot;userId&quot;: &quot;97838347&quot;,
-  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-  &quot;registerType&quot;: 2,
-  &quot;nationalCode&quot;: &quot;&quot;,
-  &quot;mobile&quot;: &quot;&quot;,
-  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-  &quot;user&quot;: {
-    &quot;userId&quot;: &quot;97838347&quot;,
-    &quot;registerType&quot;: 2,
-    &quot;nickName&quot;: &quot;&quot;,
-    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
-    &quot;mobile&quot;: &quot;&quot;,
-    &quot;nationalCode&quot;: &quot;&quot;,
-    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-    &quot;bindGA&quot;: false,
-    &quot;bindTradePwd&quot;: false,
-    &quot;bindPassword&quot;: true,
-    &quot;userType&quot;: 1,
-    &quot;verifyStatus&quot;: 2,
-    &quot;kycLevel&quot;: 55,
-    &quot;kycVerifyStatus&quot;: 2,
-    &quot;displayLevel&quot;: &quot;2&quot;,
-    &quot;accounts&quot;: [],
-    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-    &quot;registerDate&quot;: &quot;1763360810912&quot;,
-    &quot;source&quot;: &quot;&quot;,
-    &quot;inviteUserId&quot;: &quot;97838315&quot;,
-    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
-    &quot;isAgent&quot;: 0,
-    &quot;customLabelList&quot;: [],
-    &quot;antiPhishingCode&quot;: &quot;&quot;,
-    &quot;isJoinActivity&quot;: 0,
-    &quot;oidcApple&quot;: false,
-    &quot;oidcGoogle&quot;: false,
-    &quot;bindOidc&quot;: false,
-    &quot;bindOidcSuccess&quot;: false
-  }
+  &quot;code&quot;: -1001,
+  &quot;msg&quot;: &quot;&quot;
 }</pre>
                             </div>
                         </div>
@@ -276,24 +232,24 @@ sl-session=X3rkEY2VeGmxWvCuCnXnGg==; SameSite=None; Secure; Path=/; Max-Age=8640
 
                 <tr class="request-row" onclick="toggleDetails(1)">
                     <td>2</td>
-                    <td>18:38:06.050</td>
+                    <td>15:36:39.757</td>
                     <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/create?c_token=284YzwnNUjPZA6dn3s5EV8EyKOb2dmi8">https://www.ast1001.com/api/contract/order/create?c_token...</td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
                     <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">384ms</span></td>
+                    <td><span class="execution-time">174ms</span></td>
                 </tr>
                 <tr id="details-1" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
-                <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试04 - 验证订单响应包含必要字段</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">市价买入测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">Trade</span> <span class="badge badge-category">Validation</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-medium">Medium</span></p></div>
+                <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试06 - 验证平仓响应包含订单信息</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">闪电平仓测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">Trade</span> <span class="badge badge-category">Validation</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-medium">Medium</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test04_CreateBtcOrder_ShouldContainOrderId</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test06_ClosePosition_ShouldContainOrderInfo</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/create?c_token=284YzwnNUjPZA6dn3s5EV8EyKOb2dmi8</p>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:06.050</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:39.757</p>
                             </div>
                             
                             <div class="detail-section">
@@ -303,72 +259,72 @@ sl-session=X3rkEY2VeGmxWvCuCnXnGg==; SameSite=None; Secure; Path=/; Max-Age=8640
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>side=BUY_OPEN&amp;type=LIMIT&amp;price_type=MARKET_PRICE&amp;trigger_price=&amp;leverage=400&amp;quantity=1.00&amp;symbol_id=BTCUSDT_PERP&amp;client_order_id=1769423885665&amp;exchange_id=888&amp;order_side=BUY&amp;is_cross=true&amp;time_in_force=IOC&amp;deduction=score</pre>
+                                <pre>verify_code=&amp;type=0&amp;login_type=email&amp;national_code=&amp;order_id=&amp;email=Aaaanew%40ast1.com&amp;password=2c9341ca4cf3d87b9e4eb905d6a3ec45&amp;username=Aaaanew%40ast1.com&amp;captcha_response=&amp;secure_login_flag=true</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 200</p>
                                 
-                                <p><strong>耗时:</strong> 384ms</p>
+                                <p><strong>耗时:</strong> 174ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:06 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:39 GMT
 content-type: application/json;charset=UTF-8
-content-length: 970
+content-length: 859
 connection: keep-alive
-tid: </pre>
+tid: 
+set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzcwMzYzMzk5MTU0LCJfciI6IldqdnNMZVZFMUVjbCIsIl9wIjoiNDJhZTQ0MDY4N2Y0YjE5NzZlMTUwZGNiYmM5MjljOWUifQ.NyqnWGzpiiVXMpMVgh2DkEd-VtwShFIOjQyMqkcGHfY; Domain=ast1001.com; Path=/
+user_id=97838347; Domain=ast1001.com; Path=/
+account_id=2085616077557017345; Domain=ast1001.com; Path=/
+c_token=bbGFMXGYv1dMn5ObBiV2XoagVdpMpiBM; Domain=ast1001.com; Path=/</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
                                 <pre class="json-content">{
-  &quot;time&quot;: &quot;1769423885935&quot;,
-  &quot;orderId&quot;: &quot;2136476837417628160&quot;,
-  &quot;accountId&quot;: &quot;2085616077557017347&quot;,
-  &quot;clientOrderId&quot;: &quot;1769423885665&quot;,
-  &quot;symbolId&quot;: &quot;BTCUSDT_PERP&quot;,
-  &quot;symbolName&quot;: &quot;BTCUSDT_PERP&quot;,
-  &quot;baseTokenId&quot;: &quot;BTCUSDT_PERP&quot;,
-  &quot;baseTokenName&quot;: &quot;BTCUSDT_PERP&quot;,
-  &quot;quoteTokenId&quot;: &quot;USDT&quot;,
-  &quot;quoteTokenName&quot;: &quot;USDT&quot;,
-  &quot;price&quot;: &quot;87930.3&quot;,
-  &quot;origQty&quot;: &quot;1&quot;,
-  &quot;executedQty&quot;: &quot;0&quot;,
-  &quot;executedAmount&quot;: &quot;0&quot;,
-  &quot;avgPrice&quot;: &quot;0&quot;,
-  &quot;type&quot;: &quot;LIMIT&quot;,
-  &quot;side&quot;: &quot;BUY_OPEN&quot;,
-  &quot;fees&quot;: [],
-  &quot;status&quot;: &quot;NEW&quot;,
-  &quot;noExecutedQty&quot;: &quot;1&quot;,
-  &quot;amount&quot;: &quot;87930.3&quot;,
-  &quot;exchangeId&quot;: &quot;888&quot;,
-  &quot;margin&quot;: &quot;2.1&quot;,
-  &quot;experienceAmount&quot;: &quot;.0&quot;,
-  &quot;leverage&quot;: &quot;400&quot;,
-  &quot;isClose&quot;: false,
-  &quot;priceType&quot;: &quot;MARKET_PRICE&quot;,
-  &quot;isLiquidationOrder&quot;: false,
-  &quot;liquidationType&quot;: &quot;NO_LIQ&quot;,
-  &quot;liquidationPrice&quot;: &quot;0&quot;,
-  &quot;bankruptcyPrice&quot;: &quot;&quot;,
-  &quot;closePnl&quot;: &quot;0&quot;,
-  &quot;updateTime&quot;: &quot;1769423885935&quot;,
-  &quot;timeInForce&quot;: &quot;IOC&quot;,
-  &quot;scoreFee&quot;: &quot;0&quot;,
-  &quot;feeScoreNum&quot;: &quot;0&quot;,
-  &quot;scoreStatus&quot;: 0,
-  &quot;score&quot;: 0,
-  &quot;isCross&quot;: true,
-  &quot;pnlRate&quot;: &quot;&quot;,
-  &quot;stopProfitPrice&quot;: &quot;&quot;,
-  &quot;stopLossPrice&quot;: &quot;&quot;,
-  &quot;stopLossClosePrice&quot;: &quot;&quot;,
-  &quot;stopProfitClosePrice&quot;: &quot;&quot;,
-  &quot;stopLossPriceType&quot;: -1,
-  &quot;stopProfitPriceType&quot;: -1
+  &quot;bindMobile&quot;: false,
+  &quot;bindEmail&quot;: false,
+  &quot;bindGA&quot;: false,
+  &quot;need2FA&quot;: false,
+  &quot;authType&quot;: &quot;&quot;,
+  &quot;userId&quot;: &quot;97838347&quot;,
+  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
+  &quot;registerType&quot;: 2,
+  &quot;nationalCode&quot;: &quot;&quot;,
+  &quot;mobile&quot;: &quot;&quot;,
+  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
+  &quot;user&quot;: {
+    &quot;userId&quot;: &quot;97838347&quot;,
+    &quot;registerType&quot;: 2,
+    &quot;nickName&quot;: &quot;&quot;,
+    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
+    &quot;mobile&quot;: &quot;&quot;,
+    &quot;nationalCode&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
+    &quot;bindGA&quot;: false,
+    &quot;bindTradePwd&quot;: false,
+    &quot;bindPassword&quot;: true,
+    &quot;userType&quot;: 1,
+    &quot;verifyStatus&quot;: 2,
+    &quot;kycLevel&quot;: 55,
+    &quot;kycVerifyStatus&quot;: 2,
+    &quot;displayLevel&quot;: &quot;2&quot;,
+    &quot;accounts&quot;: [],
+    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
+    &quot;registerDate&quot;: &quot;1763360810912&quot;,
+    &quot;source&quot;: &quot;&quot;,
+    &quot;inviteUserId&quot;: &quot;97838315&quot;,
+    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
+    &quot;isAgent&quot;: 0,
+    &quot;customLabelList&quot;: [],
+    &quot;antiPhishingCode&quot;: &quot;&quot;,
+    &quot;isJoinActivity&quot;: 0,
+    &quot;oidcApple&quot;: false,
+    &quot;oidcGoogle&quot;: false,
+    &quot;bindOidc&quot;: false,
+    &quot;bindOidcSuccess&quot;: false
+  }
 }</pre>
                             </div>
                         </div>
@@ -377,11 +333,11 @@ tid: </pre>
 
                 <tr class="request-row" onclick="toggleDetails(2)">
                     <td>3</td>
-                    <td>18:38:06.199</td>
+                    <td>15:36:39.854</td>
                     <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
-                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">139ms</span></td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/close_promptly?c_token=bbGFMXGYv1dMn5ObBiV2XoagVdpMpiBM">https://www.ast1001.com/api/contract/order/close_promptly...</td>
+                    <td><span class="status-badge status-error"><i class="fas fa-times-circle"></i> 400</span></td>
+                    <td><span class="execution-time">93ms</span></td>
                 </tr>
                 <tr id="details-2" class="details-row" style="display: none;">
                     <td colspan="6">
@@ -389,12 +345,12 @@ tid: </pre>
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试06 - 验证平仓响应包含订单信息</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">闪电平仓测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">Trade</span> <span class="badge badge-category">Validation</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-medium">Medium</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test06_ClosePosition_ShouldContainOrderInfo</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test06_ClosePosition_ShouldContainOrderInfo</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/close_promptly?c_token=bbGFMXGYv1dMn5ObBiV2XoagVdpMpiBM</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:06.199</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:39.854</p>
                             </div>
                             
                             <div class="detail-section">
@@ -404,72 +360,29 @@ tid: </pre>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>verify_code=&amp;type=0&amp;login_type=email&amp;national_code=&amp;order_id=&amp;email=Aaaanew%40ast1.com&amp;password=2c9341ca4cf3d87b9e4eb905d6a3ec45&amp;username=Aaaanew%40ast1.com&amp;captcha_response=&amp;secure_login_flag=true</pre>
+                                <pre>client_order_id=1770363399760&amp;symbol_id=BTCUSDT_PERP&amp;is_long=1&amp;exchange_id=888&amp;is_cross=true</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
-                                <p><strong>状态码:</strong> 200</p>
-                                
-                                <p><strong>耗时:</strong> 139ms</p>
+                                <p><strong>状态码:</strong> 400</p>
+                                <p><strong>业务Code:</strong> 32303</p>
+                                <p><strong>耗时:</strong> 93ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:06 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:39 GMT
 content-type: application/json;charset=UTF-8
-content-length: 859
+content-length: 105
 connection: keep-alive
 tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg2MzI5LCJfciI6InlXSGxaN25xMTVJayIsIl9wIjoiODRmZGQyYjRkOGQ3OTZlMjYwYmIxZGMwYzFmMjhhZjgifQ.iiBobARUXqFzxRB78Jt3bToFZX-vBwA-GFG2nLCiro0; Domain=ast1001.com; Path=/
-user_id=97838347; Domain=ast1001.com; Path=/
-account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=wPMGNHqTPFE4qYT2KEP97j0iawgPgQDA; Domain=ast1001.com; Path=/</pre>
+error_code: 32303</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
                                 <pre class="json-content">{
-  &quot;bindMobile&quot;: false,
-  &quot;bindEmail&quot;: false,
-  &quot;bindGA&quot;: false,
-  &quot;need2FA&quot;: false,
-  &quot;authType&quot;: &quot;&quot;,
-  &quot;userId&quot;: &quot;97838347&quot;,
-  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-  &quot;registerType&quot;: 2,
-  &quot;nationalCode&quot;: &quot;&quot;,
-  &quot;mobile&quot;: &quot;&quot;,
-  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-  &quot;user&quot;: {
-    &quot;userId&quot;: &quot;97838347&quot;,
-    &quot;registerType&quot;: 2,
-    &quot;nickName&quot;: &quot;&quot;,
-    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
-    &quot;mobile&quot;: &quot;&quot;,
-    &quot;nationalCode&quot;: &quot;&quot;,
-    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-    &quot;bindGA&quot;: false,
-    &quot;bindTradePwd&quot;: false,
-    &quot;bindPassword&quot;: true,
-    &quot;userType&quot;: 1,
-    &quot;verifyStatus&quot;: 2,
-    &quot;kycLevel&quot;: 55,
-    &quot;kycVerifyStatus&quot;: 2,
-    &quot;displayLevel&quot;: &quot;2&quot;,
-    &quot;accounts&quot;: [],
-    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-    &quot;registerDate&quot;: &quot;1763360810912&quot;,
-    &quot;source&quot;: &quot;&quot;,
-    &quot;inviteUserId&quot;: &quot;97838315&quot;,
-    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
-    &quot;isAgent&quot;: 0,
-    &quot;customLabelList&quot;: [],
-    &quot;antiPhishingCode&quot;: &quot;&quot;,
-    &quot;isJoinActivity&quot;: 0,
-    &quot;oidcApple&quot;: false,
-    &quot;oidcGoogle&quot;: false,
-    &quot;bindOidc&quot;: false,
-    &quot;bindOidcSuccess&quot;: false
-  }
+  &quot;code&quot;: 32303,
+  &quot;msg&quot;: &quot;Unable to find contract position, please confirm the position direction is correct&quot;
 }</pre>
                             </div>
                         </div>
@@ -478,82 +391,24 @@ c_token=wPMGNHqTPFE4qYT2KEP97j0iawgPgQDA; Domain=ast1001.com; Path=/</pre>
 
                 <tr class="request-row" onclick="toggleDetails(3)">
                     <td>4</td>
-                    <td>18:38:06.287</td>
+                    <td>15:36:39.999</td>
                     <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/close_promptly?c_token=wPMGNHqTPFE4qYT2KEP97j0iawgPgQDA">https://www.ast1001.com/api/contract/order/close_promptly...</td>
-                    <td><span class="status-badge status-error"><i class="fas fa-times-circle"></i> 400</span></td>
-                    <td><span class="execution-time">85ms</span></td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
+                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
+                    <td><span class="execution-time">136ms</span></td>
                 </tr>
                 <tr id="details-3" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
-                <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试06 - 验证平仓响应包含订单信息</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">闪电平仓测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">Trade</span> <span class="badge badge-category">Validation</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-medium">Medium</span></p></div>
-                            <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test06_ClosePosition_ShouldContainOrderInfo</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/close_promptly?c_token=wPMGNHqTPFE4qYT2KEP97j0iawgPgQDA</p>
-                                <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:06.287</p>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-arrow-up"></i> 请求头</h4>
-                                <pre>Content-Type: application/x-www-form-urlencoded</pre>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>client_order_id=1769423886201&amp;symbol_id=BTCUSDT_PERP&amp;is_long=1&amp;exchange_id=888&amp;is_cross=true</pre>
-                            </div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
-                                <p><strong>状态码:</strong> 400</p>
-                                <p><strong>业务Code:</strong> 30007</p>
-                                <p><strong>耗时:</strong> 85ms</p>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:06 GMT
-content-type: application/json;charset=UTF-8
-content-length: 61
-connection: keep-alive
-tid: 
-error_code: 30007</pre>
-                            </div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-code"></i> 响应内容</h4>
-                                <pre class="json-content">{
-  &quot;code&quot;: 30007,
-  &quot;msg&quot;: &quot;Request failed, please try again later&quot;
-}</pre>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr class="request-row" onclick="toggleDetails(4)">
-                    <td>5</td>
-                    <td>18:38:06.419</td>
-                    <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
-                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">124ms</span></td>
-                </tr>
-                <tr id="details-4" class="details-row" style="display: none;">
-                    <td colspan="6">
-                        <div class="details-content">
-                            <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试03 - 创建BTC市价买入订单</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">市价买入测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">Trade</span> <span class="badge badge-category">BuyOrder</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-high">High</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test03_CreateBtcOrder_ShouldSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test03_CreateBtcOrder_ShouldSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
                                 <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:06.419</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:39.999</p>
                             </div>
                             
                             <div class="detail-section">
@@ -569,20 +424,20 @@ error_code: 30007</pre>
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 200</p>
                                 
-                                <p><strong>耗时:</strong> 124ms</p>
+                                <p><strong>耗时:</strong> 136ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:06 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:39 GMT
 content-type: application/json;charset=UTF-8
 content-length: 859
 connection: keep-alive
 tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg2NTU4LCJfciI6IktpNnRUR0xQQkU1SCIsIl9wIjoiNGUwYTg3MzEwZDk1Mzc4MDU5ZmIzMWRkYzBjOWZjZDUifQ.9Pz2PwF5YPVdNqGUv_CNEHonFR1Y_SLo2PDw_lsTcfM; Domain=ast1001.com; Path=/
+set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzcwMzYzMzk5NDE1LCJfciI6ImRaaHJDNXNGNGlSZiIsIl9wIjoiMGJjNjc5OTczODNmMmI2MzUwYTFjNzEyNzdmMGVkMzIifQ.89bh_SAyrYVqDgX3mtmUYd2VVYic8Pi-Do4RuiiIJu4; Domain=ast1001.com; Path=/
 user_id=97838347; Domain=ast1001.com; Path=/
 account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=yNFo9o6LypgiUpLMLQWs58RrZO7l1DlU; Domain=ast1001.com; Path=/</pre>
+c_token=QRJidm8q3dZcLL3krHK307rtengftYZW; Domain=ast1001.com; Path=/</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
@@ -635,26 +490,26 @@ c_token=yNFo9o6LypgiUpLMLQWs58RrZO7l1DlU; Domain=ast1001.com; Path=/</pre>
                     </td>
                 </tr>
 
-                <tr class="request-row" onclick="toggleDetails(5)">
-                    <td>6</td>
-                    <td>18:38:06.784</td>
+                <tr class="request-row" onclick="toggleDetails(4)">
+                    <td>5</td>
+                    <td>15:36:40.785</td>
                     <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/create?c_token=yNFo9o6LypgiUpLMLQWs58RrZO7l1DlU">https://www.ast1001.com/api/contract/order/create?c_token...</td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/create?c_token=QRJidm8q3dZcLL3krHK307rtengftYZW">https://www.ast1001.com/api/contract/order/create?c_token...</td>
                     <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">362ms</span></td>
+                    <td><span class="execution-time">781ms</span></td>
                 </tr>
-                <tr id="details-5" class="details-row" style="display: none;">
+                <tr id="details-4" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试03 - 创建BTC市价买入订单</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">市价买入测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">Trade</span> <span class="badge badge-category">BuyOrder</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-high">High</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test03_CreateBtcOrder_ShouldSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test03_CreateBtcOrder_ShouldSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/create?c_token=yNFo9o6LypgiUpLMLQWs58RrZO7l1DlU</p>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/create?c_token=QRJidm8q3dZcLL3krHK307rtengftYZW</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:06.784</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:40.785</p>
                             </div>
                             
                             <div class="detail-section">
@@ -664,18 +519,18 @@ c_token=yNFo9o6LypgiUpLMLQWs58RrZO7l1DlU; Domain=ast1001.com; Path=/</pre>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>side=BUY_OPEN&amp;type=LIMIT&amp;price_type=MARKET_PRICE&amp;trigger_price=&amp;leverage=400&amp;quantity=1.00&amp;symbol_id=BTCUSDT_PERP&amp;client_order_id=1769423886421&amp;exchange_id=888&amp;order_side=BUY&amp;is_cross=true&amp;time_in_force=IOC&amp;deduction=score</pre>
+                                <pre>side=BUY_OPEN&amp;type=LIMIT&amp;price_type=MARKET_PRICE&amp;trigger_price=&amp;leverage=400&amp;quantity=1.00&amp;symbol_id=BTCUSDT_PERP&amp;client_order_id=1770363400002&amp;exchange_id=888&amp;order_side=BUY&amp;is_cross=true&amp;time_in_force=IOC&amp;deduction=score</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 200</p>
                                 
-                                <p><strong>耗时:</strong> 362ms</p>
+                                <p><strong>耗时:</strong> 781ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:06 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:40 GMT
 content-type: application/json;charset=UTF-8
 content-length: 970
 connection: keep-alive
@@ -684,17 +539,17 @@ tid: </pre>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
                                 <pre class="json-content">{
-  &quot;time&quot;: &quot;1769423886689&quot;,
-  &quot;orderId&quot;: &quot;2136476843759415808&quot;,
+  &quot;time&quot;: &quot;1770363399746&quot;,
+  &quot;orderId&quot;: &quot;2144358050488693248&quot;,
   &quot;accountId&quot;: &quot;2085616077557017347&quot;,
-  &quot;clientOrderId&quot;: &quot;1769423886421&quot;,
+  &quot;clientOrderId&quot;: &quot;1770363400002&quot;,
   &quot;symbolId&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;symbolName&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;baseTokenId&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;baseTokenName&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;quoteTokenId&quot;: &quot;USDT&quot;,
   &quot;quoteTokenName&quot;: &quot;USDT&quot;,
-  &quot;price&quot;: &quot;87930.3&quot;,
+  &quot;price&quot;: &quot;65405.2&quot;,
   &quot;origQty&quot;: &quot;1&quot;,
   &quot;executedQty&quot;: &quot;0&quot;,
   &quot;executedAmount&quot;: &quot;0&quot;,
@@ -704,9 +559,9 @@ tid: </pre>
   &quot;fees&quot;: [],
   &quot;status&quot;: &quot;NEW&quot;,
   &quot;noExecutedQty&quot;: &quot;1&quot;,
-  &quot;amount&quot;: &quot;87930.3&quot;,
+  &quot;amount&quot;: &quot;65405.2&quot;,
   &quot;exchangeId&quot;: &quot;888&quot;,
-  &quot;margin&quot;: &quot;2.1&quot;,
+  &quot;margin&quot;: &quot;1.6&quot;,
   &quot;experienceAmount&quot;: &quot;.0&quot;,
   &quot;leverage&quot;: &quot;400&quot;,
   &quot;isClose&quot;: false,
@@ -716,7 +571,7 @@ tid: </pre>
   &quot;liquidationPrice&quot;: &quot;0&quot;,
   &quot;bankruptcyPrice&quot;: &quot;&quot;,
   &quot;closePnl&quot;: &quot;0&quot;,
-  &quot;updateTime&quot;: &quot;1769423886689&quot;,
+  &quot;updateTime&quot;: &quot;1770363399746&quot;,
   &quot;timeInForce&quot;: &quot;IOC&quot;,
   &quot;scoreFee&quot;: &quot;0&quot;,
   &quot;feeScoreNum&quot;: &quot;0&quot;,
@@ -736,26 +591,26 @@ tid: </pre>
                     </td>
                 </tr>
 
-                <tr class="request-row" onclick="toggleDetails(6)">
-                    <td>7</td>
-                    <td>18:38:06.899</td>
+                <tr class="request-row" onclick="toggleDetails(5)">
+                    <td>6</td>
+                    <td>15:36:40.940</td>
                     <td><span class="method method-post">POST</span></td>
                     <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
                     <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">102ms</span></td>
+                    <td><span class="execution-time">141ms</span></td>
                 </tr>
-                <tr id="details-6" class="details-row" style="display: none;">
+                <tr id="details-5" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试02 - 登录后能提取到Token</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">登录测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">Login</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-high">High</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test02_Login_ShouldExtractToken</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test02_Login_ShouldExtractToken</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
                                 <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:06.899</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:40.940</p>
                             </div>
                             
                             <div class="detail-section">
@@ -771,20 +626,121 @@ tid: </pre>
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 200</p>
                                 
-                                <p><strong>耗时:</strong> 102ms</p>
+                                <p><strong>耗时:</strong> 141ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:07 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:40 GMT
 content-type: application/json;charset=UTF-8
 content-length: 859
 connection: keep-alive
 tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg3MDYyLCJfciI6InFIVjdrdDFuZm1YaSIsIl9wIjoiN2JhNTk5YmJlOTIyY2UxNDk1MzNiODBjODY4Y2VhYTcifQ.akn5DhA8a7DQmz-oKuofzxLHO0kTBfbVIEWQgxSxZ2s; Domain=ast1001.com; Path=/
+set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzcwMzYzNDAwMzU2LCJfciI6IjdGb25tSlY0OHNFbCIsIl9wIjoiN2JkZWUyNWQzODU2Zjg5NTQwZDRlMTcwYTM2YmRjNTMifQ.x9Nl6EioteDKa_E4ct7Mpg0yo7gHwQxHxUkTYPqkh58; Domain=ast1001.com; Path=/
 user_id=97838347; Domain=ast1001.com; Path=/
 account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=nAFKd2qXKAii9b13u05Sts00MMMNFrjo; Domain=ast1001.com; Path=/</pre>
+c_token=bscEnESuWPqzTTmzFXXzic5IIUi6FTU2; Domain=ast1001.com; Path=/</pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-code"></i> 响应内容</h4>
+                                <pre class="json-content">{
+  &quot;bindMobile&quot;: false,
+  &quot;bindEmail&quot;: false,
+  &quot;bindGA&quot;: false,
+  &quot;need2FA&quot;: false,
+  &quot;authType&quot;: &quot;&quot;,
+  &quot;userId&quot;: &quot;97838347&quot;,
+  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
+  &quot;registerType&quot;: 2,
+  &quot;nationalCode&quot;: &quot;&quot;,
+  &quot;mobile&quot;: &quot;&quot;,
+  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
+  &quot;user&quot;: {
+    &quot;userId&quot;: &quot;97838347&quot;,
+    &quot;registerType&quot;: 2,
+    &quot;nickName&quot;: &quot;&quot;,
+    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
+    &quot;mobile&quot;: &quot;&quot;,
+    &quot;nationalCode&quot;: &quot;&quot;,
+    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
+    &quot;bindGA&quot;: false,
+    &quot;bindTradePwd&quot;: false,
+    &quot;bindPassword&quot;: true,
+    &quot;userType&quot;: 1,
+    &quot;verifyStatus&quot;: 2,
+    &quot;kycLevel&quot;: 55,
+    &quot;kycVerifyStatus&quot;: 2,
+    &quot;displayLevel&quot;: &quot;2&quot;,
+    &quot;accounts&quot;: [],
+    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
+    &quot;registerDate&quot;: &quot;1763360810912&quot;,
+    &quot;source&quot;: &quot;&quot;,
+    &quot;inviteUserId&quot;: &quot;97838315&quot;,
+    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
+    &quot;isAgent&quot;: 0,
+    &quot;customLabelList&quot;: [],
+    &quot;antiPhishingCode&quot;: &quot;&quot;,
+    &quot;isJoinActivity&quot;: 0,
+    &quot;oidcApple&quot;: false,
+    &quot;oidcGoogle&quot;: false,
+    &quot;bindOidc&quot;: false,
+    &quot;bindOidcSuccess&quot;: false
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="request-row" onclick="toggleDetails(6)">
+                    <td>7</td>
+                    <td>15:36:41.118</td>
+                    <td><span class="method method-post">POST</span></td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
+                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
+                    <td><span class="execution-time">171ms</span></td>
+                </tr>
+                <tr id="details-6" class="details-row" style="display: none;">
+                    <td colspan="6">
+                        <div class="details-content">
+                            <div class="detail-section">
+                <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试07 - 完整交易流程（登录→开仓→平仓）</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">完整流程测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">E2E</span> <span class="badge badge-category">FullFlow</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-critical">Critical</span></p></div>
+                            <div class="detail-section">
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test07_CompleteTradeFlow_ShouldSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
+                                <p><strong>方法:</strong> POST</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:41.118</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-up"></i> 请求头</h4>
+                                <pre>Content-Type: application/x-www-form-urlencoded</pre>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-file-code"></i> 请求参数</h4>
+                                <pre>verify_code=&amp;type=0&amp;login_type=email&amp;national_code=&amp;order_id=&amp;email=Aaaanew%40ast1.com&amp;password=2c9341ca4cf3d87b9e4eb905d6a3ec45&amp;username=Aaaanew%40ast1.com&amp;captcha_response=&amp;secure_login_flag=true</pre>
+                            </div>
+                            <div class="detail-section">
+                                <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
+                                <p><strong>状态码:</strong> 200</p>
+                                
+                                <p><strong>耗时:</strong> 171ms</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
+                                <pre>date: Fri, 06 Feb 2026 07:36:40 GMT
+content-type: application/json;charset=UTF-8
+content-length: 859
+connection: keep-alive
+tid: 
+set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzcwMzYzNDAwNDk0LCJfciI6IlRMeWhkZFJhUWJvdyIsIl9wIjoiZTFmNjNkNjE0ZDE4YzI0YzMxZmQ1OGI2YTQxZjNjMjcifQ.sbk7H8MV_2Xn2XhBsIeDZVoSNiRMlgrLI1-t6vRv7gU; Domain=ast1001.com; Path=/
+user_id=97838347; Domain=ast1001.com; Path=/
+account_id=2085616077557017345; Domain=ast1001.com; Path=/
+c_token=gk632gwOKVRjUeREuWfS6dlFdPmIzQpp; Domain=ast1001.com; Path=/</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
@@ -839,125 +795,24 @@ c_token=nAFKd2qXKAii9b13u05Sts00MMMNFrjo; Domain=ast1001.com; Path=/</pre>
 
                 <tr class="request-row" onclick="toggleDetails(7)">
                     <td>8</td>
-                    <td>18:38:07.070</td>
+                    <td>15:36:41.504</td>
                     <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/create?c_token=gk632gwOKVRjUeREuWfS6dlFdPmIzQpp">https://www.ast1001.com/api/contract/order/create?c_token...</td>
                     <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">168ms</span></td>
+                    <td><span class="execution-time">383ms</span></td>
                 </tr>
                 <tr id="details-7" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
-                <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试02 - 登录后能提取到Token</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">登录测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">Login</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-high">High</span></p></div>
-                            <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test02_Login_ShouldExtractToken</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
-                                <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:07.070</p>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-arrow-up"></i> 请求头</h4>
-                                <pre>Content-Type: application/x-www-form-urlencoded</pre>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>verify_code=&amp;type=0&amp;login_type=email&amp;national_code=&amp;order_id=&amp;email=Aaaanew%40ast1.com&amp;password=2c9341ca4cf3d87b9e4eb905d6a3ec45&amp;username=Aaaanew%40ast1.com&amp;captcha_response=&amp;secure_login_flag=true</pre>
-                            </div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
-                                <p><strong>状态码:</strong> 200</p>
-                                
-                                <p><strong>耗时:</strong> 168ms</p>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:07 GMT
-content-type: application/json;charset=UTF-8
-content-length: 859
-connection: keep-alive
-tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg3MTY2LCJfciI6Im9XeTgwM09odE1kaCIsIl9wIjoiZjJmOTk5ODgzZDM3N2JmNWI4NTYyNWI2YWM4MTRjYTIifQ.1cGxnM_FTDzS0VWtKQwAIVIIfFej9YNRb7TSVVMkYT0; Domain=ast1001.com; Path=/
-user_id=97838347; Domain=ast1001.com; Path=/
-account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=YoJZHfl6kVCzKuD2e86bYZq1S7ULNsJR; Domain=ast1001.com; Path=/</pre>
-                            </div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-code"></i> 响应内容</h4>
-                                <pre class="json-content">{
-  &quot;bindMobile&quot;: false,
-  &quot;bindEmail&quot;: false,
-  &quot;bindGA&quot;: false,
-  &quot;need2FA&quot;: false,
-  &quot;authType&quot;: &quot;&quot;,
-  &quot;userId&quot;: &quot;97838347&quot;,
-  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-  &quot;registerType&quot;: 2,
-  &quot;nationalCode&quot;: &quot;&quot;,
-  &quot;mobile&quot;: &quot;&quot;,
-  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-  &quot;user&quot;: {
-    &quot;userId&quot;: &quot;97838347&quot;,
-    &quot;registerType&quot;: 2,
-    &quot;nickName&quot;: &quot;&quot;,
-    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
-    &quot;mobile&quot;: &quot;&quot;,
-    &quot;nationalCode&quot;: &quot;&quot;,
-    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-    &quot;bindGA&quot;: false,
-    &quot;bindTradePwd&quot;: false,
-    &quot;bindPassword&quot;: true,
-    &quot;userType&quot;: 1,
-    &quot;verifyStatus&quot;: 2,
-    &quot;kycLevel&quot;: 55,
-    &quot;kycVerifyStatus&quot;: 2,
-    &quot;displayLevel&quot;: &quot;2&quot;,
-    &quot;accounts&quot;: [],
-    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-    &quot;registerDate&quot;: &quot;1763360810912&quot;,
-    &quot;source&quot;: &quot;&quot;,
-    &quot;inviteUserId&quot;: &quot;97838315&quot;,
-    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
-    &quot;isAgent&quot;: 0,
-    &quot;customLabelList&quot;: [],
-    &quot;antiPhishingCode&quot;: &quot;&quot;,
-    &quot;isJoinActivity&quot;: 0,
-    &quot;oidcApple&quot;: false,
-    &quot;oidcGoogle&quot;: false,
-    &quot;bindOidc&quot;: false,
-    &quot;bindOidcSuccess&quot;: false
-  }
-}</pre>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr class="request-row" onclick="toggleDetails(8)">
-                    <td>9</td>
-                    <td>18:38:07.202</td>
-                    <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
-                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">126ms</span></td>
-                </tr>
-                <tr id="details-8" class="details-row" style="display: none;">
-                    <td colspan="6">
-                        <div class="details-content">
-                            <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试07 - 完整交易流程（登录→开仓→平仓）</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">完整流程测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">E2E</span> <span class="badge badge-category">FullFlow</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-critical">Critical</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test07_CompleteTradeFlow_ShouldSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test07_CompleteTradeFlow_ShouldSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/create?c_token=gk632gwOKVRjUeREuWfS6dlFdPmIzQpp</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:07.202</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:41.504</p>
                             </div>
                             
                             <div class="detail-section">
@@ -967,119 +822,18 @@ c_token=YoJZHfl6kVCzKuD2e86bYZq1S7ULNsJR; Domain=ast1001.com; Path=/</pre>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>verify_code=&amp;type=0&amp;login_type=email&amp;national_code=&amp;order_id=&amp;email=Aaaanew%40ast1.com&amp;password=2c9341ca4cf3d87b9e4eb905d6a3ec45&amp;username=Aaaanew%40ast1.com&amp;captcha_response=&amp;secure_login_flag=true</pre>
+                                <pre>side=BUY_OPEN&amp;type=LIMIT&amp;price_type=MARKET_PRICE&amp;trigger_price=&amp;leverage=400&amp;quantity=1.00&amp;symbol_id=BTCUSDT_PERP&amp;client_order_id=1770363401119&amp;exchange_id=888&amp;order_side=BUY&amp;is_cross=true&amp;time_in_force=IOC&amp;deduction=score</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 200</p>
                                 
-                                <p><strong>耗时:</strong> 126ms</p>
+                                <p><strong>耗时:</strong> 383ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:07 GMT
-content-type: application/json;charset=UTF-8
-content-length: 859
-connection: keep-alive
-tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg3MzQwLCJfciI6Im5jd1d0cW1qMG1yRCIsIl9wIjoiZTYyNTFkMTIwZDMxNzlhY2I3ODlmYjNjZTk1MDY3YmIifQ.BJE7Ai5oTV_HL0eMi3sbabdlt1D0vt81Qy03he91_4Y; Domain=ast1001.com; Path=/
-user_id=97838347; Domain=ast1001.com; Path=/
-account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=V7BcrTiEtJ8M7ouqUNrlaJsPYpwGsJt4; Domain=ast1001.com; Path=/</pre>
-                            </div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-code"></i> 响应内容</h4>
-                                <pre class="json-content">{
-  &quot;bindMobile&quot;: false,
-  &quot;bindEmail&quot;: false,
-  &quot;bindGA&quot;: false,
-  &quot;need2FA&quot;: false,
-  &quot;authType&quot;: &quot;&quot;,
-  &quot;userId&quot;: &quot;97838347&quot;,
-  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-  &quot;registerType&quot;: 2,
-  &quot;nationalCode&quot;: &quot;&quot;,
-  &quot;mobile&quot;: &quot;&quot;,
-  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-  &quot;user&quot;: {
-    &quot;userId&quot;: &quot;97838347&quot;,
-    &quot;registerType&quot;: 2,
-    &quot;nickName&quot;: &quot;&quot;,
-    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
-    &quot;mobile&quot;: &quot;&quot;,
-    &quot;nationalCode&quot;: &quot;&quot;,
-    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-    &quot;bindGA&quot;: false,
-    &quot;bindTradePwd&quot;: false,
-    &quot;bindPassword&quot;: true,
-    &quot;userType&quot;: 1,
-    &quot;verifyStatus&quot;: 2,
-    &quot;kycLevel&quot;: 55,
-    &quot;kycVerifyStatus&quot;: 2,
-    &quot;displayLevel&quot;: &quot;2&quot;,
-    &quot;accounts&quot;: [],
-    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-    &quot;registerDate&quot;: &quot;1763360810912&quot;,
-    &quot;source&quot;: &quot;&quot;,
-    &quot;inviteUserId&quot;: &quot;97838315&quot;,
-    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
-    &quot;isAgent&quot;: 0,
-    &quot;customLabelList&quot;: [],
-    &quot;antiPhishingCode&quot;: &quot;&quot;,
-    &quot;isJoinActivity&quot;: 0,
-    &quot;oidcApple&quot;: false,
-    &quot;oidcGoogle&quot;: false,
-    &quot;bindOidc&quot;: false,
-    &quot;bindOidcSuccess&quot;: false
-  }
-}</pre>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr class="request-row" onclick="toggleDetails(9)">
-                    <td>10</td>
-                    <td>18:38:07.625</td>
-                    <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/create?c_token=V7BcrTiEtJ8M7ouqUNrlaJsPYpwGsJt4">https://www.ast1001.com/api/contract/order/create?c_token...</td>
-                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">418ms</span></td>
-                </tr>
-                <tr id="details-9" class="details-row" style="display: none;">
-                    <td colspan="6">
-                        <div class="details-content">
-                            <div class="detail-section">
-                <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试07 - 完整交易流程（登录→开仓→平仓）</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">完整流程测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">E2E</span> <span class="badge badge-category">FullFlow</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-critical">Critical</span></p></div>
-                            <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test07_CompleteTradeFlow_ShouldSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/create?c_token=V7BcrTiEtJ8M7ouqUNrlaJsPYpwGsJt4</p>
-                                <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:07.625</p>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-arrow-up"></i> 请求头</h4>
-                                <pre>Content-Type: application/x-www-form-urlencoded</pre>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>side=BUY_OPEN&amp;type=LIMIT&amp;price_type=MARKET_PRICE&amp;trigger_price=&amp;leverage=400&amp;quantity=1.00&amp;symbol_id=BTCUSDT_PERP&amp;client_order_id=1769423887206&amp;exchange_id=888&amp;order_side=BUY&amp;is_cross=true&amp;time_in_force=IOC&amp;deduction=score</pre>
-                            </div>
-                            <div class="detail-section">
-                                <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
-                                <p><strong>状态码:</strong> 200</p>
-                                
-                                <p><strong>耗时:</strong> 418ms</p>
-                            </div>
-                            
-                            <div class="detail-section">
-                                <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:07 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:40 GMT
 content-type: application/json;charset=UTF-8
 content-length: 970
 connection: keep-alive
@@ -1088,17 +842,17 @@ tid: </pre>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
                                 <pre class="json-content">{
-  &quot;time&quot;: &quot;1769423887474&quot;,
-  &quot;orderId&quot;: &quot;2136476850336084480&quot;,
+  &quot;time&quot;: &quot;1770363400684&quot;,
+  &quot;orderId&quot;: &quot;2144358058373984768&quot;,
   &quot;accountId&quot;: &quot;2085616077557017347&quot;,
-  &quot;clientOrderId&quot;: &quot;1769423887206&quot;,
+  &quot;clientOrderId&quot;: &quot;1770363401119&quot;,
   &quot;symbolId&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;symbolName&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;baseTokenId&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;baseTokenName&quot;: &quot;BTCUSDT_PERP&quot;,
   &quot;quoteTokenId&quot;: &quot;USDT&quot;,
   &quot;quoteTokenName&quot;: &quot;USDT&quot;,
-  &quot;price&quot;: &quot;87930.3&quot;,
+  &quot;price&quot;: &quot;65405.3&quot;,
   &quot;origQty&quot;: &quot;1&quot;,
   &quot;executedQty&quot;: &quot;0&quot;,
   &quot;executedAmount&quot;: &quot;0&quot;,
@@ -1108,9 +862,9 @@ tid: </pre>
   &quot;fees&quot;: [],
   &quot;status&quot;: &quot;NEW&quot;,
   &quot;noExecutedQty&quot;: &quot;1&quot;,
-  &quot;amount&quot;: &quot;87930.3&quot;,
+  &quot;amount&quot;: &quot;65405.3&quot;,
   &quot;exchangeId&quot;: &quot;888&quot;,
-  &quot;margin&quot;: &quot;2.1&quot;,
+  &quot;margin&quot;: &quot;1.6&quot;,
   &quot;experienceAmount&quot;: &quot;.0&quot;,
   &quot;leverage&quot;: &quot;400&quot;,
   &quot;isClose&quot;: false,
@@ -1120,7 +874,7 @@ tid: </pre>
   &quot;liquidationPrice&quot;: &quot;0&quot;,
   &quot;bankruptcyPrice&quot;: &quot;&quot;,
   &quot;closePnl&quot;: &quot;0&quot;,
-  &quot;updateTime&quot;: &quot;1769423887474&quot;,
+  &quot;updateTime&quot;: &quot;1770363400684&quot;,
   &quot;timeInForce&quot;: &quot;IOC&quot;,
   &quot;scoreFee&quot;: &quot;0&quot;,
   &quot;feeScoreNum&quot;: &quot;0&quot;,
@@ -1140,26 +894,26 @@ tid: </pre>
                     </td>
                 </tr>
 
-                <tr class="request-row" onclick="toggleDetails(10)">
-                    <td>11</td>
-                    <td>18:38:07.693</td>
+                <tr class="request-row" onclick="toggleDetails(8)">
+                    <td>9</td>
+                    <td>15:36:41.601</td>
                     <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/close_promptly?c_token=V7BcrTiEtJ8M7ouqUNrlaJsPYpwGsJt4">https://www.ast1001.com/api/contract/order/close_promptly...</td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/close_promptly?c_token=gk632gwOKVRjUeREuWfS6dlFdPmIzQpp">https://www.ast1001.com/api/contract/order/close_promptly...</td>
                     <td><span class="status-badge status-error"><i class="fas fa-times-circle"></i> 400</span></td>
-                    <td><span class="execution-time">62ms</span></td>
+                    <td><span class="execution-time">93ms</span></td>
                 </tr>
-                <tr id="details-10" class="details-row" style="display: none;">
+                <tr id="details-8" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试07 - 完整交易流程（登录→开仓→平仓）</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">完整流程测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">E2E</span> <span class="badge badge-category">FullFlow</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-critical">Critical</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test07_CompleteTradeFlow_ShouldSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test07_CompleteTradeFlow_ShouldSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/close_promptly?c_token=V7BcrTiEtJ8M7ouqUNrlaJsPYpwGsJt4</p>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/close_promptly?c_token=gk632gwOKVRjUeREuWfS6dlFdPmIzQpp</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:07.693</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:41.601</p>
                             </div>
                             
                             <div class="detail-section">
@@ -1169,18 +923,18 @@ tid: </pre>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>client_order_id=1769423887629&amp;symbol_id=BTCUSDT_PERP&amp;is_long=1&amp;exchange_id=888&amp;is_cross=true</pre>
+                                <pre>client_order_id=1770363401506&amp;symbol_id=BTCUSDT_PERP&amp;is_long=1&amp;exchange_id=888&amp;is_cross=true</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 400</p>
                                 <p><strong>业务Code:</strong> 30007</p>
-                                <p><strong>耗时:</strong> 62ms</p>
+                                <p><strong>耗时:</strong> 93ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:07 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:41 GMT
 content-type: application/json;charset=UTF-8
 content-length: 61
 connection: keep-alive
@@ -1198,26 +952,26 @@ error_code: 30007</pre>
                     </td>
                 </tr>
 
-                <tr class="request-row" onclick="toggleDetails(11)">
-                    <td>12</td>
-                    <td>18:38:07.830</td>
+                <tr class="request-row" onclick="toggleDetails(9)">
+                    <td>10</td>
+                    <td>15:36:41.653</td>
                     <td><span class="method method-post">POST</span></td>
                     <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
-                    <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">126ms</span></td>
+                    <td><span class="status-badge status-error"><i class="fas fa-times-circle"></i> 500</span></td>
+                    <td><span class="execution-time">45ms</span></td>
                 </tr>
-                <tr id="details-11" class="details-row" style="display: none;">
+                <tr id="details-9" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试01 - 用户登录成功</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">登录测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">Login</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-high">High</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test01_Login_ShouldReturnSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test01_Login_ShouldReturnSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
                                 <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:07.830</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:41.653</p>
                             </div>
                             
                             <div class="detail-section">
@@ -1231,94 +985,50 @@ error_code: 30007</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
-                                <p><strong>状态码:</strong> 200</p>
-                                
-                                <p><strong>耗时:</strong> 126ms</p>
+                                <p><strong>状态码:</strong> 500</p>
+                                <p><strong>业务Code:</strong> -1001</p>
+                                <p><strong>耗时:</strong> 45ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:08 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:41 GMT
 content-type: application/json;charset=UTF-8
-content-length: 859
+content-length: 23
 connection: keep-alive
-tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg3OTcxLCJfciI6Ikl0ZE55VVh2ZzRXZCIsIl9wIjoiMWIwZmJmOTEwMTI0ZDQ1NWU4NmVlMGU4YWRkMTUzYWIifQ.SZk7ZsY_2CcyKX2e5Kon2HCJye-Cu00PByYdXrNC-bY; Domain=ast1001.com; Path=/
-user_id=97838347; Domain=ast1001.com; Path=/
-account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=N8irC3NmJvC7ABHhqkhnJlvdZ5K2ZGhP; Domain=ast1001.com; Path=/</pre>
+error_code: -1001</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
                                 <pre class="json-content">{
-  &quot;bindMobile&quot;: false,
-  &quot;bindEmail&quot;: false,
-  &quot;bindGA&quot;: false,
-  &quot;need2FA&quot;: false,
-  &quot;authType&quot;: &quot;&quot;,
-  &quot;userId&quot;: &quot;97838347&quot;,
-  &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-  &quot;registerType&quot;: 2,
-  &quot;nationalCode&quot;: &quot;&quot;,
-  &quot;mobile&quot;: &quot;&quot;,
-  &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-  &quot;user&quot;: {
-    &quot;userId&quot;: &quot;97838347&quot;,
-    &quot;registerType&quot;: 2,
-    &quot;nickName&quot;: &quot;&quot;,
-    &quot;avatar&quot;: &quot;plain/10001/-gRb0L2tME6MSzFh4G217u6UvWhgf16iaKCgGdThmo4.jpeg&quot;,
-    &quot;mobile&quot;: &quot;&quot;,
-    &quot;nationalCode&quot;: &quot;&quot;,
-    &quot;email&quot;: &quot;A*****w@ast1.com&quot;,
-    &quot;bindGA&quot;: false,
-    &quot;bindTradePwd&quot;: false,
-    &quot;bindPassword&quot;: true,
-    &quot;userType&quot;: 1,
-    &quot;verifyStatus&quot;: 2,
-    &quot;kycLevel&quot;: 55,
-    &quot;kycVerifyStatus&quot;: 2,
-    &quot;displayLevel&quot;: &quot;2&quot;,
-    &quot;accounts&quot;: [],
-    &quot;defaultAccountId&quot;: &quot;2085616077557017345&quot;,
-    &quot;registerDate&quot;: &quot;1763360810912&quot;,
-    &quot;source&quot;: &quot;&quot;,
-    &quot;inviteUserId&quot;: &quot;97838315&quot;,
-    &quot;secondLevelInviteUserId&quot;: &quot;97838384&quot;,
-    &quot;isAgent&quot;: 0,
-    &quot;customLabelList&quot;: [],
-    &quot;antiPhishingCode&quot;: &quot;&quot;,
-    &quot;isJoinActivity&quot;: 0,
-    &quot;oidcApple&quot;: false,
-    &quot;oidcGoogle&quot;: false,
-    &quot;bindOidc&quot;: false,
-    &quot;bindOidcSuccess&quot;: false
-  }
+  &quot;code&quot;: -1001,
+  &quot;msg&quot;: &quot;&quot;
 }</pre>
                             </div>
                         </div>
                     </td>
                 </tr>
 
-                <tr class="request-row" onclick="toggleDetails(12)">
-                    <td>13</td>
-                    <td>18:38:08.020</td>
+                <tr class="request-row" onclick="toggleDetails(10)">
+                    <td>11</td>
+                    <td>15:36:41.785</td>
                     <td><span class="method method-post">POST</span></td>
                     <td class="url-cell" title="https://www.ast1001.com/api/user/authorize">https://www.ast1001.com/api/user/authorize</td>
                     <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> 200</span></td>
-                    <td><span class="execution-time">169ms</span></td>
+                    <td><span class="execution-time">127ms</span></td>
                 </tr>
-                <tr id="details-12" class="details-row" style="display: none;">
+                <tr id="details-10" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试05 - 执行闪电平仓</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">闪电平仓测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">Trade</span> <span class="badge badge-category">ClosePosition</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-high">High</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test05_ClosePosition_ShouldSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test05_ClosePosition_ShouldSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
                                 <p><strong>URL:</strong> https://www.ast1001.com/api/user/authorize</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:08.020</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:41.785</p>
                             </div>
                             
                             <div class="detail-section">
@@ -1334,20 +1044,20 @@ c_token=N8irC3NmJvC7ABHhqkhnJlvdZ5K2ZGhP; Domain=ast1001.com; Path=/</pre>
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 200</p>
                                 
-                                <p><strong>耗时:</strong> 169ms</p>
+                                <p><strong>耗时:</strong> 127ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:08 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:41 GMT
 content-type: application/json;charset=UTF-8
 content-length: 859
 connection: keep-alive
 tid: 
-set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzY5NDIzODg4MTE0LCJfciI6IlU1OXZNZnhFOE5DTyIsIl9wIjoiYmVmYTgzMWRiOWFmNWY4ZDg5NDc2NTZmNzQ5YTE2ZTkifQ.-VpBBjdMoBMcC_AQJhHbFnnUpZz_OGoP8drVfwv0zI4; Domain=ast1001.com; Path=/
+set-cookie: au_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgzODM0NyIsIl90aW1lIjoxNzcwMzYzNDAxMjA5LCJfciI6Im9Cb0NqQk1rVHVwdyIsIl9wIjoiMmM1YWZlMzZmNjFmNTliZDg5OTU3MGM1MjgwZGFmYjEifQ.x7duol_7_odBhPFwOMIKtE1MBtzdpCuAW0t-pAEBn34; Domain=ast1001.com; Path=/
 user_id=97838347; Domain=ast1001.com; Path=/
 account_id=2085616077557017345; Domain=ast1001.com; Path=/
-c_token=bWU3fZG4DZBPIPMNeNnmjEq2o4OHiDg4; Domain=ast1001.com; Path=/</pre>
+c_token=3Z3ustOpWWItC0xQiBmbz9MZ2JCPljol; Domain=ast1001.com; Path=/</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-code"></i> 响应内容</h4>
@@ -1400,26 +1110,26 @@ c_token=bWU3fZG4DZBPIPMNeNnmjEq2o4OHiDg4; Domain=ast1001.com; Path=/</pre>
                     </td>
                 </tr>
 
-                <tr class="request-row" onclick="toggleDetails(13)">
-                    <td>14</td>
-                    <td>18:38:08.099</td>
+                <tr class="request-row" onclick="toggleDetails(11)">
+                    <td>12</td>
+                    <td>15:36:41.882</td>
                     <td><span class="method method-post">POST</span></td>
-                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/close_promptly?c_token=bWU3fZG4DZBPIPMNeNnmjEq2o4OHiDg4">https://www.ast1001.com/api/contract/order/close_promptly...</td>
+                    <td class="url-cell" title="https://www.ast1001.com/api/contract/order/close_promptly?c_token=3Z3ustOpWWItC0xQiBmbz9MZ2JCPljol">https://www.ast1001.com/api/contract/order/close_promptly...</td>
                     <td><span class="status-badge status-error"><i class="fas fa-times-circle"></i> 400</span></td>
-                    <td><span class="execution-time">76ms</span></td>
+                    <td><span class="execution-time">94ms</span></td>
                 </tr>
-                <tr id="details-13" class="details-row" style="display: none;">
+                <tr id="details-11" class="details-row" style="display: none;">
                     <td colspan="6">
                         <div class="details-content">
                             <div class="detail-section">
                 <h4><i class="fas fa-flask"></i> 测试场景</h4><p><strong>测试名称:</strong> 测试05 - 执行闪电平仓</p><p><strong>测试场景:</strong> <span class="badge badge-scenario">闪电平仓测试</span></p><p><strong>测试分类:</strong> <span class="badge badge-category">API</span> <span class="badge badge-category">Trade</span> <span class="badge badge-category">ClosePosition</span></p><p><strong>优先级:</strong> <span class="badge badge-priority-high">High</span></p></div>
                             <div class="detail-section">
-                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test05_ClosePosition_ShouldSuccess</p><p><strong>源文件:</strong> <code>D:\Test tools\Docs\Test Case\jinx\csharp\CsPlaywrightApi\CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
+                <h4><i class="fas fa-code"></i> 代码位置</h4><p><strong>测试类:</strong> CsPlaywrightApi.src.playwright.Tests.astralx.heyuye.UheyueApiTests</p><p><strong>测试方法:</strong> Test05_ClosePosition_ShouldSuccess</p><p><strong>源文件:</strong> <code>CsPlaywrightApi\src\playwright\Tests\Api\astralx\heyuye\UheyueApiTests.cs</code></p></div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-info-circle"></i> 请求信息</h4>
-                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/close_promptly?c_token=bWU3fZG4DZBPIPMNeNnmjEq2o4OHiDg4</p>
+                                <p><strong>URL:</strong> https://www.ast1001.com/api/contract/order/close_promptly?c_token=3Z3ustOpWWItC0xQiBmbz9MZ2JCPljol</p>
                                 <p><strong>方法:</strong> POST</p>
-                                <p><strong>时间:</strong> 2026-01-26 18:38:08.099</p>
+                                <p><strong>时间:</strong> 2026-02-06 15:36:41.882</p>
                             </div>
                             
                             <div class="detail-section">
@@ -1429,18 +1139,18 @@ c_token=bWU3fZG4DZBPIPMNeNnmjEq2o4OHiDg4; Domain=ast1001.com; Path=/</pre>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-file-code"></i> 请求参数</h4>
-                                <pre>client_order_id=1769423888022&amp;symbol_id=BTCUSDT_PERP&amp;is_long=1&amp;exchange_id=888&amp;is_cross=true</pre>
+                                <pre>client_order_id=1770363401787&amp;symbol_id=BTCUSDT_PERP&amp;is_long=1&amp;exchange_id=888&amp;is_cross=true</pre>
                             </div>
                             <div class="detail-section">
                                 <h4><i class="fas fa-check-circle"></i> 响应信息</h4>
                                 <p><strong>状态码:</strong> 400</p>
                                 <p><strong>业务Code:</strong> 30007</p>
-                                <p><strong>耗时:</strong> 76ms</p>
+                                <p><strong>耗时:</strong> 94ms</p>
                             </div>
                             
                             <div class="detail-section">
                                 <h4><i class="fas fa-arrow-down"></i> 响应头</h4>
-                                <pre>date: Mon, 26 Jan 2026 10:38:08 GMT
+                                <pre>date: Fri, 06 Feb 2026 07:36:41 GMT
 content-type: application/json;charset=UTF-8
 content-length: 61
 connection: keep-alive
@@ -1462,9 +1172,9 @@ error_code: 30007</pre>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
-            <p>报告生成于 2026-01-26 18:38:08 | 本报告由API自动化测试系统生成</p>
+            <p>报告生成于 2026-02-06 15:36:42 | 本报告由API自动化测试系统生成</p>
         </div>
     </div>
 
@@ -1477,7 +1187,7 @@ error_code: 30007</pre>
                 detailsRow.style.display = 'none';
             }
         }
-        
+
         // 初始化图表
         document.addEventListener('DOMContentLoaded', function() {
             // 请求结果分布图表
@@ -1487,7 +1197,7 @@ error_code: 30007</pre>
                 data: {
                     labels: ['成功', '失败', '警告'],
                     datasets: [{
-                        data: [11, 3, 0],
+                        data: [7, 5, 0],
                         backgroundColor: ['#2ecc71', '#e74c3c', '#f39c12'],
                         borderWidth: 2,
                         borderColor: '#fff'
@@ -1507,7 +1217,7 @@ error_code: 30007</pre>
                     cutout: '65%'
                 }
             });
-            
+
             // HTTP方法统计图表
             const methodsCtx = document.getElementById('methodsChart').getContext('2d');
             new Chart(methodsCtx, {
@@ -1516,7 +1226,7 @@ error_code: 30007</pre>
                     labels: ['POST'],
                     datasets: [{
                         label: '请求数量',
-                        data: [14],
+                        data: [12],
                         backgroundColor: 'rgba(75, 108, 183, 0.7)',
                         borderColor: '#4b6cb7',
                         borderWidth: 1
@@ -1539,16 +1249,16 @@ error_code: 30007</pre>
                     }
                 }
             });
-            
+
             // 响应时间趋势图表
             const timeCtx = document.getElementById('timeChart').getContext('2d');
             new Chart(timeCtx, {
                 type: 'line',
                 data: {
-                    labels: ['请求1','请求2','请求3','请求4','请求5','请求6','请求7','请求8','请求9','请求10','请求11','请求12','请求13','请求14'],
+                    labels: ['请求1','请求2','请求3','请求4','请求5','请求6','请求7','请求8','请求9','请求10','请求11','请求12'],
                     datasets: [{
                         label: '响应时间 (ms)',
-                        data: [298,384,139,85,124,362,102,168,126,418,62,126,169,76],
+                        data: [246,174,93,136,781,141,171,383,93,45,127,94],
                         borderColor: '#3498db',
                         backgroundColor: 'rgba(52, 152, 219, 0.1)',
                         tension: 0.4,
