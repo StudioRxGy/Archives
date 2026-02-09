@@ -57,6 +57,8 @@ def init_session():
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
     """收集终端测试结果"""
     stats = terminalreporter.stats
+    # 兼容新旧版本pytest的属性名称
+    session_start_time = getattr(terminalreporter, '_sessionstarttime', None) or getattr(terminalreporter, '_session_start', time.time())
     result = {
         'total': terminalreporter._numcollected,
         'passed': len(stats.get('passed', [])),
@@ -64,7 +66,7 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
         'skipped': len(stats.get('skipped', [])),
         'error': len(stats.get('error', [])),
         'success_rate': f"{((len(stats.get('passed', [])) / terminalreporter._numcollected * 100) if terminalreporter._numcollected else 0):.2f}%",
-        'duration': f'{round(time.time() - terminalreporter._sessionstarttime, 2)}秒',
+        'duration': f'{round(time.time() - session_start_time, 2)}秒',
         'reprot_url': consts.REPORT_URL,
         'jenkins_url': consts.JENKINS_URL
     }

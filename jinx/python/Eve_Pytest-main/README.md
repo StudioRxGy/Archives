@@ -41,24 +41,25 @@ Eve_Pytest
 
 1.工具：
 
-- python下载地址: <https://www.python.org/download>
-- pycharm下载地址: <https://www.jetbrains.com/pycharm>
+- miniconda下载地址: https://www.anaconda.com/download/success
+- vscode下载地址: https://code.visualstudio.com/
 
 2.搭建步骤
 
 - 2.1拉取代码
-  - git clone <https://gitcode.com/utf8/Eve_Pytest>
+
+  - git clone [https://gitcode.com/utf8/Eve_Pytest](https://gitcode.com/utf8/Eve_Pytest)
   - 查看本地和远程所有分支： git branch -a
   - 切换分支：git checkout [branch-name]
-
 - 2.2创建虚拟环境：
-  - python -m venv venv
-  - venv/Scripts/activate
+
+  - conda create -n myenv312 python=3.12
+  - conda activate myenv312
   - 回车激活环境
-
 - 2.3安装项目依赖包
-  - pip install -r requirements.txt
 
+  - conda env update -f environment.yml
 - 2.4运行项目
+
   - 运行前检查config目录中Config.ini文件是否配置正确
-  - python main.py
+  - conda run -n myenv312 python main.py
