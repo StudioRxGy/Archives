@@ -11,7 +11,6 @@ from tools import ini_tool
 from config import setting
 
 CONFIG = ini_tool.Config(setting.CONFIG_INI)
-Config = ini_tool.Config(setting.pytest.ini)
 
 # 登录人名称
 TEST_TYPE = CONFIG.get_config("environment", "type")

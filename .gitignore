@@ -1,53 +1,19 @@
-bin/
-obj/
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-.vs/
-.idea/
-.vscode/
-.log
-.kiro
-.html
-
-### 全局生成文件 ###
+### C# ###
+## 编译生成文件 ##
 [Bb]in/
 [Oo]bj/
 *.user
 *.suo
-*.cache
-*.pidb
-*.log
-[Tt]humbs.db
-[Tt]humbs.db.vspscc
-[Dd]esktop.ini
+*.userosscache
+*.sln.docstates
 
-### 构建结果 ###
-[Bb]uild/
-[Bb]uilds/
-*.dotCover
-*.testlog
-*.trx
-
-### NuGet 包管理 ###
-[Nn]uget/
-*.nupkg
-.nuget/
-packages/
-!**/packages/build/
-packages-*/
-*.snupkg
-
-### Visual Studio ###
+## Visual Studio ##
 .vs/
-.vscode/
-_ReSharper.*
-*.resharper
-*.sln.iml
+.vsconfig
 *.csproj.user
 *.vbproj.user
 *.fsproj.user
+TestResult.xml
 *.vsp
 *.vsm
 *.vss
@@ -55,19 +21,227 @@ _ReSharper.*
 *.sln.ide
 *.VC.db
 *.opendb
+*.dbmdl
+_ReSharper.*
+*.resharper
+*.sln.iml
 
-### Visual Studio Code ###
-.vscode/*
+## Visual Studio Code ##
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+*.swp
+*.swo
 
-### 操作系统特定文件 ###
+## Rider ##
+.idea/
+*.sln.iml
+*.csproj.iml
+
+## 构建结果 ##
+[Bb]uild/
+[Bb]uilds/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/[Oo]bj/
+[Oo]bj/
+
+## NuGet ##
+[Nn]uget/
+*.nupkg
+.nuget/
+packages/
+!**/packages/build/
+packages-*/
+*.snupkg
+project.lock.json
+
+## 测试结果 ##
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.dotCover
+*.testlog
+*.html
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.pytest_cache/*
+!pytest_cache/.gitkeep
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+### 操作系统文件 ###
+# Windows
+[Dd]esktop.ini
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.lnk
+
+# macOS
 .DS_Store
-.DS_Store?
+.AppleDouble
+.LSOverride
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
-Thumbs.db
+
+# Linux
+*~
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# 日志文件
+*.log
+*.log.*
+
+# 备份文件
+*.bak
+*.backup
+
+# 系统文件
+*.pid
+*.pid.lock
